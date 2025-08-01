@@ -39,9 +39,13 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <motion.div variants={fadeIn} className="space-y-4 sm:space-y-6">
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
-                Saray Estetic
-              </h3>
+              <div className="mb-3 sm:mb-4">
+                <img
+                  src={logoImage}
+                  alt="Saray Estetic Logo"
+                  className="h-10 sm:h-12 md:h-14 w-auto object-contain brightness-0 invert"
+                />
+              </div>
               <p className="text-sm sm:text-base text-primary-100 leading-relaxed">
                 Leading aesthetic clinic in Istanbul offering world-class
                 treatments with international standards. Your transformation
