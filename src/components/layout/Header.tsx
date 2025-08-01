@@ -4,6 +4,7 @@ import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
 import { NAVIGATION_ITEMS, CONTACT_INFO } from "../../utils/constants";
 import { slideDown, navItemHover } from "../../utils/animations";
 import Button from "../ui/Button";
+import logoImage from "../../assets/FINAL LOGO ABO KAREEM 1 (1).png";
 
 interface HeaderProps {
   isScrolled?: boolean;
@@ -129,9 +130,11 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                 }}
                 className="flex items-center"
               >
-                <div className="text-2xl font-bold text-gradient">
-                  Saray Estetic
-                </div>
+                <img
+                  src={logoImage}
+                  alt="Saray Estetic Logo"
+                  className="h-8 sm:h-10 md:h-12 w-auto object-contain"
+                />
               </a>
             </motion.div>
 
@@ -250,9 +253,11 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
             <div className="p-6">
               {/* Header */}
               <div className="flex items-center justify-between mb-8">
-                <div className="text-xl font-bold text-gradient">
-                  Saray Estetic
-                </div>
+                <img
+                  src={logoImage}
+                  alt="Saray Estetic Logo"
+                  className="h-8 w-auto object-contain"
+                />
                 <button
                   onClick={closeMobileMenu}
                   className="p-3 min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-500 hover:text-text-primary hover:bg-gray-100 rounded-lg transition-colors duration-200"

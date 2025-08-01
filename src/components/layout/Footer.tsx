@@ -17,6 +17,7 @@ import {
 } from "../../utils/constants";
 import { fadeIn, staggerContainer } from "../../utils/animations";
 import Button from "../ui/Button";
+import logoImage from "../../assets/FINAL LOGO ABO KAREEM 1 (1).png";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
