@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Header from "./Header";
 import Footer from "./Footer";
-import { pageTransition, pageTransitionSettings } from "../../utils/animations";
+import { pageTransition } from "../../utils/animations";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children, className = "" }) => {
         animate="in"
         exit="out"
         variants={pageTransition}
-        transition={pageTransitionSettings}
+        transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
       >
         {children}
       </motion.main>

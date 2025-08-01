@@ -35,7 +35,7 @@ export const useFormValidation = <T>(): UseFormValidationReturn<T> => {
         if (error instanceof z.ZodError) {
           newErrors.push({
             field: String(rule.field),
-            message: rule.message || error.errors[0]?.message || 'Invalid value'
+            message: rule.message || error.issues[0]?.message || 'Invalid value'
           });
         }
       }
@@ -60,7 +60,7 @@ export const useFormValidation = <T>(): UseFormValidationReturn<T> => {
       return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errorMessage = rule.message || error.errors[0]?.message || 'Invalid value';
+        const errorMessage = rule.message || error.issues[0]?.message || 'Invalid value';
         
         // Update or add error for this field
         setErrors(prev => {

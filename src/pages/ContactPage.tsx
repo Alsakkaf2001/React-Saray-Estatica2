@@ -7,7 +7,6 @@ import { fadeIn, slideUp } from "../utils/animations";
 import {
   MapPin,
   Phone,
-  Mail,
   Clock,
   MessageCircle,
   Calendar,

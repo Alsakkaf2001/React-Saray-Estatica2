@@ -6,7 +6,6 @@ import { TREATMENTS } from "../../utils/constants";
 import {
   staggerContainer,
   slideUp,
-  cardHover,
   galleryImageHover,
 } from "../../utils/animations";
 import Button from "../ui/Button";

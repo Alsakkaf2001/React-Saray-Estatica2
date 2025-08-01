@@ -109,8 +109,7 @@ export const staggerSlow: Variants = {
 export const cardHover = {
   scale: 1.05,
   y: -10,
-  boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-  transition: { duration: 0.3, ease: "easeOut" }
+  boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
 };
 
 export const cardTap = {
@@ -327,10 +326,7 @@ export const pageTransitionSettings = {
 };
 
 // Intersection Observer animation trigger
-export const createScrollAnimation = (
-  threshold: number = 0.1,
-  rootMargin: string = "0px 0px -10% 0px"
-) => ({
+export const createScrollAnimation = () => ({
   hidden: { opacity: 0, y: 50 },
   visible: { 
     opacity: 1, 

@@ -85,7 +85,7 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
           variants={staggerContainer}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
-          {filteredImages.map((image, index) => (
+          {filteredImages.map((image) => (
             <motion.div
               key={image.id}
               variants={scaleIn}

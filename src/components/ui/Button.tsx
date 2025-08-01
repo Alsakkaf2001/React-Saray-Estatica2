@@ -54,13 +54,15 @@ const Button: React.FC<ButtonProps> = ({
     ${className}
   `.trim();
 
+  const { onDrag, onDragEnd, onDragStart, onAnimationStart, onAnimationEnd, ...buttonProps } = props;
+  
   return (
     <motion.button
       className={classes}
       disabled={disabled || isLoading}
       whileHover={!disabled && !isLoading ? buttonHover : {}}
       whileTap={!disabled && !isLoading ? buttonTap : {}}
-      {...props}
+      {...buttonProps}
     >
       {isLoading ? (
         <>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { modalBackdrop, modalContent } from "../../utils/animations";
+import { modalBackdrop } from "../../utils/animations";
 
 interface ModalProps {
   isOpen: boolean;
@@ -79,10 +79,10 @@ const Modal: React.FC<ModalProps> = ({
           {/* Modal Content */}
           <motion.div
             className={`relative bg-white rounded-xl shadow-2xl w-full ${sizeClasses[size]} max-h-[90vh] overflow-hidden`}
-            variants={modalContent}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
             {/* Header */}
             {(title || showCloseButton) && (

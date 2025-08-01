@@ -94,12 +94,7 @@ export const preloadImage = (src: string): Promise<void> => {
   });
 };
 
-export const optimizeImageUrl = (
-  url: string, 
-  width?: number, 
-  height?: number, 
-  quality?: number
-): string => {
+export const optimizeImageUrl = (url: string): string => {
   // In production, this would integrate with image optimization services
   // For now, return the original URL
   return url;

@@ -9,7 +9,6 @@ interface OptimizedImageProps {
   height?: number;
   className?: string;
   priority?: boolean;
-  placeholder?: string;
   onLoad?: () => void;
   onError?: () => void;
 }
@@ -21,7 +20,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   height,
   className = "",
   priority = false,
-  placeholder,
   onLoad,
   onError,
 }) => {
@@ -70,9 +68,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     return originalSrc;
   };
 
-  const fallbackSrc =
-    placeholder ||
-    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNiAxNkMyMC40MTgzIDE2IDI0IDE5LjU4MTcgMjQgMjRDMjQgMjguNDE4MyAyMC40MTgzIDMyIDE2IDMyQzExLjU4MTcgMzIgOCAyOC40MTgzIDggMjRDOCAxOS41ODE3IDExLjU4MTcgMTYgMTYgMTZaIiBmaWxsPSIjOENBNUI5Ii8+Cjwvc3ZnPgo=";
+
 
   return (
     <div className={`relative overflow-hidden ${className}`} ref={imgRef}>
