@@ -78,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
   return (
     <>
       {/* Top Bar */}
-      <div className="bg-gradient-primary text-white py-2 px-4 hidden lg:block">
+      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-primary text-white py-2 px-4 hidden lg:block z-40">
         <div className="container-custom flex justify-between items-center text-sm">
           <div className="flex items-center space-x-6">
             <a
@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
 
       {/* Main Header */}
       <motion.header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 lg:top-10 left-0 right-0 w-full z-50 transition-all duration-300 ${
           scrolled
             ? "bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-100"
             : "bg-white shadow-sm"

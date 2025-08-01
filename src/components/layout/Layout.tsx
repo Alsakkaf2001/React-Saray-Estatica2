@@ -15,7 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children, className = "" }) => {
       <Header />
 
       <motion.main
-        className={`flex-grow mobile-no-scroll ${className}`}
+        className={`flex-grow mobile-no-scroll pt-16 md:pt-20 lg:pt-36 ${className}`}
         initial="initial"
         animate="in"
         exit="out"
