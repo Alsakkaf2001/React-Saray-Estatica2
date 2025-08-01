@@ -164,36 +164,38 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
           isOpen={!!selectedImage}
           onClose={() => setSelectedImage(null)}
           title={selectedImage.treatment}
+          size="lg"
         >
-          <div className="space-y-6">
-            <BeforeAfterSlider
-              beforeImage={selectedImage.beforeImage}
-              afterImage={selectedImage.afterImage}
-              className="w-full max-w-full sm:max-w-2xl mx-auto"
-            />
+          <div className="p-4 sm:p-6">
+            <div className="space-y-4 sm:space-y-6">
+              <BeforeAfterSlider
+                beforeImage={selectedImage.beforeImage}
+                afterImage={selectedImage.afterImage}
+                className="w-full max-w-full mx-auto"
+              />
 
-            <div className="text-center">
-              <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2">
-                {selectedImage.treatment}
-              </h3>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                {selectedImage.description}
-              </p>
+              <div className="text-center">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed px-2 sm:px-0">
+                  {selectedImage.description}
+                </p>
 
-              <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-                <Button
-                  onClick={() => setSelectedImage(null)}
-                  className="w-full sm:w-auto"
-                >
-                  Book Similar Treatment
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => setSelectedImage(null)}
-                  className="w-full sm:w-auto"
-                >
-                  Close
-                </Button>
+                <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                  <Button
+                    onClick={() => setSelectedImage(null)}
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    Book Similar Treatment
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setSelectedImage(null)}
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    Close
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
