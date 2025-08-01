@@ -3,13 +3,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {
-  User,
-  Mail,
-  Phone,
-  Calendar,
-  CheckCircle,
-} from "lucide-react";
+import { User, Mail, Phone, Calendar, CheckCircle } from "lucide-react";
 import type { ConsultationFormData } from "../../types/forms";
 import {
   TREATMENT_OPTIONS,
