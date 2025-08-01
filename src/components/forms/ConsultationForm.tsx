@@ -7,9 +7,7 @@ import {
   User,
   Mail,
   Phone,
-  MessageSquare,
   Calendar,
-  Clock,
   CheckCircle,
 } from "lucide-react";
 import type { ConsultationFormData } from "../../types/forms";
@@ -58,7 +56,6 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    watch,
     reset,
   } = useForm<ConsultationFormData>({
     resolver: zodResolver(consultationSchema),
