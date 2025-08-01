@@ -1,0 +1,117 @@
+{
+  "name": "Saray Estetic - Premium Aesthetic Clinic",
+  "short_name": "Saray Estetic",
+  "description": "Leading aesthetic clinic in Istanbul offering hair transplant, dental treatments, nose surgery, and cosmetic procedures with international standards.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#A52C67",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["medical", "health", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Homepage view of Saray Estetic clinic website"
+    },
+    {
+      "src": "/screenshots/mobile-1.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile view of treatments page"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book Consultation",
+      "short_name": "Book",
+      "description": "Schedule a free consultation",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/icons/shortcut-book.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "View Treatments",
+      "short_name": "Treatments",
+      "description": "Browse our treatment options",
+      "url": "/treatments",
+      "icons": [
+        {
+          "src": "/icons/shortcut-treatments.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Before & After",
+      "short_name": "Results",
+      "description": "See patient transformation results",
+      "url": "/before-after",
+      "icons": [
+        {
+          "src": "/icons/shortcut-results.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
