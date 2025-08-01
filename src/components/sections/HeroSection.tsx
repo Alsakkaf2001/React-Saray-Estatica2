@@ -93,7 +93,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         >
           {/* Left Content */}
           <motion.div
-            className="text-white space-y-4 sm:space-y-6 lg:space-y-8 text-center lg:text-left pt-16 sm:pt-20 lg:pt-0"
+            className="text-white space-y-4 sm:space-y-6 lg:space-y-8 text-center md:text-left pt-16 sm:pt-20 lg:pt-0 md:col-span-2 lg:col-span-1"
             variants={slideLeft}
           >
             {/* Main Title with Word Animation */}
@@ -151,7 +151,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-2 sm:px-0"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start px-2 sm:px-0"
               variants={fadeIn}
               transition={{ delay: 1.2 }}
             >
@@ -176,7 +176,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Trust Indicators */}
             <motion.div
-              className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 pt-6 sm:pt-8 px-2 sm:px-0"
+              className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 pt-6 sm:pt-8 px-2 sm:px-0 justify-center md:justify-start"
               variants={fadeIn}
               transition={{ delay: 1.4 }}
             >
@@ -210,7 +210,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Right Content - Consultation Form */}
           <motion.div
-            className="relative order-first lg:order-last px-4 sm:px-0"
+            className="relative order-first lg:order-last px-4 sm:px-0 hidden md:block"
             variants={slideRight}
           >
             {/* Glassmorphism Container */}
