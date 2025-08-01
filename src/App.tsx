@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { HelmetProvider } from "react-helmet-async";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
 import usePerformanceMonitor from "./hooks/usePerformanceMonitor";
 import SinglePage from "./pages/SinglePage";
@@ -26,11 +25,9 @@ function App() {
   }, []);
 
   return (
-    <HelmetProvider>
-      <ErrorBoundary>
-        <SinglePage />
-      </ErrorBoundary>
-    </HelmetProvider>
+    <ErrorBoundary>
+      <SinglePage />
+    </ErrorBoundary>
   );
 }
 
