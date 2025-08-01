@@ -104,17 +104,17 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
 
       {/* Main Header */}
       <motion.header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
-            : "bg-white"
+            ? "bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-100"
+            : "bg-white shadow-sm"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="container-custom">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-16 md:h-20 lg:h-24">
             {/* Logo */}
             <motion.div
               className="flex-shrink-0"
@@ -133,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                 <img
                   src={logoImage}
                   alt="Saray Estetic Logo"
-                  className="h-8 sm:h-10 md:h-12 w-auto object-contain"
+                  className="h-10 md:h-12 lg:h-14 w-auto object-contain"
                 />
               </a>
             </motion.div>
@@ -213,16 +213,24 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
 
             {/* Mobile Menu Button */}
             <div className="lg:hidden">
-              <button
+              <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-3 min-w-[48px] min-h-[48px] flex items-center justify-center text-text-primary hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors duration-200"
+                className="relative p-3 w-12 h-12 flex items-center justify-center text-text-primary hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-all duration-300 touch-manipulation"
+                whileTap={{ scale: 0.95 }}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMobileMenuOpen}
               >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </button>
+                <motion.div
+                  animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {isMobileMenuOpen ? (
+                    <X className="w-6 h-6" />
+                  ) : (
+                    <Menu className="w-6 h-6" />
+                  )}
+                </motion.div>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -231,20 +239,20 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <motion.div
-          className="fixed inset-0 z-50 lg:hidden"
+          className="fixed inset-0 z-[60] lg:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={closeMobileMenu}
           />
 
           {/* Menu Content */}
           <motion.div
-            className="absolute top-0 right-0 w-full max-w-sm h-full bg-white shadow-2xl"
+            className="absolute top-0 right-0 w-full max-w-sm h-full bg-white shadow-2xl overflow-y-auto"
             variants={slideDown}
             initial="hidden"
             animate="visible"
@@ -256,7 +264,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                 <img
                   src={logoImage}
                   alt="Saray Estetic Logo"
-                  className="h-8 w-auto object-contain"
+                  className="h-10 w-auto object-contain"
                 />
                 <button
                   onClick={closeMobileMenu}
@@ -279,7 +287,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                             handleNavClick(item.href);
                           }
                         }}
-                        className={`block py-4 px-2 text-lg font-medium min-h-[48px] flex items-center rounded-lg transition-colors ${
+                        className={`flex items-center py-4 px-2 text-lg font-medium min-h-[48px] rounded-lg transition-colors ${
                           activeSection === item.id
                             ? "text-primary-500 bg-primary-50"
                             : "text-text-primary hover:text-primary-500 hover:bg-primary-50"
@@ -317,7 +325,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                               e.preventDefault();
                               handleNavClick(subItem.href);
                             }}
-                            className="block py-3 px-4 text-gray-600 hover:text-primary-500 hover:bg-primary-50 transition-colors rounded-lg min-h-[48px] flex items-center"
+                            className="flex items-center py-3 px-4 text-gray-600 hover:text-primary-500 hover:bg-primary-50 transition-colors rounded-lg min-h-[48px]"
                           >
                             {subItem.label}
                           </a>
