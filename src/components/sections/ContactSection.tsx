@@ -55,22 +55,22 @@ const ContactInfoCard: React.FC<ContactInfoCardProps> = ({
 }) => {
   return (
     <motion.div variants={fadeIn}>
-      <Card className="text-center p-8 h-full hover:shadow-lg transition-shadow duration-300">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-          <Icon className="w-8 h-8 text-primary-500" />
+      <Card className="text-center p-4 sm:p-6 lg:p-8 h-full hover:shadow-lg transition-shadow duration-300">
+        <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-primary-100 rounded-full mb-4 sm:mb-6">
+          <Icon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-primary-500" />
         </div>
-        <h3 className="text-xl font-semibold text-text-primary mb-4">
+        <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-3 sm:mb-4">
           {title}
         </h3>
-        <div className="space-y-2 mb-6">
+        <div className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
           {details.map((detail, index) => (
-            <p key={index} className="text-gray-600">
+            <p key={index} className="text-sm sm:text-base text-gray-600">
               {detail}
             </p>
           ))}
         </div>
         {action && (
-          <Button variant="outline" size="sm" fullWidth>
+          <Button variant="outline" size="md" fullWidth>
             <a
               href={action.href}
               className="flex items-center justify-center w-full"
@@ -161,11 +161,14 @@ const ContactSection: React.FC = () => {
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Header */}
-          <motion.div variants={fadeIn} className="text-center mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-6">
+          <motion.div
+            variants={fadeIn}
+            className="text-center mb-8 sm:mb-12 lg:mb-16 px-4 sm:px-0"
+          >
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-text-primary mb-4 sm:mb-6">
               Get In Touch
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2 sm:px-0">
               Ready to start your transformation journey? Contact us today for a
               free consultation with our expert team.
             </p>
@@ -174,7 +177,7 @@ const ContactSection: React.FC = () => {
           {/* Contact Info Cards */}
           <motion.div
             variants={staggerContainer}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 lg:mb-16 px-4 sm:px-0"
           >
             {contactInfo.map((info, index) => (
               <ContactInfoCard key={index} {...info} />
@@ -182,11 +185,11 @@ const ContactSection: React.FC = () => {
           </motion.div>
 
           {/* Main Contact Form Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-0">
             {/* Contact Form */}
             <motion.div variants={slideLeft}>
-              <Card className="p-8">
-                <h3 className="text-2xl font-bold text-text-primary mb-6">
+              <Card className="p-4 sm:p-6 lg:p-8">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-text-primary mb-4 sm:mb-6">
                   Send Us a Message
                 </h3>
 
@@ -195,35 +198,40 @@ const ContactSection: React.FC = () => {
                     variants={formSuccess}
                     initial="hidden"
                     animate="visible"
-                    className="text-center py-8"
+                    className="text-center py-6 sm:py-8"
                   >
-                    <div className="flex flex-col items-center space-y-4">
-                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-8 h-8 text-green-500" />
+                    <div className="flex flex-col items-center space-y-3 sm:space-y-4">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-500" />
                       </div>
-                      <h4 className="text-xl font-semibold text-text-primary">
+                      <h4 className="text-lg sm:text-xl font-semibold text-text-primary">
                         Message Sent!
                       </h4>
-                      <p className="text-gray-600 max-w-md">
+                      <p className="text-sm sm:text-base text-gray-600 max-w-md">
                         {SUCCESS_MESSAGES.contact}
                       </p>
                     </div>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                  <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="space-y-4 sm:space-y-6"
+                  >
                     <Input
                       label="Full Name"
                       placeholder="Enter your full name"
                       error={errors.name?.message}
+                      size="md"
                       {...register("name")}
                     />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <Input
                         label="Email Address"
                         type="email"
                         placeholder="your@email.com"
                         error={errors.email?.message}
+                        size="md"
                         {...register("email")}
                       />
                       <Input
@@ -231,6 +239,7 @@ const ContactSection: React.FC = () => {
                         type="tel"
                         placeholder="+90 XXX XXX XXXX"
                         error={errors.phone?.message}
+                        size="md"
                         {...register("phone")}
                       />
                     </div>
@@ -239,6 +248,7 @@ const ContactSection: React.FC = () => {
                       label="Subject"
                       placeholder="What is this regarding?"
                       error={errors.subject?.message}
+                      size="md"
                       {...register("subject")}
                     />
 
@@ -247,7 +257,7 @@ const ContactSection: React.FC = () => {
                         Message
                       </label>
                       <textarea
-                        className="input-field min-h-[120px] resize-vertical"
+                        className="input-field min-h-[120px] resize-vertical text-base"
                         placeholder="Tell us how we can help you..."
                         {...register("message")}
                       />
@@ -263,7 +273,7 @@ const ContactSection: React.FC = () => {
                         Preferred Contact Method
                       </label>
                       <select
-                        className="input-field"
+                        className="input-field text-base"
                         {...register("preferredContact")}
                       >
                         <option value="">Select preference</option>
@@ -279,7 +289,7 @@ const ContactSection: React.FC = () => {
                       size="lg"
                       fullWidth
                       isLoading={isSubmitting}
-                      rightIcon={<Send className="w-5 h-5" />}
+                      rightIcon={<Send className="w-4 h-4 sm:w-5 sm:h-5" />}
                     >
                       Send Message
                     </Button>
@@ -289,62 +299,77 @@ const ContactSection: React.FC = () => {
             </motion.div>
 
             {/* Map and Additional Info */}
-            <motion.div variants={slideRight} className="space-y-8">
+            <motion.div
+              variants={slideRight}
+              className="space-y-6 sm:space-y-8"
+            >
               {/* Map Placeholder */}
-              <Card className="p-8">
-                <h3 className="text-xl font-semibold text-text-primary mb-4">
+              <Card className="p-4 sm:p-6 lg:p-8">
+                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-3 sm:mb-4">
                   Our Location
                 </h3>
-                <div className="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                <div className="aspect-video bg-gray-200 rounded-lg mb-3 sm:mb-4 flex items-center justify-center">
                   <div className="text-center">
-                    <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-500">Interactive Map</p>
-                    <p className="text-sm text-gray-400">
+                    <MapPin className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-1 sm:mb-2" />
+                    <p className="text-sm sm:text-base text-gray-500">
+                      Interactive Map
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-400">
                       Google Maps integration
                     </p>
                   </div>
                 </div>
-                <div className="space-y-3 text-sm">
+                <div className="space-y-2 sm:space-y-3 text-sm">
                   <div className="flex items-start">
-                    <MapPin className="w-5 h-5 text-primary-500 mr-3 mt-0.5" />
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-text-primary">Address</p>
-                      <p className="text-gray-600">{CONTACT_INFO.address}</p>
+                      <p className="font-medium text-text-primary text-sm sm:text-base">
+                        Address
+                      </p>
+                      <p className="text-gray-600 text-sm sm:text-base">
+                        {CONTACT_INFO.address}
+                      </p>
                     </div>
                   </div>
                 </div>
               </Card>
 
               {/* Working Hours */}
-              <Card className="p-8">
-                <h3 className="text-xl font-semibold text-text-primary mb-4">
+              <Card className="p-4 sm:p-6 lg:p-8">
+                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-3 sm:mb-4">
                   Working Hours
                 </h3>
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Monday - Friday</span>
-                    <span className="font-medium text-text-primary">
+                    <span className="text-sm sm:text-base text-gray-600">
+                      Monday - Friday
+                    </span>
+                    <span className="font-medium text-text-primary text-sm sm:text-base">
                       {CONTACT_INFO.workingHours.weekdays}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Saturday</span>
-                    <span className="font-medium text-text-primary">
+                    <span className="text-sm sm:text-base text-gray-600">
+                      Saturday
+                    </span>
+                    <span className="font-medium text-text-primary text-sm sm:text-base">
                       {CONTACT_INFO.workingHours.saturday}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Sunday</span>
-                    <span className="font-medium text-text-primary">
+                    <span className="text-sm sm:text-base text-gray-600">
+                      Sunday
+                    </span>
+                    <span className="font-medium text-text-primary text-sm sm:text-base">
                       {CONTACT_INFO.workingHours.sunday}
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-6 p-4 bg-primary-50 rounded-lg">
+                <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-primary-50 rounded-lg">
                   <div className="flex items-center">
-                    <Clock className="w-5 h-5 text-primary-500 mr-2" />
-                    <span className="text-sm font-medium text-primary-500">
+                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm font-medium text-primary-500">
                       Emergency consultations available 24/7
                     </span>
                   </div>

@@ -113,7 +113,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="container-custom">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <motion.div
               className="flex-shrink-0"
@@ -212,7 +212,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
             <div className="lg:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 text-text-primary hover:text-primary-500 transition-colors duration-200"
+                className="p-3 min-w-[48px] min-h-[48px] flex items-center justify-center text-text-primary hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors duration-200"
               >
                 {isMobileMenuOpen ? (
                   <X className="w-6 h-6" />
@@ -241,13 +241,13 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
 
           {/* Menu Content */}
           <motion.div
-            className="absolute top-0 right-0 w-full max-w-xs sm:max-w-sm h-full bg-white shadow-2xl"
+            className="absolute top-0 right-0 w-full max-w-sm h-full bg-white shadow-2xl"
             variants={slideDown}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
-            <div className="p-4 sm:p-6">
+            <div className="p-6">
               {/* Header */}
               <div className="flex items-center justify-between mb-8">
                 <div className="text-xl font-bold text-gradient">
@@ -255,7 +255,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                 </div>
                 <button
                   onClick={closeMobileMenu}
-                  className="p-2 text-gray-500 hover:text-text-primary"
+                  className="p-3 min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-500 hover:text-text-primary hover:bg-gray-100 rounded-lg transition-colors duration-200"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -274,10 +274,10 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                             handleNavClick(item.href);
                           }
                         }}
-                        className={`block py-3 text-lg font-medium transition-colors ${
+                        className={`block py-4 px-2 text-lg font-medium min-h-[48px] flex items-center rounded-lg transition-colors ${
                           activeSection === item.id
-                            ? "text-primary-500"
-                            : "text-text-primary hover:text-primary-500"
+                            ? "text-primary-500 bg-primary-50"
+                            : "text-text-primary hover:text-primary-500 hover:bg-primary-50"
                         }`}
                       >
                         {item.label}
@@ -285,7 +285,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                       {item.subItems && (
                         <button
                           onClick={() => handleDropdownToggle(item.id)}
-                          className="p-2 text-gray-400"
+                          className="p-3 min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors duration-200"
                         >
                           <ChevronDown
                             className={`w-4 h-4 transition-transform duration-200 ${
@@ -312,7 +312,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                               e.preventDefault();
                               handleNavClick(subItem.href);
                             }}
-                            className="block py-2 text-gray-600 hover:text-primary-500 transition-colors"
+                            className="block py-3 px-4 text-gray-600 hover:text-primary-500 hover:bg-primary-50 transition-colors rounded-lg min-h-[48px] flex items-center"
                           >
                             {subItem.label}
                           </a>
@@ -324,11 +324,21 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
               </nav>
 
               {/* CTA Buttons */}
-              <div className="mt-8 space-y-4">
-                <Button variant="outline" fullWidth onClick={closeMobileMenu}>
+              <div className="mt-8 space-y-3">
+                <Button
+                  variant="outline"
+                  fullWidth
+                  size="lg"
+                  onClick={closeMobileMenu}
+                >
                   Contact Us
                 </Button>
-                <Button variant="primary" fullWidth onClick={closeMobileMenu}>
+                <Button
+                  variant="primary"
+                  fullWidth
+                  size="lg"
+                  onClick={closeMobileMenu}
+                >
                   Free Consultation
                 </Button>
               </div>
@@ -338,17 +348,17 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
                 <div className="space-y-4">
                   <a
                     href={`tel:${CONTACT_INFO.phone}`}
-                    className="flex items-center text-gray-600 hover:text-primary-500"
+                    className="flex items-center py-3 px-2 text-gray-600 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors min-h-[48px]"
                   >
-                    <Phone className="w-5 h-5 mr-3" />
-                    {CONTACT_INFO.phone}
+                    <Phone className="w-5 h-5 mr-3 flex-shrink-0" />
+                    <span className="text-base">{CONTACT_INFO.phone}</span>
                   </a>
                   <a
                     href={`mailto:${CONTACT_INFO.email}`}
-                    className="flex items-center text-gray-600 hover:text-primary-500"
+                    className="flex items-center py-3 px-2 text-gray-600 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors min-h-[48px]"
                   >
-                    <Mail className="w-5 h-5 mr-3" />
-                    {CONTACT_INFO.email}
+                    <Mail className="w-5 h-5 mr-3 flex-shrink-0" />
+                    <span className="text-base">{CONTACT_INFO.email}</span>
                   </a>
                 </div>
               </div>

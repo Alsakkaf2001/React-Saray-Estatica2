@@ -40,10 +40,10 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const sizeClasses = {
-    sm: "px-3 py-2 text-sm",
-    md: "px-4 py-2.5 text-base",
-    lg: "px-6 py-3 text-lg",
-    xl: "px-8 py-4 text-xl",
+    sm: "px-4 py-3 text-sm h-12 md:h-auto md:px-3 md:py-2", // Minimum 48px on mobile
+    md: "px-4 py-3 text-base h-12 md:h-auto md:py-2.5", // Minimum 48px on mobile
+    lg: "px-6 py-4 text-lg h-14 md:h-auto md:py-3", // Larger touch target
+    xl: "px-8 py-5 text-xl h-16 md:h-auto md:py-4", // Larger touch target
   };
 
   const classes = `
@@ -54,8 +54,15 @@ const Button: React.FC<ButtonProps> = ({
     ${className}
   `.trim();
 
-  const { onDrag, onDragEnd, onDragStart, onAnimationStart, onAnimationEnd, ...buttonProps } = props;
-  
+  const {
+    onDrag,
+    onDragEnd,
+    onDragStart,
+    onAnimationStart,
+    onAnimationEnd,
+    ...buttonProps
+  } = props;
+
   return (
     <motion.button
       className={classes}

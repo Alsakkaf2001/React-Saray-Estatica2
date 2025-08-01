@@ -2,7 +2,8 @@ import React, { forwardRef } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle } from "lucide-react";
 
-interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   label?: string;
   error?: string;
   helperText?: string;
@@ -48,9 +49,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     };
 
     const sizeClasses = {
-      sm: "py-2 text-sm",
-      md: "py-3 text-base",
-      lg: "py-4 text-lg",
+      sm: "py-3 h-12 text-sm md:py-2 md:h-auto", // Minimum 48px height on mobile
+      md: "py-3 h-12 text-base md:h-auto", // Minimum 48px height on mobile
+      lg: "py-4 h-14 text-lg md:h-auto", // Larger touch target
     };
 
     const iconPadding = {
@@ -108,7 +109,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             className={inputClasses}
             whileFocus={{ scale: 1.01 }}
             transition={{ duration: 0.2 }}
-            {...(({ onDrag, onDragEnd, onDragStart, onAnimationStart, onAnimationEnd, ...rest }) => rest)(props)}
+            {...(({
+              onDrag,
+              onDragEnd,
+              onDragStart,
+              onAnimationStart,
+              onAnimationEnd,
+              ...rest
+            }) => rest)(props)}
           />
 
           {(rightIcon || error) && (

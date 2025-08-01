@@ -50,17 +50,22 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
         viewport={{ once: true, margin: "-100px" }}
       >
         {/* Header */}
-        <motion.div variants={slideUp} className="text-center mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-6">
+        <motion.div
+          variants={slideUp}
+          className="text-center mb-8 sm:mb-12 lg:mb-16 px-4 sm:px-0"
+        >
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-text-primary mb-4 sm:mb-6">
             {title}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{subtitle}</p>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2 sm:px-0">
+            {subtitle}
+          </p>
         </motion.div>
 
         {/* Category Filter */}
         <motion.div
           variants={fadeIn}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-4 sm:px-0"
         >
           {categories.map((category) => {
             const Icon = category.icon;
@@ -71,10 +76,14 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
                   selectedCategory === category.id ? "primary" : "outline"
                 }
                 onClick={() => setSelectedCategory(category.id)}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 text-sm sm:text-base"
+                size="md"
               >
-                <Icon className="w-4 h-4" />
-                {category.label}
+                <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">{category.label}</span>
+                <span className="sm:hidden">
+                  {category.label.split(" ")[0]}
+                </span>
               </Button>
             );
           })}
@@ -83,39 +92,40 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
         {/* Gallery Grid */}
         <motion.div
           variants={staggerContainer}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-0"
         >
           {filteredImages.map((image) => (
             <motion.div
               key={image.id}
               variants={scaleIn}
-              whileHover={{ y: -8 }}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.98 }}
               className="group cursor-pointer"
               onClick={() => setSelectedImage(image)}
             >
-              <div className="relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation">
                 <BeforeAfterSlider
                   beforeImage={image.beforeImage}
                   afterImage={image.afterImage}
-                  className="h-64"
+                  className="h-48 sm:h-56 lg:h-64"
                 />
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white text-lg font-semibold mb-1">
+                  <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4">
+                    <h3 className="text-white text-base sm:text-lg font-semibold mb-1 leading-tight">
                       {image.treatment}
                     </h3>
-                    <p className="text-white/90 text-sm line-clamp-2">
+                    <p className="text-white/90 text-xs sm:text-sm line-clamp-2 leading-relaxed">
                       {image.description}
                     </p>
                   </div>
                 </div>
 
                 {/* Zoom Icon */}
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="bg-white/90 backdrop-blur-sm rounded-full p-2">
-                    <Eye className="w-5 h-5 text-gray-700" />
+                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-full p-2 min-w-[40px] min-h-[40px] flex items-center justify-center">
+                    <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
                   </div>
                 </div>
               </div>
@@ -124,21 +134,26 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
         </motion.div>
 
         {/* CTA Section */}
-        <motion.div variants={fadeIn} className="text-center mt-16">
-          <div className="bg-white rounded-2xl shadow-lg p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-text-primary mb-4">
+        <motion.div
+          variants={fadeIn}
+          className="text-center mt-8 sm:mt-12 lg:mt-16 px-4 sm:px-0"
+        >
+          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 max-w-2xl mx-auto">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-text-primary mb-3 sm:mb-4">
               Ready for Your Transformation?
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
               Join thousands of satisfied patients who have achieved their dream
               results. Book your free consultation today.
             </p>
-            <Button size="lg" className="mr-4">
-              Free Consultation
-            </Button>
-            <Button variant="outline" size="lg">
-              View All Results
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Button size="lg" className="w-full sm:w-auto">
+                Free Consultation
+              </Button>
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                View All Results
+              </Button>
+            </div>
           </div>
         </motion.div>
       </motion.div>
@@ -154,24 +169,28 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
             <BeforeAfterSlider
               beforeImage={selectedImage.beforeImage}
               afterImage={selectedImage.afterImage}
-              className="w-full max-w-2xl mx-auto"
+              className="w-full max-w-full sm:max-w-2xl mx-auto"
             />
 
             <div className="text-center">
-              <h3 className="text-xl font-semibold text-text-primary mb-2">
+              <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2">
                 {selectedImage.treatment}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                 {selectedImage.description}
               </p>
 
-              <div className="mt-6 flex justify-center gap-4">
-                <Button onClick={() => setSelectedImage(null)}>
+              <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                <Button
+                  onClick={() => setSelectedImage(null)}
+                  className="w-full sm:w-auto"
+                >
                   Book Similar Treatment
                 </Button>
                 <Button
                   variant="outline"
                   onClick={() => setSelectedImage(null)}
+                  className="w-full sm:w-auto"
                 >
                   Close
                 </Button>

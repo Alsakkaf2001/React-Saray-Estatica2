@@ -11,11 +11,11 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, className = "" }) => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header />
 
       <motion.main
-        className={`flex-grow ${className}`}
+        className={`flex-grow mobile-no-scroll ${className}`}
         initial="initial"
         animate="in"
         exit="out"

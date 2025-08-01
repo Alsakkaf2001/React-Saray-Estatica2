@@ -69,19 +69,19 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-6">
-          <h3 className="text-xl font-semibold text-text-primary mb-3 group-hover:text-primary-500 transition-colors">
+        <div className="p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-2 sm:mb-3 group-hover:text-primary-500 transition-colors leading-tight">
             {treatment.title}
           </h3>
 
-          <p className="text-gray-600 mb-4 line-clamp-3">
+          <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 line-clamp-3 leading-relaxed">
             {treatment.description}
           </p>
 
           {/* Features */}
           {treatment.features && treatment.features.length > 0 && (
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-2">
+            <div className="mb-3 sm:mb-4">
+              <div className="flex flex-wrap gap-1 sm:gap-2">
                 {treatment.features.slice(0, 3).map((feature, index) => (
                   <span
                     key={index}
@@ -100,17 +100,17 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
           )}
 
           {/* Meta Information */}
-          <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+          <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
             {treatment.duration && (
               <div className="flex items-center">
-                <Clock className="w-4 h-4 mr-1" />
-                {treatment.duration}
+                <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                <span className="truncate">{treatment.duration}</span>
               </div>
             )}
             {treatment.price && (
               <div className="flex items-center">
-                <DollarSign className="w-4 h-4 mr-1" />
-                {treatment.price}
+                <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                <span className="truncate">{treatment.price}</span>
               </div>
             )}
           </div>
@@ -119,8 +119,10 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
           <Button
             variant="outline"
             fullWidth
+            size="md"
             rightIcon={<ArrowRight className="w-4 h-4" />}
             onClick={() => onViewDetails(treatment)}
+            className="text-sm sm:text-base"
           >
             Learn More
           </Button>
@@ -180,25 +182,25 @@ const TreatmentDetailModal: React.FC<TreatmentDetailModalProps> = ({
         )}
 
         {/* Price and Duration */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
           {treatment.price && (
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="flex items-center text-gray-600 mb-1">
+            <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+              <div className="flex items-center text-gray-600 mb-1 text-sm sm:text-base">
                 <DollarSign className="w-4 h-4 mr-2" />
                 Price
               </div>
-              <div className="text-xl font-semibold text-text-primary">
+              <div className="text-lg sm:text-xl font-semibold text-text-primary">
                 {treatment.price}
               </div>
             </div>
           )}
           {treatment.duration && (
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="flex items-center text-gray-600 mb-1">
+            <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+              <div className="flex items-center text-gray-600 mb-1 text-sm sm:text-base">
                 <Clock className="w-4 h-4 mr-2" />
                 Duration
               </div>
-              <div className="text-xl font-semibold text-text-primary">
+              <div className="text-lg sm:text-xl font-semibold text-text-primary">
                 {treatment.duration}
               </div>
             </div>
@@ -207,10 +209,10 @@ const TreatmentDetailModal: React.FC<TreatmentDetailModalProps> = ({
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button variant="primary" size="lg" fullWidth>
+          <Button variant="primary" size="lg" fullWidth className="w-full">
             Book Consultation
           </Button>
-          <Button variant="outline" size="lg" fullWidth>
+          <Button variant="outline" size="lg" fullWidth className="w-full">
             Get Quote
           </Button>
         </div>
@@ -281,11 +283,14 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Header */}
-          <motion.div variants={slideUp} className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-6">
+          <motion.div
+            variants={slideUp}
+            className="text-center mb-8 sm:mb-12 px-4 sm:px-0"
+          >
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-text-primary mb-4 sm:mb-6">
               {title}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2 sm:px-0">
               {subtitle}
             </p>
           </motion.div>
@@ -294,14 +299,14 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
           {!category && (
             <motion.div
               variants={slideUp}
-              className="flex justify-center mb-12"
+              className="flex justify-center mb-8 sm:mb-12 px-4 sm:px-0"
             >
-              <div className="flex flex-wrap gap-2 bg-white p-2 rounded-xl shadow-soft">
+              <div className="flex flex-wrap gap-2 bg-white p-2 rounded-xl shadow-soft max-w-full overflow-x-auto">
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
-                    className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                    className={`px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base whitespace-nowrap min-h-[48px] flex items-center ${
                       activeCategory === cat.id
                         ? "bg-primary-500 text-white shadow-md"
                         : "text-gray-600 hover:text-primary-500 hover:bg-primary-50"
@@ -317,7 +322,7 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
           {/* Treatments Grid */}
           <motion.div
             variants={staggerContainer}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-0"
           >
             {filteredTreatments.map((treatment) => (
               <TreatmentCard
@@ -330,11 +335,15 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
 
           {/* View All Button */}
           {!showAll && !category && (
-            <motion.div variants={slideUp} className="text-center mt-12">
+            <motion.div
+              variants={slideUp}
+              className="text-center mt-8 sm:mt-12 px-4 sm:px-0"
+            >
               <Button
                 variant="primary"
                 size="lg"
-                rightIcon={<ArrowRight className="w-5 h-5" />}
+                rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
+                className="w-full sm:w-auto"
               >
                 View All Treatments
               </Button>

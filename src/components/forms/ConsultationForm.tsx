@@ -110,18 +110,20 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
   const renderStepContent = () => {
     if (variant === "compact") {
       return (
-        <div className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-3 sm:space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <Input
               label="First Name"
-              leftIcon={<User className="w-5 h-5" />}
+              leftIcon={<User className="w-4 h-4 sm:w-5 sm:h-5" />}
               error={errors.firstName?.message}
+              className="text-base"
               {...register("firstName")}
             />
             <Input
               label="Last Name"
-              leftIcon={<User className="w-5 h-5" />}
+              leftIcon={<User className="w-4 h-4 sm:w-5 sm:h-5" />}
               error={errors.lastName?.message}
+              className="text-base"
               {...register("lastName")}
             />
           </div>
@@ -129,16 +131,18 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
           <Input
             label="Email"
             type="email"
-            leftIcon={<Mail className="w-5 h-5" />}
+            leftIcon={<Mail className="w-4 h-4 sm:w-5 sm:h-5" />}
             error={errors.email?.message}
+            className="text-base"
             {...register("email")}
           />
 
           <Input
             label="Phone"
             type="tel"
-            leftIcon={<Phone className="w-5 h-5" />}
+            leftIcon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
             error={errors.phone?.message}
+            className="text-base"
             {...register("phone")}
           />
 
@@ -146,7 +150,10 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
             <label className="block text-sm font-medium text-text-secondary mb-2">
               Service Interest
             </label>
-            <select className="input-field" {...register("service")}>
+            <select
+              className="input-field text-base h-12 sm:h-auto"
+              {...register("service")}
+            >
               <option value="">Select a service</option>
               {TREATMENT_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -165,21 +172,23 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-4">
-            <h3 className="text-base sm:text-lg font-semibold mb-4">
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
               Personal Information
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <Input
                 label="First Name"
-                leftIcon={<User className="w-5 h-5" />}
+                leftIcon={<User className="w-4 h-4 sm:w-5 sm:h-5" />}
                 error={errors.firstName?.message}
+                className="text-base"
                 {...register("firstName")}
               />
               <Input
                 label="Last Name"
-                leftIcon={<User className="w-5 h-5" />}
+                leftIcon={<User className="w-4 h-4 sm:w-5 sm:h-5" />}
                 error={errors.lastName?.message}
+                className="text-base"
                 {...register("lastName")}
               />
             </div>
@@ -187,16 +196,18 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
             <Input
               label="Email Address"
               type="email"
-              leftIcon={<Mail className="w-5 h-5" />}
+              leftIcon={<Mail className="w-4 h-4 sm:w-5 sm:h-5" />}
               error={errors.email?.message}
+              className="text-base"
               {...register("email")}
             />
 
             <Input
               label="Phone Number"
               type="tel"
-              leftIcon={<Phone className="w-5 h-5" />}
+              leftIcon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
               error={errors.phone?.message}
+              className="text-base"
               {...register("phone")}
             />
           </div>
@@ -204,8 +215,8 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
 
       case 2:
         return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold mb-4">
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
               Treatment Information
             </h3>
 
@@ -213,7 +224,10 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
               <label className="block text-sm font-medium text-text-secondary mb-2">
                 Service Interest
               </label>
-              <select className="input-field" {...register("service")}>
+              <select
+                className="input-field text-base h-12 sm:h-auto"
+                {...register("service")}
+              >
                 <option value="">Select a service</option>
                 {TREATMENT_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -226,12 +240,13 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
               )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <Input
                 label="Preferred Date"
                 type="date"
-                leftIcon={<Calendar className="w-5 h-5" />}
+                leftIcon={<Calendar className="w-4 h-4 sm:w-5 sm:h-5" />}
                 error={errors.preferredDate?.message}
+                className="text-base"
                 {...register("preferredDate")}
               />
 
@@ -239,7 +254,10 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 <label className="block text-sm font-medium text-text-secondary mb-2">
                   Preferred Time
                 </label>
-                <select className="input-field" {...register("preferredTime")}>
+                <select
+                  className="input-field text-base h-12 sm:h-auto"
+                  {...register("preferredTime")}
+                >
                   <option value="">Select time</option>
                   {TIME_SLOTS.map((time) => (
                     <option key={time} value={time}>
@@ -254,8 +272,8 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
 
       case 3:
         return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold mb-4">
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
               Additional Information
             </h3>
 
@@ -264,19 +282,19 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 Message (Optional)
               </label>
               <textarea
-                className="input-field min-h-[100px] resize-vertical"
+                className="input-field min-h-[100px] resize-vertical text-base"
                 placeholder="Tell us about your expectations, medical history, or any questions..."
                 {...register("message")}
               />
             </div>
 
-            <div className="flex items-start space-x-3">
+            <div className="flex items-start space-x-3 p-3 sm:p-0">
               <input
                 type="checkbox"
-                className="mt-1 w-4 h-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
+                className="mt-1 w-5 h-5 sm:w-4 sm:h-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500"
                 {...register("agreeToTerms")}
               />
-              <label className="text-sm text-gray-600">
+              <label className="text-sm text-gray-600 leading-relaxed">
                 I agree to the{" "}
                 <a
                   href="/terms-conditions"
@@ -306,17 +324,17 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
 
   return (
     <motion.div
-      className={`bg-white rounded-xl shadow-lg p-4 sm:p-6 ${className}`}
+      className={`bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 ${className}`}
       variants={slideUp}
       initial="hidden"
       animate="visible"
     >
       {variant !== "compact" && (
-        <div className="mb-6">
-          <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-2">
+        <div className="mb-4 sm:mb-6">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-text-primary mb-2">
             Free Consultation
           </h2>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             Get expert advice on your aesthetic journey
           </p>
 
@@ -344,13 +362,19 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
         {renderStepContent()}
 
         {/* Form Actions */}
-        <div className="flex justify-between pt-6">
+        <div className="flex flex-col sm:flex-row justify-between pt-4 sm:pt-6 gap-3 sm:gap-0">
           {variant !== "compact" && currentStep > 1 ? (
-            <Button type="button" variant="outline" onClick={prevStep}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={prevStep}
+              size="lg"
+              className="w-full sm:w-auto"
+            >
               Previous
             </Button>
           ) : (
-            <div />
+            <div className="hidden sm:block" />
           )}
 
           {variant === "compact" || currentStep === totalSteps ? (
@@ -358,12 +382,19 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
               type="submit"
               variant="primary"
               isLoading={isSubmitting}
-              className="ml-auto"
+              size="lg"
+              className="w-full sm:w-auto sm:ml-auto"
             >
               Send Request
             </Button>
           ) : (
-            <Button type="button" variant="primary" onClick={nextStep}>
+            <Button
+              type="button"
+              variant="primary"
+              onClick={nextStep}
+              size="lg"
+              className="w-full sm:w-auto"
+            >
               Next Step
             </Button>
           )}
