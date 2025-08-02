@@ -7,11 +7,42 @@ export const getPlaceholderImage = (
   bgColor?: string,
   textColor?: string
 ): string => {
-  const baseUrl = 'https://via.placeholder.com';
-  const colorParams = bgColor && textColor ? `/${bgColor}/${textColor}` : '/A0244D/FFFFFF';
-  const textParam = text ? `?text=${encodeURIComponent(text)}` : '';
+  // Create a local data URI placeholder instead of using external service
+  const bg = bgColor || 'A0244D';
+  const fg = textColor || 'FFFFFF';
+  const displayText = text || `${width}×${height}`;
   
-  return `${baseUrl}/${width}x${height}${colorParams}${textParam}`;
+  // Convert hex colors to RGB
+  const hexToRgb = (hex: string) => {
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    return `${r},${g},${b}`;
+  };
+  
+  const bgRgb = hexToRgb(bg);
+  const fgRgb = hexToRgb(fg);
+  
+  // Create SVG placeholder
+  const svg = `
+    <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="rgb(${bgRgb})"/>
+      <text 
+        x="50%" 
+        y="50%" 
+        dominant-baseline="middle" 
+        text-anchor="middle" 
+        fill="rgb(${fgRgb})" 
+        font-family="Arial, sans-serif" 
+        font-size="${Math.min(width, height) * 0.1}"
+      >
+        ${displayText}
+      </text>
+    </svg>
+  `;
+  
+  // Convert SVG to data URI
+  return `data:image/svg+xml;base64,${btoa(svg)}`;
 };
 
 export const getTreatmentImage = (treatmentType: string): string => {
@@ -82,6 +113,7 @@ export const handleImageError = (
   event: React.SyntheticEvent<HTMLImageElement, Event>
 ): void => {
   const img = event.currentTarget;
+  // Use the local placeholder instead of external service
   img.src = getPlaceholderImage(400, 300, 'Image Not Found', 'CCCCCC', '666666');
 };
 
