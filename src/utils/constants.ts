@@ -1,4 +1,4 @@
-import type { NavItem, Treatment, Service, ContactInfo, SocialLinks } from '../types';
+import type { NavItem, Treatment, Service, ContactInfo, SocialLinks, BlogPost, BlogCategory, BlogAuthor } from '../types';
 import { getTreatmentImage } from './imageUtils';
 
 // Navigation constants for single-page layout
@@ -20,19 +20,24 @@ export const NAVIGATION_ITEMS: NavItem[] = [
     ]
   },
   {
-    id: 'about',
-    label: 'About Us',
-    href: '#about'
-  },
-  {
     id: 'before-after',
     label: 'Before & After',
     href: '#before-after'
   },
   {
+    id: 'about',
+    label: 'About Us',
+    href: '#about'
+  },
+  {
     id: 'contact',
     label: 'Contact',
     href: '#contact'
+  },
+  {
+    id: 'blog',
+    label: 'Blog',
+    href: '/blog'
   }
 ];
 
@@ -387,3 +392,479 @@ export const SUCCESS_MESSAGES = {
   booking: 'Booking request submitted successfully!',
   quote: 'Quote request submitted successfully!'
 };
+
+// Blog Categories
+export const BLOG_CATEGORIES: BlogCategory[] = [
+  {
+    id: 'hair-care',
+    name: 'Hair Care',
+    description: 'Everything about hair health, transplantation, and care tips',
+    slug: 'hair-care',
+    color: 'bg-blue-100 text-blue-800',
+    icon: '✂️'
+  },
+  {
+    id: 'dental-health',
+    name: 'Dental Health',
+    description: 'Dental care, treatments, and oral health tips',
+    slug: 'dental-health',
+    color: 'bg-green-100 text-green-800',
+    icon: '🦷'
+  },
+  {
+    id: 'cosmetic-surgery',
+    name: 'Cosmetic Surgery',
+    description: 'Cosmetic procedures, recovery tips, and latest trends',
+    slug: 'cosmetic-surgery',
+    color: 'bg-purple-100 text-purple-800',
+    icon: '✨'
+  },
+  {
+    id: 'health-wellness',
+    name: 'Health & Wellness',
+    description: 'General health tips, wellness advice, and lifestyle',
+    slug: 'health-wellness',
+    color: 'bg-pink-100 text-pink-800',
+    icon: '💊'
+  },
+  {
+    id: 'patient-stories',
+    name: 'Patient Stories',
+    description: 'Real patient experiences and testimonials',
+    slug: 'patient-stories',
+    color: 'bg-yellow-100 text-yellow-800',
+    icon: '📖'
+  }
+];
+
+// Blog Authors
+export const BLOG_AUTHORS: BlogAuthor[] = [
+  {
+    id: 'dr-ahmet-kareem',
+    name: 'Dr. Ahmet Kareem',
+    bio: 'Lead Hair Transplant Surgeon with over 15 years of experience in FUE and DHI techniques.',
+    avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face',
+    title: 'Chief Hair Transplant Surgeon',
+    socialLinks: {
+      linkedin: 'https://linkedin.com/in/dr-ahmet-kareem',
+      instagram: 'https://instagram.com/dr.ahmetkareem'
+    }
+  },
+  {
+    id: 'dr-sara-thompson',
+    name: 'Dr. Sara Thompson',
+    bio: 'Cosmetic Surgery Specialist focusing on facial aesthetics and body contouring procedures.',
+    avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face',
+    title: 'Cosmetic Surgery Specialist',
+    socialLinks: {
+      linkedin: 'https://linkedin.com/in/dr-sara-thompson'
+    }
+  },
+  {
+    id: 'dr-michael-brown',
+    name: 'Dr. Michael Brown',
+    bio: 'Dental Specialist with expertise in implants, veneers, and smile makeovers.',
+    avatar: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=150&h=150&fit=crop&crop=face',
+    title: 'Dental Specialist',
+    socialLinks: {
+      linkedin: 'https://linkedin.com/in/dr-michael-brown'
+    }
+  }
+];
+
+// Sample Blog Posts
+export const BLOG_POSTS: BlogPost[] = [
+  {
+    id: 'ultimate-guide-hair-transplant-2024',
+    title: 'The Ultimate Guide to Hair Transplant in 2024: FUE vs DHI',
+    excerpt: 'Discover the latest advances in hair transplant technology and learn about the differences between FUE and DHI techniques to make the best choice for your hair restoration journey.',
+    content: `# The Ultimate Guide to Hair Transplant in 2024: FUE vs DHI
+
+Hair loss affects millions of people worldwide, impacting not just appearance but also confidence and self-esteem. Fortunately, modern hair transplant techniques have revolutionized the field, offering natural-looking results with minimal downtime.
+
+## Understanding Hair Transplant Basics
+
+Hair transplantation involves moving healthy hair follicles from a donor area (typically the back of the head) to areas experiencing hair loss. The two most popular techniques today are:
+
+### FUE (Follicular Unit Extraction)
+- Individual follicles are extracted one by one
+- No linear scarring
+- Faster recovery time
+- Natural-looking results
+
+### DHI (Direct Hair Implantation)
+- Advanced version of FUE
+- Direct implantation without pre-made channels
+- Higher precision and density
+- Minimal handling of grafts
+
+## Choosing the Right Technique
+
+The choice between FUE and DHI depends on several factors:
+- Extent of hair loss
+- Hair type and characteristics
+- Desired density
+- Budget considerations
+
+## Recovery and Results
+
+Most patients can return to work within 3-5 days, with full results visible after 12-18 months. The key to success lies in choosing an experienced surgeon and following post-operative care instructions.
+
+Ready to start your hair restoration journey? Contact us for a free consultation.`,
+    image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&h=400&fit=crop',
+    author: 'dr-ahmet-kareem',
+    publishDate: '2024-01-15',
+    readTime: '8 min read',
+    category: 'hair-care',
+    tags: ['hair transplant', 'FUE', 'DHI', 'hair loss'],
+    featured: true,
+    views: 1250,
+    slug: 'ultimate-guide-hair-transplant-2024'
+  },
+  {
+    id: 'hollywood-smile-makeover-guide',
+    title: 'Hollywood Smile Makeover: Transform Your Smile in 7 Days',
+    excerpt: 'Learn about the complete Hollywood smile makeover process, from consultation to final results, and discover how you can achieve a perfect smile in just one week.',
+    content: `# Hollywood Smile Makeover: Transform Your Smile in 7 Days
+
+A Hollywood smile makeover can completely transform your appearance and boost your confidence. This comprehensive treatment combines various dental procedures to create the perfect smile.
+
+## What is a Hollywood Smile?
+
+A Hollywood smile makeover typically includes:
+- Porcelain veneers or crowns
+- Teeth whitening
+- Gum contouring
+- Orthodontic alignment if needed
+
+## The 7-Day Process
+
+### Day 1-2: Consultation and Planning
+- Comprehensive dental examination
+- Digital smile design
+- Treatment plan customization
+
+### Day 3-4: Preparation
+- Tooth preparation
+- Temporary veneers placement
+- Color and shape selection
+
+### Day 5-7: Final Results
+- Final veneers placement
+- Adjustments and polishing
+- Care instructions
+
+## Maintenance Tips
+
+- Regular dental hygiene
+- Avoid staining foods and drinks
+- Use a night guard if recommended
+- Regular dental check-ups
+
+Your dream smile is just a week away!`,
+    image: 'https://images.unsplash.com/photo-1606811941271-0f8f9b2da6a7?w=800&h=400&fit=crop',
+    author: 'dr-michael-brown',
+    publishDate: '2024-01-10',
+    readTime: '6 min read',
+    category: 'dental-health',
+    tags: ['hollywood smile', 'veneers', 'dental makeover', 'cosmetic dentistry'],
+    featured: true,
+    views: 890,
+    slug: 'hollywood-smile-makeover-guide'
+  },
+  {
+    id: 'rhinoplasty-recovery-tips',
+    title: 'Rhinoplasty Recovery: Essential Tips for Best Results',
+    excerpt: 'Complete guide to rhinoplasty recovery, including timeline, do\'s and don\'ts, and expert tips to ensure optimal healing and results.',
+    content: `# Rhinoplasty Recovery: Essential Tips for Best Results
+
+Rhinoplasty recovery is crucial for achieving optimal results. Following proper post-operative care ensures faster healing and better outcomes.
+
+## Recovery Timeline
+
+### Week 1-2: Initial Healing
+- Swelling and bruising peak
+- Nasal splint removal
+- Basic activities resume
+
+### Week 3-4: Continued Improvement
+- Most swelling subsides
+- Return to normal activities
+- Exercise restrictions lifted gradually
+
+### Month 2-12: Final Results
+- Subtle refinements continue
+- Final shape emerges
+- Complete healing achieved
+
+## Essential Care Tips
+
+1. **Sleep Elevated**: Use 2-3 pillows for the first week
+2. **Ice Application**: 20 minutes on/off for first 48 hours
+3. **Avoid Pressure**: No glasses or sunglasses for 6 weeks
+4. **Gentle Cleansing**: Follow surgeon's cleaning instructions
+5. **Medication Compliance**: Take prescribed medications as directed
+
+## What to Expect
+
+- Initial results visible after splint removal
+- 80% of swelling resolves in 2-3 weeks
+- Final results take up to 1 year
+- Patience is key to success
+
+Remember, every patient heals differently. Trust the process and follow your surgeon's guidance.`,
+    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=400&fit=crop',
+    author: 'dr-sara-thompson',
+    publishDate: '2024-01-05',
+    readTime: '7 min read',
+    category: 'cosmetic-surgery',
+    tags: ['rhinoplasty', 'nose surgery', 'recovery', 'post-operative care'],
+    featured: false,
+    views: 670,
+    slug: 'rhinoplasty-recovery-tips'
+  },
+  {
+    id: 'dental-implants-vs-dentures',
+    title: 'Dental Implants vs Dentures: Making the Right Choice',
+    excerpt: 'Comprehensive comparison between dental implants and dentures to help you make an informed decision about tooth replacement options.',
+    content: `# Dental Implants vs Dentures: Making the Right Choice
+
+When facing tooth loss, choosing between dental implants and dentures can be challenging. Understanding the differences helps make an informed decision.
+
+## Dental Implants
+
+### Advantages:
+- Permanent solution
+- Natural feel and function
+- Preserve jawbone health
+- No dietary restrictions
+- Easy maintenance
+
+### Considerations:
+- Higher initial cost
+- Surgical procedure required
+- Longer treatment timeline
+- Not suitable for everyone
+
+## Dentures
+
+### Advantages:
+- Lower initial cost
+- Non-surgical option
+- Faster treatment
+- Suitable for most patients
+- Removable for cleaning
+
+### Considerations:
+- May affect speech and eating
+- Require special care
+- Need periodic adjustments
+- May become loose over time
+
+## Making Your Decision
+
+Consider these factors:
+- Overall health
+- Bone density
+- Budget
+- Lifestyle preferences
+- Long-term goals
+
+## Our Recommendation
+
+For most patients with adequate bone density and good oral health, dental implants offer the best long-term solution. However, dentures remain an excellent option for those seeking a more affordable or non-surgical alternative.
+
+Schedule a consultation to determine the best option for your specific needs.`,
+    image: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=400&fit=crop',
+    author: 'dr-michael-brown',
+    publishDate: '2023-12-28',
+    readTime: '5 min read',
+    category: 'dental-health',
+    tags: ['dental implants', 'dentures', 'tooth replacement', 'oral health'],
+    featured: false,
+    views: 445,
+    slug: 'dental-implants-vs-dentures'
+  },
+  {
+    id: 'patient-story-hair-transformation',
+    title: 'Patient Story: John\'s Amazing Hair Transformation Journey',
+    excerpt: 'Follow John\'s inspiring hair transplant journey from initial consultation to final results, including challenges, recovery, and life-changing outcomes.',
+    content: `# Patient Story: John's Amazing Hair Transformation Journey
+
+Meet John, a 35-year-old professional who struggled with hair loss for over a decade. His journey to hair restoration is truly inspiring.
+
+## The Beginning
+
+John first noticed hair thinning at age 25. By 35, he had significant hair loss that affected his confidence, especially in professional settings.
+
+> "I tried everything - medications, shampoos, even hairpieces. Nothing worked long-term. I finally decided to invest in a permanent solution."
+
+## The Decision
+
+After extensive research, John chose our clinic for his hair transplant. Factors that influenced his decision:
+- Experienced surgeons
+- Natural-looking results in our gallery
+- Comprehensive consultation process
+- Transparent pricing
+- Excellent patient reviews
+
+## The Procedure
+
+John opted for the DHI technique:
+- **Grafts transplanted**: 3,200
+- **Procedure time**: 7 hours
+- **Areas treated**: Frontal hairline and crown
+- **Technique**: DHI (Direct Hair Implantation)
+
+## Recovery Experience
+
+### Week 1:
+"The first week was the toughest. There was some swelling and discomfort, but nothing unbearable. The team's support was incredible."
+
+### Month 1:
+"Transplanted hair started falling out - this scared me initially, but the doctor explained it's normal. I trusted the process."
+
+### Month 6:
+"New hair growth was becoming visible. I was excited but tried to stay patient."
+
+### Month 12:
+"Amazing results! The hair looks completely natural. Even my barber couldn't tell where the transplanted hair ends."
+
+## Life After Hair Transplant
+
+John's confidence has soared:
+- Received a promotion at work
+- Started dating again
+- Feels 10 years younger
+- Recommends the procedure to friends
+
+## John's Advice
+
+"Research thoroughly, choose the right clinic, and be patient. The results are worth the wait. This investment changed my life."
+
+## Final Results
+
+- **Natural hairline**: Perfectly designed for his face
+- **Density**: Excellent coverage and volume
+- **Satisfaction**: 10/10 would do it again
+
+Ready to start your own transformation? Contact us for a free consultation like John did.`,
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop&crop=face',
+    author: 'dr-ahmet-kareem',
+    publishDate: '2023-12-20',
+    readTime: '10 min read',
+    category: 'patient-stories',
+    tags: ['patient story', 'hair transplant', 'transformation', 'DHI', 'testimonial'],
+    featured: true,
+    views: 1850,
+    slug: 'patient-story-hair-transformation'
+  },
+  {
+    id: 'wellness-tips-recovery',
+    title: '10 Wellness Tips for Faster Post-Surgery Recovery',
+    excerpt: 'Essential wellness and lifestyle tips to accelerate your recovery after cosmetic surgery and ensure optimal healing.',
+    content: `# 10 Wellness Tips for Faster Post-Surgery Recovery
+
+Recovery is as important as the surgery itself. These wellness tips will help you heal faster and achieve better results.
+
+## 1. Prioritize Sleep
+
+Quality sleep is crucial for healing:
+- Aim for 8-9 hours nightly
+- Sleep elevated for facial procedures
+- Create a comfortable environment
+- Avoid screens before bed
+
+## 2. Stay Hydrated
+
+Water supports healing:
+- Drink 8-10 glasses daily
+- Avoid alcohol and caffeine
+- Include herbal teas
+- Monitor urine color
+
+## 3. Nutrition for Healing
+
+Focus on healing foods:
+- Protein for tissue repair
+- Vitamin C for collagen production
+- Zinc for wound healing
+- Anti-inflammatory foods
+
+## 4. Gentle Movement
+
+Light activity promotes circulation:
+- Short walks as approved
+- Avoid strenuous exercise
+- Gentle stretching
+- Listen to your body
+
+## 5. Stress Management
+
+Reduce stress for better healing:
+- Practice meditation
+- Deep breathing exercises
+- Listen to calming music
+- Maintain social connections
+
+## 6. Follow Medication Instructions
+
+Proper medication use:
+- Take as prescribed
+- Set reminders
+- Don't skip doses
+- Report side effects
+
+## 7. Wound Care
+
+Proper wound management:
+- Keep areas clean
+- Follow dressing changes
+- Watch for infection signs
+- Protect from sun
+
+## 8. Avoid Smoking
+
+Smoking impairs healing:
+- Stop before surgery
+- Continue abstinence during recovery
+- Avoid secondhand smoke
+- Consider nicotine replacement
+
+## 9. Temperature Therapy
+
+Use hot/cold therapy:
+- Ice for swelling (first 48 hours)
+- Warm compresses for circulation
+- Follow surgeon's guidelines
+- Never apply directly to skin
+
+## 10. Mental Health
+
+Recovery affects mood:
+- Be patient with progress
+- Seek support when needed
+- Focus on end goals
+- Celebrate small improvements
+
+## When to Contact Your Surgeon
+
+Call immediately if you experience:
+- Excessive bleeding
+- Signs of infection
+- Severe pain
+- Unexpected symptoms
+- Concerns about healing
+
+Remember, recovery is a journey. Be patient with yourself and trust the process.`,
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=400&fit=crop',
+    author: 'dr-sara-thompson',
+    publishDate: '2023-12-15',
+    readTime: '6 min read',
+    category: 'health-wellness',
+    tags: ['recovery', 'wellness', 'post-surgery', 'healing', 'health tips'],
+    featured: false,
+    views: 720,
+    slug: 'wellness-tips-recovery'
+  }
+];

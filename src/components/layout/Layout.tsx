@@ -7,12 +7,17 @@ import { pageTransition } from "../../utils/animations";
 interface LayoutProps {
   children: React.ReactNode;
   className?: string;
+  onNavigate?: (href: string) => void;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, className = "" }) => {
+const Layout: React.FC<LayoutProps> = ({
+  children,
+  className = "",
+  onNavigate,
+}) => {
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      <Header />
+      <Header onNavigate={onNavigate} />
 
       <motion.main
         className={`flex-grow mobile-no-scroll pt-16 md:pt-20 lg:pt-36 ${className}`}

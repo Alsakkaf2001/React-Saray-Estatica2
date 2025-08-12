@@ -93,6 +93,43 @@ export interface BlogPost {
   readTime: string;
   category: string;
   tags: string[];
+  featured?: boolean;
+  views?: number;
+  slug: string;
+}
+
+export interface BlogCategory {
+  id: string;
+  name: string;
+  description: string;
+  slug: string;
+  color: string;
+  icon: string;
+  postCount?: number;
+}
+
+export interface BlogAuthor {
+  id: string;
+  name: string;
+  bio: string;
+  avatar: string;
+  title: string;
+  socialLinks?: {
+    linkedin?: string;
+    twitter?: string;
+    instagram?: string;
+  };
+}
+
+export interface BlogComment {
+  id: string;
+  postId: string;
+  author: string;
+  email: string;
+  content: string;
+  publishDate: string;
+  approved: boolean;
+  replies?: BlogComment[];
 }
 
 // Navigation types

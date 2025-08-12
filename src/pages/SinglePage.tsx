@@ -8,7 +8,38 @@ import AboutSection from "../components/sections/AboutSection";
 import ContactSection from "../components/sections/ContactSection";
 import { BEFORE_AFTER_IMAGES } from "../utils/constants";
 
-const SinglePage: React.FC = () => {
+interface SinglePageProps {
+  onNavigateToBlog?: () => void;
+}
+
+const SinglePage: React.FC<SinglePageProps> = ({ onNavigateToBlog }) => {
+  const handleNavigation = (href: string) => {
+    if (href === "/blog" && onNavigateToBlog) {
+      onNavigateToBlog();
+    } else if (href.startsWith("/#")) {
+      // Navigate to home page with hash (from blog page)
+      const hash = href.substring(1); // Remove the leading /
+      window.history.pushState({}, "", href);
+      // Small delay to ensure the page loads before scrolling
+      setTimeout(() => {
+        const targetId = hash.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 100);
+    } else if (href.startsWith("#")) {
+      // Handle anchor navigation (already handled in Header)
+      return;
+    } else {
+      // Handle other external links
+      window.location.href = href;
+    }
+  };
+
   return (
     <>
       <SEOHead
@@ -17,7 +48,7 @@ const SinglePage: React.FC = () => {
         keywords="hair transplant Istanbul, dental implants Turkey, rhinoplasty surgery, cosmetic surgery clinic, aesthetic treatments, medical tourism Turkey"
         url="https://sarayestetic.com"
       />
-      <Layout>
+      <Layout onNavigate={handleNavigation}>
         {/* Hero Section */}
         <section id="home" className="relative">
           <HeroSection />

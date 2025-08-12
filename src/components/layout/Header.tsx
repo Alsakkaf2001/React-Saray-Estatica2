@@ -8,9 +8,13 @@ import logoImage from "../../assets/FINAL LOGO ABO KAREEM 1 (1).png";
 
 interface HeaderProps {
   isScrolled?: boolean;
+  onNavigate?: (href: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
+const Header: React.FC<HeaderProps> = ({
+  isScrolled: propIsScrolled,
+  onNavigate,
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -66,11 +70,24 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
       const targetId = href.substring(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
+        // Element exists on current page, scroll to it
         targetElement.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
+      } else if (onNavigate) {
+        // Element doesn't exist (probably on blog page), navigate to home with hash
+        onNavigate("/" + href);
+      } else {
+        // Fallback to normal navigation
+        window.location.href = "/" + href;
       }
+    } else if (onNavigate) {
+      // Handle external navigation (like /blog)
+      onNavigate(href);
+    } else {
+      // Fallback to normal navigation
+      window.location.href = href;
     }
     closeMobileMenu();
   };
@@ -78,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
   return (
     <>
       {/* Top Bar */}
-      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-primary text-white py-2 px-4 hidden lg:block z-40">
+      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-primary text-white h-10 px-4 hidden lg:flex z-40 items-center">
         <div className="container-custom flex justify-between items-center text-sm">
           <div className="flex items-center space-x-6">
             <a
@@ -104,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled: propIsScrolled }) => {
 
       {/* Main Header */}
       <motion.header
-        className={`fixed top-0 lg:top-10 left-0 right-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-10 left-0 right-0 w-full z-50 transition-all duration-300 ${
           scrolled
             ? "bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-100"
             : "bg-white shadow-sm"
