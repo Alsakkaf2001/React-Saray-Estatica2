@@ -23,7 +23,8 @@ const AdminLogin: React.FC<{ onLoggedIn?: () => void }> = ({ onLoggedIn }) => {
       setError(error.message);
     } else {
       onLoggedIn?.();
-      window.history.pushState({}, "", "/admin");
+      const base = import.meta.env.BASE_URL || "/";
+      window.history.pushState({}, "", `${base}admin`);
       window.dispatchEvent(new PopStateEvent("popstate"));
     }
   };
