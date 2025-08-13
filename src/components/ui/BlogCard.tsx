@@ -87,12 +87,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
               <Clock className="w-4 h-4" />
               <span>{post.readTime}</span>
             </div>
-            {author && (
-              <div className="flex items-center gap-1">
-                <User className="w-4 h-4" />
-                <span>{author.name}</span>
-              </div>
-            )}
+            {/* Author meta removed */}
             {post.views && (
               <div className="flex items-center gap-1">
                 <Eye className="w-4 h-4" />
