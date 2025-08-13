@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <>
       {/* Top Bar */}
-      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-primary text-white h-8 px-3 hidden lg:flex z-40 items-center">
+      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-primary text-white h-8 px-3 hidden lg:flex z-50 items-center">
         <div className="container-custom flex justify-between items-center text-sm">
           <div className="flex items-center space-x-6">
             <a
