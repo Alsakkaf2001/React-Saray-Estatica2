@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <>
       {/* Top Bar */}
-      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-primary text-white h-10 px-4 hidden lg:flex z-40 items-center">
+      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-primary text-white h-8 px-3 hidden lg:flex z-40 items-center">
         <div className="container-custom flex justify-between items-center text-sm">
           <div className="flex items-center space-x-6">
             <a
@@ -125,7 +125,7 @@ const Header: React.FC<HeaderProps> = ({
 
       {/* Main Header */}
       <motion.header
-        className={`fixed top-10 left-0 right-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-0 lg:top-8 left-0 right-0 w-full z-50 transition-all duration-300 ${
           scrolled
             ? "bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-100"
             : "bg-white shadow-sm"
@@ -135,7 +135,7 @@ const Header: React.FC<HeaderProps> = ({
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="container-custom">
-          <div className="flex items-center justify-between h-16 md:h-20 lg:h-24">
+          <div className="flex items-center justify-between h-14 md:h-16 lg:h-[68px]">
             {/* Logo */}
             <motion.div
               className="flex-shrink-0"
@@ -154,13 +154,13 @@ const Header: React.FC<HeaderProps> = ({
                 <img
                   src={logoImage}
                   alt="Saray Estetic Logo"
-                  className="h-10 md:h-12 lg:h-14 w-auto object-contain"
+                  className="h-8 md:h-10 lg:h-11 w-auto object-contain"
                 />
               </a>
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center space-x-6">
               {NAVIGATION_ITEMS.map((item, index) => (
                 <div key={item.id} className="relative group">
                   <motion.div
@@ -236,7 +236,7 @@ const Header: React.FC<HeaderProps> = ({
             <div className="lg:hidden">
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="relative p-3 w-12 h-12 flex items-center justify-center text-text-primary hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-all duration-300 touch-manipulation"
+                className="relative p-2 w-10 h-10 flex items-center justify-center text-text-primary hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-all duration-300 touch-manipulation"
                 whileTap={{ scale: 0.95 }}
                 aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isMobileMenuOpen}
@@ -246,9 +246,9 @@ const Header: React.FC<HeaderProps> = ({
                   transition={{ duration: 0.3 }}
                 >
                   {isMobileMenuOpen ? (
-                    <X className="w-6 h-6" />
+                    <X className="w-5 h-5" />
                   ) : (
-                    <Menu className="w-6 h-6" />
+                    <Menu className="w-5 h-5" />
                   )}
                 </motion.div>
               </motion.button>
