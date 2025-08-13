@@ -2,11 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock, Eye, Share2, Heart, Bookmark } from "lucide-react";
 import type { BlogPost } from "../../types";
-import {
-  formatDate,
-  getAuthorById,
-  getCategoryBySlug,
-} from "../../utils/blogUtils";
+import { formatDate } from "../../utils/blogUtils";
 import OptimizedImage from "./OptimizedImage";
 import Button from "./Button";
 
@@ -23,8 +19,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({
   onLike,
   onBookmark,
 }) => {
-  const author = getAuthorById(post.author);
-  const category = getCategoryBySlug(post.category);
+  // Omit category and author details for static build; show basic meta only
 
   const contentVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -96,14 +91,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({
       <motion.header variants={itemVariants} className="mb-8">
         {/* Category and Meta */}
         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
-          {category && (
-            <div
-              className={`px-3 py-1 rounded-full text-xs font-medium ${category.color}`}
-            >
-              <span className="mr-1">{category.icon}</span>
-              {category.name}
-            </div>
-          )}
+          {/* Category badge omitted */}
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
             <span>{formatDate(post.publishDate)}</span>
@@ -127,19 +115,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({
 
         {/* Author and Actions */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          {author && (
-            <div className="flex items-center gap-4">
-              <OptimizedImage
-                src={author.avatar}
-                alt={author.name}
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <div>
-                <p className="font-medium text-gray-900">{author.name}</p>
-                <p className="text-sm text-gray-500">{author.title}</p>
-              </div>
-            </div>
-          )}
+          {/* Author block omitted */}
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2">
@@ -217,64 +193,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({
       </motion.div>
 
       {/* Author Bio */}
-      {author && (
-        <motion.div
-          variants={itemVariants}
-          className="mt-8 p-6 bg-gray-50 rounded-2xl"
-        >
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            About the Author
-          </h3>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <OptimizedImage
-              src={author.avatar}
-              alt={author.name}
-              className="w-16 h-16 rounded-full object-cover"
-            />
-            <div className="flex-1">
-              <h4 className="font-medium text-gray-900 mb-1">{author.name}</h4>
-              <p className="text-sm text-primary-600 mb-2">{author.title}</p>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {author.bio}
-              </p>
-              {author.socialLinks && (
-                <div className="flex gap-2 mt-3">
-                  {author.socialLinks.linkedin && (
-                    <a
-                      href={author.socialLinks.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-blue-600 transition-colors"
-                    >
-                      LinkedIn
-                    </a>
-                  )}
-                  {author.socialLinks.twitter && (
-                    <a
-                      href={author.socialLinks.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-blue-400 transition-colors"
-                    >
-                      Twitter
-                    </a>
-                  )}
-                  {author.socialLinks.instagram && (
-                    <a
-                      href={author.socialLinks.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-pink-600 transition-colors"
-                    >
-                      Instagram
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </motion.div>
-      )}
+      {/* Author bio omitted */}
     </motion.article>
   );
 };

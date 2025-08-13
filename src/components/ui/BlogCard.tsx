@@ -2,11 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock, User, Eye, ArrowRight } from "lucide-react";
 import type { BlogPost } from "../../types";
-import {
-  formatDate,
-  getAuthorById,
-  getCategoryBySlug,
-} from "../../utils/blogUtils";
+import { formatDate } from "../../utils/blogUtils";
 import OptimizedImage from "./OptimizedImage";
 import Button from "./Button";
 
@@ -21,8 +17,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
   featured = false,
   onReadMore,
 }) => {
-  const author = getAuthorById(post.author);
-  const category = getCategoryBySlug(post.category);
+  // Author and category details are loaded on pages if needed; card renders basic info only
 
   const handleReadMore = () => {
     if (onReadMore) {
@@ -67,15 +62,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
 
-          {/* Category Badge */}
-          {category && (
-            <div
-              className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium ${category.color}`}
-            >
-              <span className="mr-1">{category.icon}</span>
-              {category.name}
-            </div>
-          )}
+          {/* Category badge removed to avoid async lookups during static builds */}
 
           {/* Featured Badge */}
           {post.featured && (
@@ -151,21 +138,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
 
           {/* Author Info and Read More */}
           <div className="flex items-center justify-between">
-            {author && (
-              <div className="flex items-center gap-3">
-                <OptimizedImage
-                  src={author.avatar}
-                  alt={author.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    {author.name}
-                  </p>
-                  <p className="text-xs text-gray-500">{author.title}</p>
-                </div>
-              </div>
-            )}
+            {/* Author section removed to avoid async dependencies */}
 
             <Button
               variant="ghost"
