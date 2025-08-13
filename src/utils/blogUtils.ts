@@ -94,10 +94,14 @@ export const getRelatedPosts = (currentPost: BlogPost, limit: number = 3): BlogP
   return relatedPosts.slice(0, limit);
 };
 
-export const searchPosts = (query: string): BlogPost[] => {
-  // Client-side search should be applied on already fetched posts by callers
-  // Leaving as no-op here to avoid depending on local mocks
-  return [];
+export const searchPosts = (query: string, posts: BlogPost[]): BlogPost[] => {
+  const lowercaseQuery = query.toLowerCase();
+  return posts.filter((post) =>
+    post.title.toLowerCase().includes(lowercaseQuery) ||
+    post.excerpt.toLowerCase().includes(lowercaseQuery) ||
+    post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery)) ||
+    post.category.toLowerCase().includes(lowercaseQuery)
+  );
 };
 
 export const formatDate = (dateString: string): string => {

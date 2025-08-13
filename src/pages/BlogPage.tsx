@@ -8,7 +8,7 @@ import BlogSidebar from "../components/ui/BlogSidebar";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import type { BlogPost } from "../types";
-import { getAllBlogPostsAsync } from "../utils/blogUtils";
+import { getAllBlogPostsAsync, searchPosts } from "../utils/blogUtils";
 import { fetchCategories } from "../utils/blogApi";
 
 interface BlogPageProps {
@@ -63,14 +63,7 @@ const BlogPage: React.FC<BlogPageProps> = ({
 
     // Apply search filter
     if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (p) =>
-          p.title.toLowerCase().includes(q) ||
-          p.excerpt.toLowerCase().includes(q) ||
-          p.tags.some((t) => t.toLowerCase().includes(q)) ||
-          p.category.toLowerCase().includes(q)
-      );
+      filtered = searchPosts(searchQuery, filtered);
     }
 
     // Apply category filter

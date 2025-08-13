@@ -1,6 +1,7 @@
 // Use permissive typing for framer-motion compatibility
-// Minimal type to satisfy usage without strict any
-type Variants = Record<string, unknown>;
+// Align with framer-motion variant typing to avoid TS mismatch in consumers
+import type { Variants as FMVariants } from 'framer-motion';
+type Variants = FMVariants;
 
 // Basic animation variants
 export const fadeIn: Variants = {
