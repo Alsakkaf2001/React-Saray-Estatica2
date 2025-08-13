@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Eye, ArrowRight } from "lucide-react";
+import { Calendar, Clock, Eye, ArrowRight } from "lucide-react";
 import type { BlogPost } from "../../types";
 import { formatDate } from "../../utils/blogUtils";
 import OptimizedImage from "./OptimizedImage";
