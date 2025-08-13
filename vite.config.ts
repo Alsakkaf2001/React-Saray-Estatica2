@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/React-Saray-Estatica2/',
+  // Use repo subpath for GitHub Pages, but root for Vercel/local
+  base: process.env.VERCEL ? '/' : '/React-Saray-Estatica2/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
