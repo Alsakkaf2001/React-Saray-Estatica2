@@ -1,9 +1,20 @@
 import type { BlogPost, BlogCategory, BlogAuthor } from '../types';
 import { BLOG_POSTS, BLOG_CATEGORIES, BLOG_AUTHORS } from './constants';
+import { fetchPosts, fetchPostBySlug as fetchPostBySlugApi } from './blogApi';
+import { mapDbPostToBlogPost } from './transformers';
 
 // Blog utility functions
 export const getAllBlogPosts = (): BlogPost[] => {
   return BLOG_POSTS.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
+};
+
+export const getAllBlogPostsAsync = async (): Promise<BlogPost[]> => {
+  try {
+    const dbPosts = await fetchPosts('published');
+    return dbPosts.map(mapDbPostToBlogPost).sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
+  } catch {
+    return getAllBlogPosts();
+  }
 };
 
 export const getFeaturedPosts = (): BlogPost[] => {
@@ -16,6 +27,15 @@ export const getPostsByCategory = (categorySlug: string): BlogPost[] => {
 
 export const getPostBySlug = (slug: string): BlogPost | undefined => {
   return BLOG_POSTS.find(post => post.slug === slug);
+};
+
+export const getPostBySlugAsync = async (slug: string): Promise<BlogPost | null> => {
+  try {
+    const dbPost = await fetchPostBySlugApi(slug);
+    return dbPost ? mapDbPostToBlogPost(dbPost) : null;
+  } catch {
+    return getPostBySlug(slug) || null;
+  }
 };
 
 export const getCategoryBySlug = (slug: string): BlogCategory | undefined => {

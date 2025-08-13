@@ -19,6 +19,7 @@ import {
   getPostBySlug,
   getRelatedPosts,
   incrementPostViews,
+  getPostBySlugAsync,
 } from "../utils/blogUtils";
 
 interface BlogPostPageProps {
@@ -42,18 +43,15 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({
 
   useEffect(() => {
     setLoading(true);
-
-    // Simulate loading delay
-    setTimeout(() => {
-      const foundPost = getPostBySlug(slug);
+    (async () => {
+      const foundPost = await getPostBySlugAsync(slug);
       if (foundPost) {
         setPost(foundPost);
         setRelatedPosts(getRelatedPosts(foundPost, 3));
-        // Increment post views
         incrementPostViews(foundPost.id);
       }
       setLoading(false);
-    }, 500);
+    })();
   }, [slug]);
 
   const handleShare = () => {

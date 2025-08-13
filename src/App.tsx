@@ -4,8 +4,17 @@ import usePerformanceMonitor from "./hooks/usePerformanceMonitor";
 import SinglePage from "./pages/SinglePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
+import AdminLogin from "./pages/admin/AdminLogin";
+import PostsList from "./pages/admin/PostsList";
+import PostEditor from "./pages/admin/PostEditor";
 
-type AppPage = "home" | "blog" | "blog-post";
+type AppPage =
+  | "home"
+  | "blog"
+  | "blog-post"
+  | "admin-login"
+  | "admin"
+  | "admin-edit";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>("home");
@@ -20,7 +29,17 @@ function App() {
       const path = window.location.pathname;
       const hash = window.location.hash;
 
-      if (path.includes("/blog/") && path.split("/").length > 2) {
+      if (path.startsWith("/admin/login")) {
+        setCurrentPage("admin-login");
+      } else if (path.startsWith("/admin/posts/new")) {
+        setCurrentPage("admin-edit");
+        setCurrentBlogSlug("");
+      } else if (path.startsWith("/admin/posts/")) {
+        setCurrentPage("admin-edit");
+        setCurrentBlogSlug(path.split("/admin/posts/")[1]);
+      } else if (path.startsWith("/admin")) {
+        setCurrentPage("admin");
+      } else if (path.includes("/blog/") && path.split("/").length > 2) {
         const slug = path.split("/blog/")[1];
         setCurrentBlogSlug(slug);
         setCurrentPage("blog-post");
@@ -89,6 +108,35 @@ function App() {
 
   const renderCurrentPage = () => {
     switch (currentPage) {
+      case "admin-login":
+        return (
+          <AdminLogin
+            onLoggedIn={() => window.history.pushState({}, "", "/admin")}
+          />
+        );
+      case "admin":
+        return (
+          <PostsList
+            onCreate={() => {
+              window.history.pushState({}, "", "/admin/posts/new");
+              window.dispatchEvent(new PopStateEvent("popstate"));
+            }}
+            onEdit={(id) => {
+              window.history.pushState({}, "", `/admin/posts/${id}`);
+              window.dispatchEvent(new PopStateEvent("popstate"));
+            }}
+          />
+        );
+      case "admin-edit":
+        return (
+          <PostEditor
+            id={currentBlogSlug}
+            onBack={() => {
+              window.history.pushState({}, "", "/admin");
+              window.dispatchEvent(new PopStateEvent("popstate"));
+            }}
+          />
+        );
       case "blog":
         return (
           <BlogPage

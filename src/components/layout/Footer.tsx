@@ -230,6 +230,18 @@ const Footer: React.FC = () => {
               >
                 Cookie Policy
               </a>
+              <a
+                href="/admin/login"
+                className="hover:text-white transition-colors font-medium"
+                onClick={(e) => {
+                  e.preventDefault();
+                  // Use same navigation function style as rest of app
+                  window.history.pushState({}, "", "/admin/login");
+                  window.dispatchEvent(new PopStateEvent("popstate"));
+                }}
+              >
+                Admin Login
+              </a>
             </div>
           </div>
         </motion.div>

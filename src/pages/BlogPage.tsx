@@ -12,6 +12,7 @@ import {
   getAllBlogPosts,
   searchPosts,
   getAllCategories,
+  getAllBlogPostsAsync,
 } from "../utils/blogUtils";
 
 interface BlogPageProps {
@@ -37,14 +38,22 @@ const BlogPage: React.FC<BlogPageProps> = ({
   const categories = getAllCategories();
 
   useEffect(() => {
-    // Simulate loading
-    setLoading(true);
-    setTimeout(() => {
-      const allPosts = getAllBlogPosts();
-      setPosts(allPosts);
-      setFilteredPosts(allPosts);
-      setLoading(false);
-    }, 500);
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const allPosts = await getAllBlogPostsAsync();
+        if (!cancelled) {
+          setPosts(allPosts);
+          setFilteredPosts(allPosts);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
