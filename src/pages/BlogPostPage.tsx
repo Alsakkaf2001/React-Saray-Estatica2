@@ -16,8 +16,7 @@ import BlogCard from "../components/ui/BlogCard";
 import Button from "../components/ui/Button";
 import type { BlogPost } from "../types";
 import {
-  getPostBySlug,
-  getRelatedPosts,
+  getAllBlogPostsAsync,
   incrementPostViews,
   getPostBySlugAsync,
 } from "../utils/blogUtils";
@@ -47,7 +46,20 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({
       const foundPost = await getPostBySlugAsync(slug);
       if (foundPost) {
         setPost(foundPost);
-        setRelatedPosts(getRelatedPosts(foundPost, 3));
+        try {
+          const all = await getAllBlogPostsAsync();
+          const related = all
+            .filter((p) => p.slug !== foundPost.slug)
+            .filter(
+              (p) =>
+                p.category === foundPost.category ||
+                p.tags.some((t) => foundPost.tags.includes(t))
+            )
+            .slice(0, 3);
+          setRelatedPosts(related);
+        } catch {
+          setRelatedPosts([]);
+        }
         incrementPostViews(foundPost.id);
       }
       setLoading(false);
@@ -152,6 +164,13 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({
         description={post.excerpt}
         keywords={post.tags.join(", ")}
         image={post.image}
+        canonical={`${(
+          window.location.origin + (import.meta.env.BASE_URL || "/")
+        ).replace(/\/+$/, "/")}blog/${post.slug}`}
+        url={`${(
+          window.location.origin + (import.meta.env.BASE_URL || "/")
+        ).replace(/\/+$/, "/")}blog/${post.slug}`}
+        type="article"
       />
 
       <Layout

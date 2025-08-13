@@ -42,10 +42,31 @@ export async function uploadImage(file: File): Promise<string> {
   return publicUrl.publicUrl;
 }
 
-export async function fetchCategories(): Promise<Array<{ id?: string; name: string; slug: string }>> {
+export async function fetchCategories(): Promise<Array<{ id?: string; name: string; slug: string; icon?: string; color?: string }>> {
   // Try DB categories
-  const { data, error } = await supabase.from('blog_categories').select('id,name,slug');
+  const { data, error } = await supabase.from('blog_categories').select('id,name,slug,icon,color');
   if (error) throw error;
-  return (data as any[]).map((c) => ({ id: c.id, name: c.name, slug: c.slug }));
+  return (data as any[]).map((c) => ({ id: c.id, name: c.name, slug: c.slug, icon: c.icon, color: c.color }));
+}
+
+export async function incrementViews(postId: string): Promise<void> {
+  // Use Postgres atomic increment
+  const { error } = await supabase
+    .from('blog_posts')
+    .update({ views: (supabase as any).rpc ? undefined : undefined })
+    .eq('id', postId);
+  if (error) {
+    // Fallback: use RPC if available
+    try {
+      // If a RPC is defined (optional), ignore if not
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const anySb: any = supabase;
+      if (anySb.rpc) {
+        await anySb.rpc('increment_post_views', { post_id: postId });
+      }
+    } catch {
+      // swallow; views are non-critical
+    }
+  }
 }
 

@@ -80,14 +80,18 @@ const Header: React.FC<HeaderProps> = ({
         onNavigate("/" + href);
       } else {
         // Fallback to normal navigation
-        window.location.href = "/" + href;
+        const base = import.meta.env.BASE_URL || "/";
+        window.location.href = base + href.replace(/^#/, "#");
       }
     } else if (onNavigate) {
       // Handle external navigation (like /blog)
       onNavigate(href);
     } else {
       // Fallback to normal navigation
-      window.location.href = href;
+      const base = import.meta.env.BASE_URL || "/";
+      window.location.href = href.startsWith("/")
+        ? base + href.replace(/^\//, "")
+        : href;
     }
     closeMobileMenu();
   };

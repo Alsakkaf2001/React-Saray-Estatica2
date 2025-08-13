@@ -18,8 +18,9 @@ const SinglePage: React.FC<SinglePageProps> = ({ onNavigateToBlog }) => {
       onNavigateToBlog();
     } else if (href.startsWith("/#")) {
       // Navigate to home page with hash (from blog page)
+      const base = import.meta.env.BASE_URL || "/";
       const hash = href.substring(1); // Remove the leading /
-      window.history.pushState({}, "", href);
+      window.history.pushState({}, "", `${base}${hash}`);
       // Small delay to ensure the page loads before scrolling
       setTimeout(() => {
         const targetId = hash.substring(1);
@@ -36,7 +37,10 @@ const SinglePage: React.FC<SinglePageProps> = ({ onNavigateToBlog }) => {
       return;
     } else {
       // Handle other external links
-      window.location.href = href;
+      const base = import.meta.env.BASE_URL || "/";
+      window.location.href = href.startsWith("/")
+        ? `${base}${href.replace(/^\//, "")}`
+        : href;
     }
   };
 

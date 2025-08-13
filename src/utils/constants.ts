@@ -1,4 +1,4 @@
-import type { NavItem, Treatment, Service, ContactInfo, SocialLinks, BlogPost, BlogCategory, BlogAuthor } from '../types';
+import type { NavItem, Treatment, Service, ContactInfo, SocialLinks } from '../types';
 import { getTreatmentImage } from './imageUtils';
 
 // Navigation constants for single-page layout
@@ -393,86 +393,12 @@ export const SUCCESS_MESSAGES = {
   quote: 'Quote request submitted successfully!'
 };
 
-// Blog Categories
-export const BLOG_CATEGORIES: BlogCategory[] = [
-  {
-    id: 'hair-care',
-    name: 'Hair Care',
-    description: 'Everything about hair health, transplantation, and care tips',
-    slug: 'hair-care',
-    color: 'bg-blue-100 text-blue-800',
-    icon: '✂️'
-  },
-  {
-    id: 'dental-health',
-    name: 'Dental Health',
-    description: 'Dental care, treatments, and oral health tips',
-    slug: 'dental-health',
-    color: 'bg-green-100 text-green-800',
-    icon: '🦷'
-  },
-  {
-    id: 'cosmetic-surgery',
-    name: 'Cosmetic Surgery',
-    description: 'Cosmetic procedures, recovery tips, and latest trends',
-    slug: 'cosmetic-surgery',
-    color: 'bg-purple-100 text-purple-800',
-    icon: '✨'
-  },
-  {
-    id: 'health-wellness',
-    name: 'Health & Wellness',
-    description: 'General health tips, wellness advice, and lifestyle',
-    slug: 'health-wellness',
-    color: 'bg-pink-100 text-pink-800',
-    icon: '💊'
-  },
-  {
-    id: 'patient-stories',
-    name: 'Patient Stories',
-    description: 'Real patient experiences and testimonials',
-    slug: 'patient-stories',
-    color: 'bg-yellow-100 text-yellow-800',
-    icon: '📖'
-  }
-];
+// Blog data moved to Supabase. Local mock categories removed.
 
-// Blog Authors
-export const BLOG_AUTHORS: BlogAuthor[] = [
-  {
-    id: 'dr-ahmet-kareem',
-    name: 'Dr. Ahmet Kareem',
-    bio: 'Lead Hair Transplant Surgeon with over 15 years of experience in FUE and DHI techniques.',
-    avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face',
-    title: 'Chief Hair Transplant Surgeon',
-    socialLinks: {
-      linkedin: 'https://linkedin.com/in/dr-ahmet-kareem',
-      instagram: 'https://instagram.com/dr.ahmetkareem'
-    }
-  },
-  {
-    id: 'dr-sara-thompson',
-    name: 'Dr. Sara Thompson',
-    bio: 'Cosmetic Surgery Specialist focusing on facial aesthetics and body contouring procedures.',
-    avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face',
-    title: 'Cosmetic Surgery Specialist',
-    socialLinks: {
-      linkedin: 'https://linkedin.com/in/dr-sara-thompson'
-    }
-  },
-  {
-    id: 'dr-michael-brown',
-    name: 'Dr. Michael Brown',
-    bio: 'Dental Specialist with expertise in implants, veneers, and smile makeovers.',
-    avatar: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=150&h=150&fit=crop&crop=face',
-    title: 'Dental Specialist',
-    socialLinks: {
-      linkedin: 'https://linkedin.com/in/dr-michael-brown'
-    }
-  }
-];
+// Blog authors moved to Supabase (future table). Local mocks removed.
 
 // Sample Blog Posts
+/* Blog posts moved to Supabase. Local mocks removed.
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: 'ultimate-guide-hair-transplant-2024',
@@ -868,3 +794,4 @@ Remember, recovery is a journey. Be patient with yourself and trust the process.
     slug: 'wellness-tips-recovery'
   }
 ];
+*/

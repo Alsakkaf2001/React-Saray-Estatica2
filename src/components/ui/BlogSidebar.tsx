@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Search, TrendingUp, Calendar, Tag } from "lucide-react";
 // Types are imported in the functions we use
 import {
   getPopularPosts,
   getRecentPosts,
-  getAllCategories,
   getAllTags,
 } from "../../utils/blogUtils";
+import { fetchCategories } from "../../utils/blogApi";
 import OptimizedImage from "./OptimizedImage";
 import Input from "./Input";
 
@@ -24,10 +24,48 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({
   onSearch,
   onPostSelect,
 }) => {
-  const popularPosts = getPopularPosts(5);
-  const recentPosts = getRecentPosts(5);
-  const categories = getAllCategories();
-  const tags = getAllTags().slice(0, 15); // Show top 15 tags
+  const [popularPosts, setPopularPosts] = useState<any[]>([]);
+  const [recentPosts, setRecentPosts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<
+    Array<{
+      id?: string;
+      name: string;
+      slug: string;
+      icon?: string;
+      postCount?: number;
+    }>
+  >([]);
+  const [tags, setTags] = useState<string[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const [pop, recent, cats, allTags] = await Promise.all([
+          getPopularPosts(5),
+          getRecentPosts(5),
+          fetchCategories(),
+          getAllTags(),
+        ]);
+        if (!cancelled) {
+          setPopularPosts(pop);
+          setRecentPosts(recent);
+          setCategories(cats);
+          setTags(allTags.slice(0, 15));
+        }
+      } catch {
+        if (!cancelled) {
+          setPopularPosts([]);
+          setRecentPosts([]);
+          setCategories([]);
+          setTags([]);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const sidebarVariants = {
     hidden: { opacity: 0, x: 20 },
@@ -94,8 +132,8 @@ const BlogSidebar: React.FC<BlogSidebarProps> = ({
         <div className="space-y-2">
           {categories.map((category) => (
             <button
-              key={category.id}
-              onClick={() => onCategorySelect?.(category.slug)}
+              key={category.slug}
+              onClick={() => onCategorySelect?.(category.slug || "")}
               className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-primary-50 transition-colors group"
             >
               <div className="flex items-center gap-3">

@@ -1,73 +1,72 @@
 // Use permissive typing for framer-motion compatibility
-type Variants = {
-  [key: string]: any;
-};
+// Minimal type to satisfy usage without strict any
+type Variants = Record<string, unknown>;
 
 // Basic animation variants
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
-  visible: { 
+  visible: {
     opacity: 1,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.2, ease: "easeOut" }
   }
 };
 
 export const slideUp: Variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.2, ease: "easeOut" }
   }
 };
 
 export const slideDown: Variants = {
-  hidden: { opacity: 0, y: -50 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, y: -8 },
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.2, ease: "easeOut" }
   }
 };
 
 export const slideLeft: Variants = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, x: -8 },
+  visible: {
+    opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.2, ease: "easeOut" }
   }
 };
 
 export const slideRight: Variants = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, x: 8 },
+  visible: {
+    opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.2, ease: "easeOut" }
   }
 };
 
 export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, scale: 0.98 },
+  visible: {
+    opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.2, ease: "easeOut" }
   }
 };
 
 export const scaleInOut: Variants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, scale: 0.98 },
+  visible: {
+    opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.2, ease: "easeOut" }
   },
-  exit: { 
-    opacity: 0, 
-    scale: 0.8,
-    transition: { duration: 0.3, ease: "easeIn" }
+  exit: {
+    opacity: 0,
+    scale: 0.98,
+    transition: { duration: 0.15, ease: "easeIn" }
   }
 };
 
@@ -77,8 +76,8 @@ export const staggerContainer: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
+      staggerChildren: 0.03,
+      delayChildren: 0.05
     }
   }
 };
@@ -88,8 +87,8 @@ export const staggerFast: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
-      delayChildren: 0.1
+      staggerChildren: 0.02,
+      delayChildren: 0.03
     }
   }
 };
@@ -99,8 +98,8 @@ export const staggerSlow: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3
+      staggerChildren: 0.05,
+      delayChildren: 0.08
     }
   }
 };
@@ -135,8 +134,8 @@ export const textReveal: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.1,
-      duration: 0.6,
+      delay: i * 0.03,
+      duration: 0.2,
       ease: "easeOut"
     }
   })
@@ -159,7 +158,7 @@ export const wordReveal: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
@@ -170,35 +169,35 @@ export const modalBackdrop: Variants = {
   hidden: { opacity: 0 },
   visible: { 
     opacity: 1,
-    transition: { duration: 0.3 }
+    transition: { duration: 0.15 }
   },
   exit: { 
     opacity: 0,
-    transition: { duration: 0.3 }
+    transition: { duration: 0.15 }
   }
 };
 
 export const modalContent: Variants = {
   hidden: { 
     opacity: 0, 
-    scale: 0.8,
-    y: 50
+    scale: 0.98,
+    y: 8
   },
   visible: { 
     opacity: 1, 
     scale: 1,
     y: 0,
     transition: { 
-      duration: 0.4, 
+      duration: 0.2, 
       ease: "easeOut",
-      delay: 0.1
+      delay: 0
     }
   },
   exit: { 
     opacity: 0, 
-    scale: 0.8,
-    y: 50,
-    transition: { duration: 0.3 }
+    scale: 0.98,
+    y: 8,
+    transition: { duration: 0.15 }
   }
 };
 
@@ -214,16 +213,16 @@ export const mobileMenuSlide: Variants = {
     x: 0,
     transition: {
       type: "spring",
-      stiffness: 300,
-      damping: 30
+      stiffness: 250,
+      damping: 35
     }
   },
   exit: {
     x: "100%",
     transition: {
       type: "spring",
-      stiffness: 300,
-      damping: 30
+      stiffness: 250,
+      damping: 35
     }
   }
 };
@@ -314,26 +313,26 @@ export const testimonialSlide: Variants = {
 
 // Page transitions
 export const pageTransition: Variants = {
-  initial: { opacity: 0, y: 20 },
-  in: { opacity: 1, y: 0 },
-  out: { opacity: 0, y: -20 }
+  initial: { opacity: 0 },
+  in: { opacity: 1 },
+  out: { opacity: 0 }
 };
 
 export const pageTransitionSettings = {
   type: "tween",
-  ease: "anticipate",
-  duration: 0.5
+  ease: "easeOut",
+  duration: 0.15
 };
 
 // Intersection Observer animation trigger
 export const createScrollAnimation = () => ({
-  hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { 
-      duration: 0.6, 
-      ease: "easeOut" 
+    transition: {
+      duration: 0.2,
+      ease: "easeOut"
     }
   }
 });

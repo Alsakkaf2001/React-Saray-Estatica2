@@ -8,12 +8,8 @@ import BlogSidebar from "../components/ui/BlogSidebar";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import type { BlogPost } from "../types";
-import {
-  getAllBlogPosts,
-  searchPosts,
-  getAllCategories,
-  getAllBlogPostsAsync,
-} from "../utils/blogUtils";
+import { getAllBlogPostsAsync } from "../utils/blogUtils";
+import { fetchCategories } from "../utils/blogApi";
 
 interface BlogPageProps {
   onPostSelect?: (slug: string) => void;
@@ -35,7 +31,9 @@ const BlogPage: React.FC<BlogPageProps> = ({
     "newest"
   );
 
-  const categories = getAllCategories();
+  const [categories, setCategories] = useState<
+    Array<{ id?: string; name: string; slug: string; icon?: string }>
+  >([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -43,9 +41,13 @@ const BlogPage: React.FC<BlogPageProps> = ({
       setLoading(true);
       try {
         const allPosts = await getAllBlogPostsAsync();
+        const cats = await fetchCategories();
         if (!cancelled) {
           setPosts(allPosts);
           setFilteredPosts(allPosts);
+          setCategories(cats);
+          // Ensure page starts at top on blog load
+          window.scrollTo({ top: 0, behavior: "auto" });
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -61,7 +63,14 @@ const BlogPage: React.FC<BlogPageProps> = ({
 
     // Apply search filter
     if (searchQuery.trim()) {
-      filtered = searchPosts(searchQuery);
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.excerpt.toLowerCase().includes(q) ||
+          p.tags.some((t) => t.toLowerCase().includes(q)) ||
+          p.category.toLowerCase().includes(q)
+      );
     }
 
     // Apply category filter
@@ -265,12 +274,14 @@ const BlogPage: React.FC<BlogPageProps> = ({
                     </Button>
                     {categories.map((category) => (
                       <Button
-                        key={category.id}
+                        key={category.slug}
                         variant={
-                          selectedCategory === category.id ? "primary" : "ghost"
+                          selectedCategory === category.slug
+                            ? "primary"
+                            : "ghost"
                         }
                         size="sm"
-                        onClick={() => handleCategorySelect(category.id)}
+                        onClick={() => handleCategorySelect(category.slug)}
                       >
                         {category.icon} {category.name}
                       </Button>
@@ -292,7 +303,7 @@ const BlogPage: React.FC<BlogPageProps> = ({
                         <span className="px-2 py-1 bg-primary-100 text-primary-800 text-xs rounded-full">
                           Category:{" "}
                           {
-                            categories.find((c) => c.id === selectedCategory)
+                            categories.find((c) => c.slug === selectedCategory)
                               ?.name
                           }
                         </span>

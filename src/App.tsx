@@ -26,7 +26,11 @@ function App() {
   // Handle navigation
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname;
+      // Support GitHub Pages base path
+      const path = window.location.pathname.replace(
+        import.meta.env.BASE_URL || "/",
+        "/"
+      );
       const hash = window.location.hash;
 
       if (path.startsWith("/admin/login")) {
@@ -80,18 +84,23 @@ function App() {
   // };
 
   const navigateToBlog = () => {
-    window.history.pushState({}, "", "/blog");
+    const base = import.meta.env.BASE_URL || "/";
+    window.history.pushState({}, "", `${base}blog`);
     setCurrentPage("blog");
+    // Scroll to top when navigating to blog
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
 
   const navigateToBlogPost = (slug: string) => {
-    window.history.pushState({}, "", `/blog/${slug}`);
+    const base = import.meta.env.BASE_URL || "/";
+    window.history.pushState({}, "", `${base}blog/${slug}`);
     setCurrentBlogSlug(slug);
     setCurrentPage("blog-post");
   };
 
   const navigateToHomeSection = (hash: string) => {
-    window.history.pushState({}, "", `/${hash}`);
+    const base = import.meta.env.BASE_URL || "/";
+    window.history.pushState({}, "", `${base}${hash}`);
     setCurrentPage("home");
     // Small delay to ensure the page loads before scrolling
     setTimeout(() => {
@@ -111,18 +120,24 @@ function App() {
       case "admin-login":
         return (
           <AdminLogin
-            onLoggedIn={() => window.history.pushState({}, "", "/admin")}
+            onLoggedIn={() => {
+              const base = import.meta.env.BASE_URL || "/";
+              window.history.pushState({}, "", `${base}admin`);
+              window.dispatchEvent(new PopStateEvent("popstate"));
+            }}
           />
         );
       case "admin":
         return (
           <PostsList
             onCreate={() => {
-              window.history.pushState({}, "", "/admin/posts/new");
+              const base = import.meta.env.BASE_URL || "/";
+              window.history.pushState({}, "", `${base}admin/posts/new`);
               window.dispatchEvent(new PopStateEvent("popstate"));
             }}
             onEdit={(id) => {
-              window.history.pushState({}, "", `/admin/posts/${id}`);
+              const base = import.meta.env.BASE_URL || "/";
+              window.history.pushState({}, "", `${base}admin/posts/${id}`);
               window.dispatchEvent(new PopStateEvent("popstate"));
             }}
           />
@@ -132,7 +147,8 @@ function App() {
           <PostEditor
             id={currentBlogSlug}
             onBack={() => {
-              window.history.pushState({}, "", "/admin");
+              const base = import.meta.env.BASE_URL || "/";
+              window.history.pushState({}, "", `${base}admin`);
               window.dispatchEvent(new PopStateEvent("popstate"));
             }}
           />
