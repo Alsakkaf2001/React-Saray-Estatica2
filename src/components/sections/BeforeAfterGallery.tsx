@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, Camera, Award, Heart } from "lucide-react";
 import type { BeforeAfterImage } from "../../types";
@@ -24,6 +24,7 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
   subtitle = "Real results from our satisfied patients. See the amazing transformations achieved through our advanced treatments.",
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [visibleImages, setVisibleImages] = useState<BeforeAfterImage[]>(images);
   const [selectedImage, setSelectedImage] = useState<BeforeAfterImage | null>(
     null
   );
@@ -35,14 +36,17 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
     { id: "cosmetic-surgery", label: "Cosmetic Surgery", icon: Heart },
   ];
 
-  const filteredImages =
-    selectedCategory === "all"
-      ? images
-      : images.filter(
-          (img) => (img.category || "").toLowerCase() === selectedCategory.toLowerCase()
-        );
-
-  const displayImages = filteredImages.length > 0 ? filteredImages : images;
+  useEffect(() => {
+    const next =
+      selectedCategory === "all"
+        ? images
+        : images.filter(
+            (img) =>
+              (img.category || "").toLowerCase() ===
+              selectedCategory.toLowerCase()
+          );
+    setVisibleImages(next.length > 0 ? next : images);
+  }, [selectedCategory, images]);
 
   return (
     <section className="section-padding bg-gradient-to-b from-gray-50 to-white">
@@ -79,6 +83,7 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
                 variant={
                   selectedCategory === category.id ? "primary" : "outline"
                 }
+                type="button"
                 onClick={() => setSelectedCategory(category.id)}
                 className="flex items-center gap-2 text-sm sm:text-base"
                 size="md"
@@ -98,7 +103,7 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
           variants={staggerContainer}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-0"
         >
-          {displayImages.map((image) => (
+          {visibleImages.map((image) => (
             <motion.div
               key={image.id}
               variants={scaleIn}
