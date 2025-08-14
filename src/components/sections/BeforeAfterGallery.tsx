@@ -38,7 +38,11 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
   const filteredImages =
     selectedCategory === "all"
       ? images
-      : images.filter((img) => img.category === selectedCategory);
+      : images.filter(
+          (img) => (img.category || "").toLowerCase() === selectedCategory.toLowerCase()
+        );
+
+  const displayImages = filteredImages.length > 0 ? filteredImages : images;
 
   return (
     <section className="section-padding bg-gradient-to-b from-gray-50 to-white">
@@ -94,7 +98,7 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
           variants={staggerContainer}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-0"
         >
-          {filteredImages.map((image) => (
+          {displayImages.map((image) => (
             <motion.div
               key={image.id}
               variants={scaleIn}
