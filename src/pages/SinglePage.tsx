@@ -3,19 +3,27 @@ import Layout from "../components/layout/Layout";
 import SEOHead from "../components/ui/SEOHead";
 import HeroSection from "../components/sections/HeroSection";
 import TreatmentsSection from "../components/sections/TreatmentsSection";
-import BeforeAfterGallery from "../components/sections/BeforeAfterGallery";
-import AboutSection from "../components/sections/AboutSection";
+import TrustResultsSection from "../components/sections/TrustResultsSection";
+import PatientJourneySection from "../components/sections/PatientJourneySection";
+import BrandPhilosophySection from "../components/sections/BrandPhilosophySection";
 import ContactSection from "../components/sections/ContactSection";
-import { BEFORE_AFTER_IMAGES } from "../utils/constants";
 
 interface SinglePageProps {
   onNavigateToBlog?: () => void;
+  onNavigateToTreatment?: (treatmentId: string) => void;
+  onNavigateToAbout?: () => void;
 }
 
-const SinglePage: React.FC<SinglePageProps> = ({ onNavigateToBlog }) => {
+const SinglePage: React.FC<SinglePageProps> = ({
+  onNavigateToBlog,
+  onNavigateToTreatment,
+  onNavigateToAbout,
+}) => {
   const handleNavigation = (href: string) => {
     if (href === "/blog" && onNavigateToBlog) {
       onNavigateToBlog();
+    } else if (href === "/about" && onNavigateToAbout) {
+      onNavigateToAbout();
     } else if (href.startsWith("/#")) {
       // Navigate to home page with hash (from blog page)
       const base = import.meta.env.BASE_URL || "/";
@@ -62,23 +70,25 @@ const SinglePage: React.FC<SinglePageProps> = ({ onNavigateToBlog }) => {
         <section id="treatments" className="relative">
           <TreatmentsSection
             showAll={true}
-            title="Our Premium Treatments"
-            subtitle="Discover our comprehensive range of aesthetic and medical treatments, performed by expert specialists using the latest technology and international standards."
+            title="High-Quality Treatments with Clear, Honest Pricing"
+            subtitle="We believe great results should be accessible. Here you'll find our full range of treatments, complete with transparent starting from prices and real patient galleries, so you can make a smart, informed decision."
+            onTreatmentClick={onNavigateToTreatment}
           />
         </section>
 
-        {/* Before & After Gallery Section */}
-        <section id="before-after" className="relative">
-          <BeforeAfterGallery
-            images={BEFORE_AFTER_IMAGES}
-            title="Real Results from Real People"
-            subtitle="Witness the incredible transformations achieved by our patients. See the life-changing results that make us one of Istanbul's leading aesthetic clinics."
-          />
+        {/* Trust & Results Hub Section */}
+        <section id="trust-results" className="relative">
+          <TrustResultsSection />
         </section>
 
-        {/* About Section */}
+        {/* Patient Journey Section */}
+        <section id="patient-journey" className="relative">
+          <PatientJourneySection />
+        </section>
+
+        {/* Brand Philosophy Section */}
         <section id="about" className="relative">
-          <AboutSection />
+          <BrandPhilosophySection />
         </section>
 
         {/* Contact Section */}

@@ -4,27 +4,35 @@ import {
   Phone,
   Mail,
   MapPin,
-  Clock,
   Facebook,
   Instagram,
   Youtube,
-  Linkedin,
+  MessageCircle,
 } from "lucide-react";
-import {
-  CONTACT_INFO,
-  SOCIAL_LINKS,
-  NAVIGATION_ITEMS,
-} from "../../utils/constants";
+import { CONTACT_INFO, SOCIAL_LINKS } from "../../utils/constants";
 import { fadeIn, staggerContainer } from "../../utils/animations";
-import Button from "../ui/Button";
 import logoImage from "../../assets/FINAL LOGO ABO KAREEM 1 (1).png";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
-  const quickLinks = NAVIGATION_ITEMS.filter((item) => !item.subItems);
-  const treatmentLinks =
-    NAVIGATION_ITEMS.find((item) => item.id === "treatments")?.subItems || [];
+  const keyProcedures = [
+    { label: "Hair Restoration", href: "#treatments" },
+    { label: "Dental Treatments", href: "#treatments" },
+    { label: "Rhinoplasty", href: "#treatments" },
+    { label: "Liposuction", href: "#treatments" },
+    { label: "Facelift", href: "#treatments" },
+    { label: "See All Treatments →", href: "#treatments" },
+  ];
+
+  const importantLinks = [
+    { label: "About Saray Estetica", href: "/about" },
+    { label: "Before & After Gallery", href: "#trust-results" },
+    { label: "Patient Reviews", href: "#" },
+    { label: "Your Journey & Pricing", href: "#patient-journey" },
+    { label: "Contact Us", href: "#contact" },
+    { label: "Blog", href: "/blog" },
+  ];
 
   return (
     <footer className="bg-gradient-primary text-white">
@@ -36,142 +44,23 @@ const Footer: React.FC = () => {
         viewport={{ once: true }}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-0">
-          {/* Company Info */}
+          {/* Column 1: Brand & Socials */}
           <motion.div variants={fadeIn} className="space-y-4 sm:space-y-6">
             <div>
               <div className="mb-3 sm:mb-4">
                 <img
                   src={logoImage}
-                  alt="Saray Estetic Logo"
+                  alt="Saray Estetica Logo"
                   className="h-10 sm:h-12 md:h-14 w-auto object-contain brightness-0 invert"
                 />
               </div>
-              <p className="text-sm sm:text-base text-primary-100 leading-relaxed">
-                Leading aesthetic clinic in Istanbul offering world-class
-                treatments with international standards. Your transformation
-                journey starts here.
+              <p className="text-sm sm:text-base text-primary-100 leading-relaxed mb-4">
+                The smarter way to achieve your aesthetic goals.
               </p>
-            </div>
-
-            <div className="space-y-2 sm:space-y-3">
-              <div className="flex items-center">
-                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-accent-400 flex-shrink-0" />
-                <span className="text-sm sm:text-base text-primary-100">
-                  {CONTACT_INFO.address}
-                </span>
-              </div>
-              <div className="flex items-center">
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-accent-400 flex-shrink-0" />
-                <a
-                  href={`tel:${CONTACT_INFO.phone}`}
-                  className="text-sm sm:text-base text-primary-100 hover:text-white transition-colors"
-                >
-                  {CONTACT_INFO.phone}
-                </a>
-              </div>
-              <div className="flex items-center">
-                <Mail className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-accent-400 flex-shrink-0" />
-                <a
-                  href={`mailto:${CONTACT_INFO.email}`}
-                  className="text-sm sm:text-base text-primary-100 hover:text-white transition-colors break-all"
-                >
-                  {CONTACT_INFO.email}
-                </a>
-              </div>
-              <div className="flex items-center">
-                <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-accent-400 flex-shrink-0" />
-                <span className="text-sm sm:text-base text-primary-100">
-                  {CONTACT_INFO.workingHours.weekdays}
-                </span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div variants={fadeIn} className="space-y-4 sm:space-y-6">
-            <h4 className="text-lg sm:text-xl font-semibold">Quick Links</h4>
-            <ul className="space-y-2 sm:space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.id}>
-                  <a
-                    href={link.href}
-                    className="text-sm sm:text-base text-primary-100 hover:text-white hover:pl-2 transition-all duration-200 block"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <a
-                  href="/privacy-policy"
-                  className="text-primary-100 hover:text-white hover:pl-2 transition-all duration-200"
-                >
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/terms-conditions"
-                  className="text-primary-100 hover:text-white hover:pl-2 transition-all duration-200"
-                >
-                  Terms & Conditions
-                </a>
-              </li>
-            </ul>
-          </motion.div>
-
-          {/* Treatments */}
-          <motion.div variants={fadeIn} className="space-y-4 sm:space-y-6">
-            <h4 className="text-lg sm:text-xl font-semibold">Our Treatments</h4>
-            <ul className="space-y-2 sm:space-y-3">
-              {treatmentLinks.map((treatment) => (
-                <li key={treatment.id}>
-                  <a
-                    href={treatment.href}
-                    className="text-sm sm:text-base text-primary-100 hover:text-white hover:pl-2 transition-all duration-200 block"
-                  >
-                    {treatment.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Newsletter & Social */}
-          <motion.div variants={fadeIn} className="space-y-4 sm:space-y-6">
-            <h4 className="text-lg sm:text-xl font-semibold">Stay Connected</h4>
-            <div className="space-y-3 sm:space-y-4">
-              <p className="text-sm sm:text-base text-primary-100">
-                Subscribe to our newsletter for the latest updates and special
-                offers.
-              </p>
-
-              {/* Newsletter Form */}
-              <div className="space-y-2 sm:space-y-3">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full px-3 sm:px-4 py-3 h-12 text-sm sm:text-base rounded-lg bg-white/10 border border-white/20 text-white placeholder-primary-200 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent"
-                />
-                <Button variant="accent" size="md" fullWidth>
-                  Subscribe
-                </Button>
-              </div>
 
               {/* Social Links */}
               <div>
-                <h5 className="text-base sm:text-lg font-medium mb-2 sm:mb-3">
-                  Follow Us
-                </h5>
                 <div className="flex space-x-3 sm:space-x-4">
-                  <a
-                    href={SOCIAL_LINKS.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 min-w-[48px] min-h-[48px] bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-200 flex items-center justify-center"
-                  >
-                    <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </a>
                   <a
                     href={SOCIAL_LINKS.instagram}
                     target="_blank"
@@ -181,6 +70,28 @@ const Footer: React.FC = () => {
                     <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
                   </a>
                   <a
+                    href={SOCIAL_LINKS.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 min-w-[48px] min-h-[48px] bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-200 flex items-center justify-center"
+                  >
+                    <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </a>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 min-w-[48px] min-h-[48px] bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-200 flex items-center justify-center"
+                  >
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.624 5.367 11.987 11.988 11.987s11.987-5.363 11.987-11.987C24.004 5.367 18.641.001 12.017.001zM17.66 15.577c-.16.389-.67.622-1.097.622-.17 0-.353-.026-.537-.08-1.29-.376-1.717-.682-3.454-.682s-2.164.306-3.454.682c-.565.164-1.171-.062-1.354-.622-.183-.56.062-1.171.622-1.354 1.878-.55 2.722-.842 4.186-.842s2.308.292 4.186.842c.56.183.805.794.622 1.354zM8.364 12.5c-.823 0-1.49-.68-1.49-1.49s.667-1.49 1.49-1.49 1.49.68 1.49 1.49-.667 1.49-1.49 1.49zm7.271 0c-.823 0-1.49-.68-1.49-1.49s.667-1.49 1.49-1.49 1.49.68 1.49 1.49-.667 1.49-1.49 1.49z" />
+                    </svg>
+                  </a>
+                  <a
                     href={SOCIAL_LINKS.youtube}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -188,13 +99,99 @@ const Footer: React.FC = () => {
                   >
                     <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
                   </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Column 2: Key Procedures */}
+          <motion.div variants={fadeIn} className="space-y-4 sm:space-y-6">
+            <h4 className="text-lg sm:text-xl font-semibold">Key Procedures</h4>
+            <ul className="space-y-2 sm:space-y-3">
+              {keyProcedures.map((procedure, index) => (
+                <li key={index}>
                   <a
-                    href={SOCIAL_LINKS.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 min-w-[48px] min-h-[48px] bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-200 flex items-center justify-center"
+                    href={procedure.href}
+                    className={`text-sm sm:text-base text-primary-100 hover:text-white hover:pl-2 transition-all duration-200 block ${
+                      procedure.label.includes("→")
+                        ? "font-medium text-accent-400"
+                        : ""
+                    }`}
                   >
-                    <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
+                    {procedure.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Column 3: Important Links */}
+          <motion.div variants={fadeIn} className="space-y-4 sm:space-y-6">
+            <h4 className="text-lg sm:text-xl font-semibold">
+              Important Links
+            </h4>
+            <ul className="space-y-2 sm:space-y-3">
+              {importantLinks.map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.href}
+                    className="text-sm sm:text-base text-primary-100 hover:text-white hover:pl-2 transition-all duration-200 block"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Column 4: Get in Touch */}
+          <motion.div variants={fadeIn} className="space-y-4 sm:space-y-6">
+            <h4 className="text-lg sm:text-xl font-semibold">Get In Touch</h4>
+            <div className="space-y-3 sm:space-y-4">
+              <a
+                href={`https://wa.me/${CONTACT_INFO.whatsapp.replace(
+                  /[^0-9]/g,
+                  ""
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-3 text-primary-100 hover:text-white transition-colors"
+              >
+                <MessageCircle className="w-5 h-5 text-accent-400" />
+                <span className="text-sm sm:text-base">Chat With Us</span>
+              </a>
+
+              <a
+                href={`tel:${CONTACT_INFO.phone}`}
+                className="flex items-center space-x-3 text-primary-100 hover:text-white transition-colors"
+              >
+                <Phone className="w-5 h-5 text-accent-400" />
+                <span className="text-sm sm:text-base">
+                  {CONTACT_INFO.phone}
+                </span>
+              </a>
+
+              <a
+                href={`mailto:${CONTACT_INFO.email}`}
+                className="flex items-center space-x-3 text-primary-100 hover:text-white transition-colors"
+              >
+                <Mail className="w-5 h-5 text-accent-400" />
+                <span className="text-sm sm:text-base break-all">
+                  {CONTACT_INFO.email}
+                </span>
+              </a>
+
+              <div className="flex items-start space-x-3 text-primary-100">
+                <MapPin className="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-sm sm:text-base">
+                    Nisantaşı, Istanbul, Turkey
+                  </div>
+                  <a
+                    href="#"
+                    className="text-xs sm:text-sm text-accent-400 hover:text-white transition-colors"
+                  >
+                    Get Directions
                   </a>
                 </div>
               </div>
@@ -202,46 +199,38 @@ const Footer: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Sub-Footer Bar */}
         <motion.div
           variants={fadeIn}
           className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-primary-500/30 px-4 sm:px-0"
         >
           <div className="flex flex-col md:flex-row justify-between items-center space-y-3 sm:space-y-4 md:space-y-0 text-center md:text-left">
-            <div className="text-primary-100 text-xs sm:text-sm">
-              © {currentYear} Saray Estetic. All rights reserved.
-            </div>
-            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 lg:space-x-6 text-xs sm:text-sm text-primary-100">
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm text-primary-100">
+              <span>© {currentYear} Saray Estetica. All Rights Reserved.</span>
+              <span className="hidden sm:inline">|</span>
               <a
                 href="/privacy-policy"
                 className="hover:text-white transition-colors"
               >
                 Privacy Policy
               </a>
+              <span className="hidden sm:inline">|</span>
               <a
                 href="/terms-conditions"
                 className="hover:text-white transition-colors"
               >
                 Terms of Service
               </a>
-              <a
-                href="/cookie-policy"
-                className="hover:text-white transition-colors"
-              >
-                Cookie Policy
-              </a>
-              <a
-                href="/admin/login"
-                className="hover:text-white transition-colors font-medium"
-                onClick={(e) => {
-                  e.preventDefault();
-                  // Use same navigation function style as rest of app
-                  window.history.pushState({}, "", "/admin/login");
-                  window.dispatchEvent(new PopStateEvent("popstate"));
-                }}
-              >
-                Admin Login
-              </a>
+            </div>
+            <div className="flex items-center space-x-4">
+              {/* JCI Logo Placeholder */}
+              <div className="bg-white/10 px-3 py-1 rounded text-xs font-medium">
+                JCI
+              </div>
+              {/* Other Accreditation Logo Placeholder */}
+              <div className="bg-white/10 px-3 py-1 rounded text-xs font-medium">
+                ISO
+              </div>
             </div>
           </div>
         </motion.div>

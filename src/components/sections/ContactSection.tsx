@@ -7,7 +7,6 @@ import {
   Phone,
   Mail,
   MapPin,
-  Clock,
   MessageSquare,
   Send,
   CheckCircle,
@@ -166,12 +165,8 @@ const ContactSection: React.FC = () => {
             className="text-center mb-8 sm:mb-12 lg:mb-16 px-4 sm:px-0"
           >
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-text-primary mb-4 sm:mb-6">
-              Get In Touch
+              Ready to See Your Personalized Plan?
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2 sm:px-0">
-              Ready to start your transformation journey? Contact us today for a
-              free consultation with our expert team.
-            </p>
           </motion.div>
 
           {/* Contact Info Cards */}
@@ -186,11 +181,70 @@ const ContactSection: React.FC = () => {
 
           {/* Main Contact Form Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-0">
-            {/* Contact Form */}
-            <motion.div variants={slideLeft}>
+            {/* Left Column - Reassurance Text */}
+            <motion.div variants={slideLeft} className="space-y-6">
+              <div>
+                <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed mb-6">
+                  The first step is a simple, friendly conversation. There's no
+                  cost and no obligation. Tell us what you're hoping to achieve,
+                  and one of our dedicated coordinators will get back to you
+                  with a clear plan and an all-inclusive quote.
+                </p>
+
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-base text-gray-700">
+                      100% Free & Confidential
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-base text-gray-700">
+                      Personalized Expert Advice
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-base text-gray-700">
+                      A Clear, No-Surprises Quote
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Alternative Contact */}
+              <div className="bg-green-50 p-6 rounded-lg">
+                <div className="flex items-center space-x-3 mb-2">
+                  <MessageSquare className="w-6 h-6 text-green-600" />
+                  <span className="text-lg font-semibold text-gray-900">
+                    Prefer to talk?
+                  </span>
+                </div>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="bg-green-500 hover:bg-green-600 w-full"
+                  leftIcon={
+                    <svg
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.106" />
+                    </svg>
+                  }
+                >
+                  Chat Now on WhatsApp
+                </Button>
+              </div>
+            </motion.div>
+
+            {/* Right Column - Simplified Form */}
+            <motion.div variants={slideRight}>
               <Card className="p-4 sm:p-6 lg:p-8">
                 <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-text-primary mb-4 sm:mb-6">
-                  Send Us a Message
+                  Start Your Free Consultation
                 </h3>
 
                 {isSubmitted ? (
@@ -225,62 +279,40 @@ const ContactSection: React.FC = () => {
                       {...register("name")}
                     />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                      <Input
-                        label="Email Address"
-                        type="email"
-                        placeholder="your@email.com"
-                        error={errors.email?.message}
-                        size="md"
-                        {...register("email")}
-                      />
-                      <Input
-                        label="Phone Number"
-                        type="tel"
-                        placeholder="+90 XXX XXX XXXX"
-                        error={errors.phone?.message}
-                        size="md"
-                        {...register("phone")}
-                      />
-                    </div>
-
                     <Input
-                      label="Subject"
-                      placeholder="What is this regarding?"
-                      error={errors.subject?.message}
+                      label="Email Address"
+                      type="email"
+                      placeholder="your@email.com"
+                      error={errors.email?.message}
                       size="md"
-                      {...register("subject")}
+                      {...register("email")}
                     />
 
                     <div className="form-group">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Message
-                      </label>
-                      <textarea
-                        className="input-field min-h-[120px] resize-vertical text-base"
-                        placeholder="Tell us how we can help you..."
-                        {...register("message")}
-                      />
-                      {errors.message && (
-                        <p className="error-message mt-2">
-                          {errors.message.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="form-group">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Preferred Contact Method
+                        Service of Interest
                       </label>
                       <select
                         className="input-field text-base"
-                        {...register("preferredContact")}
+                        {...register("subject")}
                       >
-                        <option value="">Select preference</option>
-                        <option value="email">Email</option>
-                        <option value="phone">Phone Call</option>
-                        <option value="whatsapp">WhatsApp</option>
+                        <option value="">Select a service</option>
+                        <option value="Hair Restoration">
+                          Hair Restoration
+                        </option>
+                        <option value="Dental Treatments">
+                          Dental Treatments
+                        </option>
+                        <option value="Rhinoplasty">Rhinoplasty</option>
+                        <option value="Liposuction">Liposuction</option>
+                        <option value="Facelift">Facelift</option>
+                        <option value="Other">Other</option>
                       </select>
+                      {errors.subject && (
+                        <p className="error-message mt-2">
+                          {errors.subject.message}
+                        </p>
+                      )}
                     </div>
 
                     <Button
@@ -291,89 +323,10 @@ const ContactSection: React.FC = () => {
                       isLoading={isSubmitting}
                       rightIcon={<Send className="w-4 h-4 sm:w-5 sm:h-5" />}
                     >
-                      Send Message
+                      Get My Free Quote & Plan
                     </Button>
                   </form>
                 )}
-              </Card>
-            </motion.div>
-
-            {/* Map and Additional Info */}
-            <motion.div
-              variants={slideRight}
-              className="space-y-6 sm:space-y-8"
-            >
-              {/* Map Placeholder */}
-              <Card className="p-4 sm:p-6 lg:p-8">
-                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-3 sm:mb-4">
-                  Our Location
-                </h3>
-                <div className="aspect-video bg-gray-200 rounded-lg mb-3 sm:mb-4 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-1 sm:mb-2" />
-                    <p className="text-sm sm:text-base text-gray-500">
-                      Interactive Map
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-400">
-                      Google Maps integration
-                    </p>
-                  </div>
-                </div>
-                <div className="space-y-2 sm:space-y-3 text-sm">
-                  <div className="flex items-start">
-                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 sm:mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-text-primary text-sm sm:text-base">
-                        Address
-                      </p>
-                      <p className="text-gray-600 text-sm sm:text-base">
-                        {CONTACT_INFO.address}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Working Hours */}
-              <Card className="p-4 sm:p-6 lg:p-8">
-                <h3 className="text-lg sm:text-xl font-semibold text-text-primary mb-3 sm:mb-4">
-                  Working Hours
-                </h3>
-                <div className="space-y-2 sm:space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm sm:text-base text-gray-600">
-                      Monday - Friday
-                    </span>
-                    <span className="font-medium text-text-primary text-sm sm:text-base">
-                      {CONTACT_INFO.workingHours.weekdays}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm sm:text-base text-gray-600">
-                      Saturday
-                    </span>
-                    <span className="font-medium text-text-primary text-sm sm:text-base">
-                      {CONTACT_INFO.workingHours.saturday}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm sm:text-base text-gray-600">
-                      Sunday
-                    </span>
-                    <span className="font-medium text-text-primary text-sm sm:text-base">
-                      {CONTACT_INFO.workingHours.sunday}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-primary-50 rounded-lg">
-                  <div className="flex items-center">
-                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-primary-500 mr-2 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm font-medium text-primary-500">
-                      Emergency consultations available 24/7
-                    </span>
-                  </div>
-                </div>
               </Card>
             </motion.div>
           </div>

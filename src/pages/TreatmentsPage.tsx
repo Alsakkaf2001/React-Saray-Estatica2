@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Layout from "../components/layout/Layout";
+import SEOHead from "../components/ui/SEOHead";
 import TreatmentsSection from "../components/sections/TreatmentsSection";
 import BeforeAfterGallery from "../components/sections/BeforeAfterGallery";
 import Button from "../components/ui/Button";
@@ -9,7 +10,14 @@ import { fadeIn, slideUp } from "../utils/animations";
 
 const TreatmentsPage: React.FC = () => {
   return (
-    <Layout>
+    <>
+      <SEOHead
+        title="Aesthetic Treatments - Hair Transplant, Dental & Cosmetic Surgery"
+        description="Explore our comprehensive aesthetic treatments: hair transplant (FUE, DHI), dental treatments, rhinoplasty, cosmetic surgery. Expert specialists using latest technology in Istanbul."
+        keywords="hair transplant istanbul, dental implants, rhinoplasty, cosmetic surgery, FUE hair transplant, dental treatments turkey, aesthetic procedures"
+        url="https://sarayestetic.com/treatments"
+      />
+      <Layout>
       {/* Hero Section */}
       <section className="relative min-h-[60vh] bg-gradient-to-br from-primary-500 to-secondary-500 text-white flex items-center">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -227,6 +235,7 @@ const TreatmentsPage: React.FC = () => {
         </motion.div>
       </section>
     </Layout>
+    </>
   );
 };
 

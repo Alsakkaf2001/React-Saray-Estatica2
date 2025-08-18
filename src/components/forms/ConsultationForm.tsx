@@ -129,21 +129,21 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
           </div>
 
           <Input
-            label="Email"
-            type="email"
-            leftIcon={<Mail className="w-4 h-4 sm:w-5 sm:h-5" />}
-            error={errors.email?.message}
-            className="text-base"
-            {...register("email")}
-          />
-
-          <Input
             label="Phone"
             type="tel"
             leftIcon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
             error={errors.phone?.message}
             className="text-base"
             {...register("phone")}
+          />
+
+          <Input
+            label="Email"
+            type="email"
+            leftIcon={<Mail className="w-4 h-4 sm:w-5 sm:h-5" />}
+            error={errors.email?.message}
+            className="text-base"
+            {...register("email")}
           />
 
           <div className="form-group">

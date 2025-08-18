@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Layout from "../components/layout/Layout";
+import SEOHead from "../components/ui/SEOHead";
 import ContactSection from "../components/sections/ContactSection";
 import Button from "../components/ui/Button";
 import { fadeIn, slideUp } from "../utils/animations";
@@ -14,7 +15,14 @@ import {
 
 const ContactPage: React.FC = () => {
   return (
-    <Layout>
+    <>
+      <SEOHead
+        title="Contact Saray Estetica - Get Your Free Consultation"
+        description="Contact Saray Estetica for your free consultation. Located in Istanbul, Turkey. Call +90 212 555 0123 or book online. 24/7 support available for international patients."
+        keywords="contact saray estetica, free consultation, istanbul clinic, medical tourism contact, aesthetic clinic istanbul, hair transplant consultation"
+        url="https://sarayestetic.com/contact"
+      />
+      <Layout>
       {/* Hero Section */}
       <section className="relative min-h-[60vh] bg-gradient-to-br from-primary-500 to-secondary-500 text-white flex items-center">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -339,6 +347,7 @@ const ContactPage: React.FC = () => {
         </motion.div>
       </section>
     </Layout>
+    </>
   );
 };
 

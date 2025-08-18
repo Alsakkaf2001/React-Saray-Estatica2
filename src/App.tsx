@@ -4,6 +4,8 @@ import usePerformanceMonitor from "./hooks/usePerformanceMonitor";
 import SinglePage from "./pages/SinglePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
+import TreatmentDetailsPage from "./pages/TreatmentDetailsPage";
+import AboutPage from "./pages/AboutPage";
 import AdminLogin from "./pages/admin/AdminLogin";
 import PostsList from "./pages/admin/PostsList";
 import PostEditor from "./pages/admin/PostEditor";
@@ -12,6 +14,8 @@ type AppPage =
   | "home"
   | "blog"
   | "blog-post"
+  | "treatment-details"
+  | "about"
   | "admin-login"
   | "admin"
   | "admin-edit";
@@ -19,6 +23,7 @@ type AppPage =
 function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>("home");
   const [currentBlogSlug, setCurrentBlogSlug] = useState<string>("");
+  const [currentTreatmentId, setCurrentTreatmentId] = useState<string>("");
 
   // Monitor performance metrics
   usePerformanceMonitor();
@@ -43,6 +48,12 @@ function App() {
         setCurrentBlogSlug(path.split("/admin/posts/")[1]);
       } else if (path.startsWith("/admin")) {
         setCurrentPage("admin");
+      } else if (path.includes("/treatments/") && path.split("/").length > 2) {
+        const treatmentId = path.split("/treatments/")[1];
+        setCurrentTreatmentId(treatmentId);
+        setCurrentPage("treatment-details");
+      } else if (path.includes("/about")) {
+        setCurrentPage("about");
       } else if (path.includes("/blog/") && path.split("/").length > 2) {
         const slug = path.split("/blog/")[1];
         setCurrentBlogSlug(slug);
@@ -96,6 +107,27 @@ function App() {
     window.history.pushState({}, "", `${base}blog/${slug}`);
     setCurrentBlogSlug(slug);
     setCurrentPage("blog-post");
+  };
+
+  const navigateToTreatmentDetails = (treatmentId: string) => {
+    const base = import.meta.env.BASE_URL || "/";
+    window.history.pushState({}, "", `${base}treatments/${treatmentId}`);
+    setCurrentTreatmentId(treatmentId);
+    setCurrentPage("treatment-details");
+  };
+
+  const navigateBackToHome = () => {
+    const base = import.meta.env.BASE_URL || "/";
+    window.history.pushState({}, "", base);
+    setCurrentPage("home");
+    window.scrollTo({ top: 0, behavior: "auto" });
+  };
+
+  const navigateToAbout = () => {
+    const base = import.meta.env.BASE_URL || "/";
+    window.history.pushState({}, "", `${base}about`);
+    setCurrentPage("about");
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
 
   const navigateToHomeSection = (hash: string) => {
@@ -169,9 +201,25 @@ function App() {
             onNavigateToHome={navigateToHomeSection}
           />
         );
+      case "treatment-details":
+        return (
+          <TreatmentDetailsPage
+            treatmentId={currentTreatmentId}
+            onBack={navigateBackToHome}
+            onNavigate={navigateToHomeSection}
+          />
+        );
+      case "about":
+        return <AboutPage onNavigate={navigateToHomeSection} />;
       case "home":
       default:
-        return <SinglePage onNavigateToBlog={navigateToBlog} />;
+        return (
+          <SinglePage
+            onNavigateToBlog={navigateToBlog}
+            onNavigateToTreatment={navigateToTreatmentDetails}
+            onNavigateToAbout={navigateToAbout}
+          />
+        );
     }
   };
 

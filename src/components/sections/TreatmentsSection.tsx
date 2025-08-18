@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Clock, DollarSign, Star, Eye } from "lucide-react";
+import { ArrowRight, Clock, DollarSign, Eye } from "lucide-react";
 import type { Treatment } from "../../types";
 import { TREATMENTS } from "../../utils/constants";
 import {
@@ -10,11 +10,10 @@ import {
 } from "../../utils/animations";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
-import Modal from "../ui/Modal";
 
 interface TreatmentCardProps {
   treatment: Treatment;
-  onViewDetails: (treatment: Treatment) => void;
+  onViewDetails: (treatmentId: string) => void;
 }
 
 const TreatmentCard: React.FC<TreatmentCardProps> = ({
@@ -61,7 +60,7 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
             <Button
               variant="accent"
               leftIcon={<Eye className="w-4 h-4" />}
-              onClick={() => onViewDetails(treatment)}
+              onClick={() => onViewDetails(treatment.id)}
             >
               View Details
             </Button>
@@ -121,7 +120,7 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
             fullWidth
             size="md"
             rightIcon={<ArrowRight className="w-4 h-4" />}
-            onClick={() => onViewDetails(treatment)}
+            onClick={() => onViewDetails(treatment.id)}
             className="text-sm sm:text-base"
           >
             Learn More
@@ -132,100 +131,12 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
   );
 };
 
-interface TreatmentDetailModalProps {
-  treatment: Treatment | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const TreatmentDetailModal: React.FC<TreatmentDetailModalProps> = ({
-  treatment,
-  isOpen,
-  onClose,
-}) => {
-  if (!treatment) return null;
-
-  return (
-    <Modal isOpen={isOpen} onClose={onClose} title={treatment.title} size="lg">
-      <div className="p-6">
-        {/* Image */}
-        <div className="aspect-video mb-6 rounded-lg overflow-hidden">
-          <img
-            src={treatment.image}
-            alt={treatment.title}
-            className="w-full h-full object-cover max-w-full"
-          />
-        </div>
-
-        {/* Description */}
-        <div className="prose max-w-none mb-6">
-          <p className="text-lg text-gray-700 leading-relaxed">
-            {treatment.description}
-          </p>
-        </div>
-
-        {/* Features */}
-        {treatment.features && treatment.features.length > 0 && (
-          <div className="mb-6">
-            <h4 className="text-lg font-semibold text-text-primary mb-3">
-              Treatment Features
-            </h4>
-            <div className="grid grid-cols-2 gap-3">
-              {treatment.features.map((feature, index) => (
-                <div key={index} className="flex items-center">
-                  <Star className="w-4 h-4 text-accent-500 mr-2" />
-                  <span className="text-gray-700">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Price and Duration */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
-          {treatment.price && (
-            <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
-              <div className="flex items-center text-gray-600 mb-1 text-sm sm:text-base">
-                <DollarSign className="w-4 h-4 mr-2" />
-                Price
-              </div>
-              <div className="text-lg sm:text-xl font-semibold text-text-primary">
-                {treatment.price}
-              </div>
-            </div>
-          )}
-          {treatment.duration && (
-            <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
-              <div className="flex items-center text-gray-600 mb-1 text-sm sm:text-base">
-                <Clock className="w-4 h-4 mr-2" />
-                Duration
-              </div>
-              <div className="text-lg sm:text-xl font-semibold text-text-primary">
-                {treatment.duration}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Button variant="primary" size="lg" fullWidth className="w-full">
-            Book Consultation
-          </Button>
-          <Button variant="outline" size="lg" fullWidth className="w-full">
-            Get Quote
-          </Button>
-        </div>
-      </div>
-    </Modal>
-  );
-};
-
 interface TreatmentsSectionProps {
   showAll?: boolean;
   category?: string;
   title?: string;
   subtitle?: string;
+  onTreatmentClick?: (treatmentId: string) => void;
 }
 
 const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
@@ -233,18 +144,22 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
   category,
   title = "Our Premium Treatments",
   subtitle = "Discover our comprehensive range of aesthetic treatments designed to enhance your natural beauty and boost your confidence.",
+  onTreatmentClick,
 }) => {
-  const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(
-    null
-  );
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [activeCategory, setActiveCategory] = useState<string>("dental");
 
   // Filter treatments
   let filteredTreatments = TREATMENTS;
   if (category) {
     filteredTreatments = TREATMENTS.filter((t) => t.category === category);
-  } else if (activeCategory !== "all") {
+  } else if (showAll) {
+    // When showAll is true, show all treatments but still allow filtering
+    if (activeCategory) {
+      filteredTreatments = TREATMENTS.filter(
+        (t) => t.category === activeCategory
+      );
+    }
+  } else {
     filteredTreatments = TREATMENTS.filter(
       (t) => t.category === activeCategory
     );
@@ -256,21 +171,16 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
   }
 
   const categories = [
-    { id: "all", label: "All Treatments" },
-    { id: "hair-transplant", label: "Hair Transplant" },
-    { id: "dental", label: "Dental" },
-    { id: "nose-surgery", label: "Nose Surgery" },
-    { id: "cosmetic-surgery", label: "Cosmetic Surgery" },
+    { id: "dental", label: "Dental Treatments" },
+    { id: "nose-surgery", label: "Face & Nose Aesthetics" },
+    { id: "cosmetic-surgery", label: "Body Aesthetics" },
+    { id: "hair-transplant", label: "Hair Restoration" },
   ];
 
-  const handleViewDetails = (treatment: Treatment) => {
-    setSelectedTreatment(treatment);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedTreatment(null);
+  const handleViewDetails = (treatmentId: string) => {
+    if (onTreatmentClick) {
+      onTreatmentClick(treatmentId);
+    }
   };
 
   return (
@@ -351,13 +261,6 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
           )}
         </motion.div>
       </div>
-
-      {/* Treatment Detail Modal */}
-      <TreatmentDetailModal
-        treatment={selectedTreatment}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
     </section>
   );
 };

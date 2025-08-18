@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Layout from "../components/layout/Layout";
+import SEOHead from "../components/ui/SEOHead";
 import BeforeAfterGallery from "../components/sections/BeforeAfterGallery";
 import Button from "../components/ui/Button";
 import { BEFORE_AFTER_IMAGES } from "../utils/constants";
@@ -8,7 +9,14 @@ import { fadeIn, slideUp } from "../utils/animations";
 
 const BeforeAfterPage: React.FC = () => {
   return (
-    <Layout>
+    <>
+      <SEOHead
+        title="Before & After Gallery - Real Patient Results"
+        description="See real before and after photos of our patients' transformations. Hair transplant, dental treatments, rhinoplasty and cosmetic surgery results from Saray Estetica Istanbul."
+        keywords="before after photos, hair transplant results, dental transformation, rhinoplasty before after, cosmetic surgery results, patient gallery istanbul"
+        url="https://sarayestetic.com/before-after"
+      />
+      <Layout>
       {/* Hero Section */}
       <section className="relative min-h-[60vh] bg-gradient-to-br from-primary-500 to-secondary-500 text-white flex items-center">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -303,6 +311,7 @@ const BeforeAfterPage: React.FC = () => {
         </motion.div>
       </section>
     </Layout>
+    </>
   );
 };
 

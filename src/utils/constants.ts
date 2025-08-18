@@ -27,7 +27,7 @@ export const NAVIGATION_ITEMS: NavItem[] = [
   {
     id: 'about',
     label: 'About Us',
-    href: '#about'
+    href: '/about'
   },
   {
     id: 'contact',
@@ -105,9 +105,9 @@ export const BEFORE_AFTER_IMAGES = [
 export const TREATMENTS: Treatment[] = [
   // Hair Transplant
   {
-    id: 'fue-hair-transplant',
-    title: 'FUE Hair Transplant',
-    description: 'Follicular Unit Extraction is a minimally invasive hair transplant technique that provides natural-looking results.',
+    id: 'sapphire-fue-hair-transplant',
+    title: 'Sapphire FUE Hair Transplant',
+    description: 'A popular and effective choice for restoring your hairline. This minimally invasive technique helps you achieve a natural, fuller look with a comfortable recovery.',
     image: getTreatmentImage('fue-hair-transplant'),
     price: 'Starting from €2,500',
     duration: '6-8 hours',
@@ -155,6 +155,16 @@ export const TREATMENTS: Treatment[] = [
     duration: '5-7 days',
     category: 'dental',
     features: ['Custom design', 'Porcelain veneers', 'Color matching', 'Instant transformation']
+  },
+  {
+    id: 'dental-veneers-emax',
+    title: 'Dental Veneers (E-MAX)',
+    description: 'Premium E-MAX ceramic veneers for the most natural and durable smile transformation.',
+    image: getTreatmentImage('hollywood-smile'),
+    price: 'Starting from €400',
+    duration: '3-5 days',
+    category: 'dental',
+    features: ['E-MAX ceramic', 'Ultra-thin design', 'Natural translucency', 'Long-lasting']
   },
   
   // Nose Surgery

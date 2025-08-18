@@ -65,7 +65,28 @@ export const getTreatmentImage = (treatmentType: string): string => {
 };
 
 export const getHeroImage = (): string => {
-  return 'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=1920&h=1080&fit=crop&crop=center';
+  // High-quality medical/clinic images - specifically for aesthetic/cosmetic surgery
+  const clinicImages = [
+    'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1920&h=1080&fit=crop&crop=center&q=80', // Modern medical clinic interior
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&h=1080&fit=crop&crop=center&q=80', // Professional medical team
+    'https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?w=1920&h=1080&fit=crop&crop=center&q=80', // Clean modern clinic
+    'https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=1920&h=1080&fit=crop&crop=center&q=80', // Medical consultation room
+    'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1920&h=1080&fit=crop&crop=center&q=80', // Professional healthcare
+    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1920&h=1080&fit=crop&crop=center&q=80', // Modern medical facility
+  ];
+  
+  // Return the first (most professional) image
+  return clinicImages[0];
+};
+
+export const getAlternativeHeroImages = () => {
+  return [
+    'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1920&h=1080&fit=crop&crop=center&q=80', // Modern clinic
+    'https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?w=1920&h=1080&fit=crop&crop=center&q=80', // Clean medical environment  
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&h=1080&fit=crop&crop=center&q=80', // Medical team
+    'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1920&h=1080&fit=crop&crop=center&q=80', // Healthcare professional
+    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1920&h=1080&fit=crop&crop=center&q=80', // Medical facility
+  ];
 };
 
 export const getClinicImages = () => ({
