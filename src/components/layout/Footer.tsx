@@ -13,8 +13,42 @@ import { CONTACT_INFO, SOCIAL_LINKS } from "../../utils/constants";
 import { fadeIn, staggerContainer } from "../../utils/animations";
 import logoImage from "../../assets/FINAL LOGO ABO KAREEM 1 (1).png";
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigate?: (href: string) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const currentYear = new Date().getFullYear();
+
+  const handleNavClick = (href: string) => {
+    if (href.startsWith("#")) {
+      const targetId = href.substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        // Element exists on current page, scroll to it
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      } else if (onNavigate) {
+        // Element doesn't exist (probably on different page), navigate to home with hash
+        onNavigate("/" + href);
+      } else {
+        // Fallback to normal navigation
+        const base = import.meta.env.BASE_URL || "/";
+        window.location.href = base + href.replace(/^#/, "#");
+      }
+    } else if (onNavigate) {
+      // Handle external navigation (like /blog, /about, /admin/login)
+      onNavigate(href);
+    } else {
+      // Fallback to normal navigation
+      const base = import.meta.env.BASE_URL || "/";
+      window.location.href = href.startsWith("/")
+        ? base + href.replace(/^\//, "")
+        : href;
+    }
+  };
 
   const keyProcedures = [
     { label: "Hair Restoration", href: "#treatments" },
@@ -32,6 +66,7 @@ const Footer: React.FC = () => {
     { label: "Your Journey & Pricing", href: "#patient-journey" },
     { label: "Contact Us", href: "#contact" },
     { label: "Blog", href: "/blog" },
+    { label: "Admin", href: "/admin/login" },
   ];
 
   return (
@@ -112,7 +147,11 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={procedure.href}
-                    className={`text-sm sm:text-base text-primary-100 hover:text-white hover:pl-2 transition-all duration-200 block ${
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(procedure.href);
+                    }}
+                    className={`text-sm sm:text-base text-primary-100 hover:text-white hover:pl-2 transition-all duration-200 block cursor-pointer ${
                       procedure.label.includes("→")
                         ? "font-medium text-accent-400"
                         : ""
@@ -135,7 +174,11 @@ const Footer: React.FC = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-sm sm:text-base text-primary-100 hover:text-white hover:pl-2 transition-all duration-200 block"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
+                    className="text-sm sm:text-base text-primary-100 hover:text-white hover:pl-2 transition-all duration-200 block cursor-pointer"
                   >
                     {link.label}
                   </a>

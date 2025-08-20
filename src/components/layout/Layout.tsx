@@ -30,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({
         {children}
       </motion.main>
 
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 };

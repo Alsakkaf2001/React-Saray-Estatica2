@@ -52,14 +52,22 @@ function App() {
         const treatmentId = path.split("/treatments/")[1];
         setCurrentTreatmentId(treatmentId);
         setCurrentPage("treatment-details");
+        // Ensure treatment details page starts from top
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 100);
       } else if (path.includes("/about")) {
         setCurrentPage("about");
+        // Ensure about page starts from top
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 100);
       } else if (path.includes("/blog/") && path.split("/").length > 2) {
         const slug = path.split("/blog/")[1];
         setCurrentBlogSlug(slug);
         setCurrentPage("blog-post");
+        // Ensure blog post page starts from top
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 100);
       } else if (path.includes("/blog")) {
         setCurrentPage("blog");
+        // Ensure blog page starts from top
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 100);
       } else {
         setCurrentPage("home");
         // Handle hash navigation for single page
@@ -107,6 +115,8 @@ function App() {
     window.history.pushState({}, "", `${base}blog/${slug}`);
     setCurrentBlogSlug(slug);
     setCurrentPage("blog-post");
+    // Scroll to top when navigating to blog post
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
 
   const navigateToTreatmentDetails = (treatmentId: string) => {
@@ -114,6 +124,8 @@ function App() {
     window.history.pushState({}, "", `${base}treatments/${treatmentId}`);
     setCurrentTreatmentId(treatmentId);
     setCurrentPage("treatment-details");
+    // Scroll to top when navigating to treatment details
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
 
   const navigateBackToHome = () => {

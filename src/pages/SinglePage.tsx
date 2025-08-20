@@ -6,6 +6,7 @@ import TreatmentsSection from "../components/sections/TreatmentsSection";
 import TrustResultsSection from "../components/sections/TrustResultsSection";
 import PatientJourneySection from "../components/sections/PatientJourneySection";
 import BrandPhilosophySection from "../components/sections/BrandPhilosophySection";
+import FAQSection from "../components/sections/FAQSection";
 import ContactSection from "../components/sections/ContactSection";
 
 interface SinglePageProps {
@@ -89,6 +90,11 @@ const SinglePage: React.FC<SinglePageProps> = ({
         {/* Brand Philosophy Section */}
         <section id="about" className="relative">
           <BrandPhilosophySection />
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq" className="relative">
+          <FAQSection />
         </section>
 
         {/* Contact Section */}

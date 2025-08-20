@@ -41,6 +41,9 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    // Scroll to top when slug changes
+    window.scrollTo({ top: 0, behavior: "auto" });
+
     setLoading(true);
     (async () => {
       const foundPost = await getPostBySlugAsync(slug);

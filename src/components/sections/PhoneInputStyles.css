@@ -3,10 +3,10 @@
   display: flex !important;
   align-items: center !important;
   width: 100% !important;
-  height: 60px !important;
-  padding-left: 16px !important;
+  height: 48px !important;
+  padding-left: 40px !important;
   padding-right: 16px !important;
-  border: 1px solid #e5e7eb !important;
+  border: 1px solid #d1d5db !important;
   border-radius: 0.75rem !important;
   background-color: white !important;
   transition: all 0.3s ease !important;
@@ -14,11 +14,40 @@
 }
 
 .PhoneInput:hover {
-  border-color: #d1d5db !important;
+  border-color: #9ca3af !important;
 }
 
 .PhoneInput:focus-within {
   outline: none !important;
+  border-color: #8b5cf6 !important;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
+}
+
+/* Custom styling for the new design */
+.phone-input-custom .PhoneInput {
+  height: 48px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.5rem !important;
+}
+
+.phone-input-custom .PhoneInput:focus-within {
+  border-color: #8b5cf6 !important;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
+}
+
+/* Modern styling for the clean design */
+.phone-input-modern .PhoneInput {
+  height: 48px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 0.5rem !important;
+  background-color: white !important;
+}
+
+.phone-input-modern .PhoneInput:focus-within {
   border-color: #A52C67 !important;
   box-shadow: 0 0 0 2px rgba(165, 44, 103, 0.2) !important;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -27,6 +27,11 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
   onNavigate,
 }) => {
   const treatment = TREATMENTS.find((t) => t.id === treatmentId);
+
+  // Scroll to top when component mounts or treatmentId changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [treatmentId]);
 
   if (!treatment) {
     return (

@@ -1,16 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Play,
-  Star,
-  Users,
-  Award,
-  Clock,
-  ChevronDown,
-  User,
-  Mail,
-} from "lucide-react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -19,7 +8,6 @@ import { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import "./PhoneInputStyles.css";
 import {
-  staggerContainer,
   slideRight,
   fadeIn,
   wordStagger,
@@ -33,10 +21,206 @@ const contactSchema = z.object({
     message: "Please enter a valid phone number",
   }),
   email: z.string().email("Please enter a valid email address"),
-  serviceInterest: z.string().min(1, "Please select a service of interest"),
+  country: z.string().min(1, "Please select your country"),
+  treatment: z.string().min(1, "Please select a treatment"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
+
+// Countries list
+const countries = [
+  "United States",
+  "United Kingdom",
+  "Canada",
+  "Australia",
+  "Germany",
+  "France",
+  "Italy",
+  "Spain",
+  "Netherlands",
+  "Belgium",
+  "Switzerland",
+  "Austria",
+  "Sweden",
+  "Norway",
+  "Denmark",
+  "Finland",
+  "Poland",
+  "Czech Republic",
+  "Hungary",
+  "Romania",
+  "Bulgaria",
+  "Greece",
+  "Portugal",
+  "Ireland",
+  "Luxembourg",
+  "Malta",
+  "Cyprus",
+  "Estonia",
+  "Latvia",
+  "Lithuania",
+  "Slovenia",
+  "Slovakia",
+  "Croatia",
+  "Serbia",
+  "Montenegro",
+  "Bosnia and Herzegovina",
+  "North Macedonia",
+  "Albania",
+  "Kosovo",
+  "Turkey",
+  "Russia",
+  "Ukraine",
+  "Belarus",
+  "Moldova",
+  "Georgia",
+  "Armenia",
+  "Azerbaijan",
+  "Kazakhstan",
+  "Uzbekistan",
+  "Kyrgyzstan",
+  "Tajikistan",
+  "Turkmenistan",
+  "Afghanistan",
+  "Pakistan",
+  "India",
+  "Bangladesh",
+  "Sri Lanka",
+  "Nepal",
+  "Bhutan",
+  "Maldives",
+  "China",
+  "Japan",
+  "South Korea",
+  "North Korea",
+  "Mongolia",
+  "Taiwan",
+  "Hong Kong",
+  "Macau",
+  "Singapore",
+  "Malaysia",
+  "Thailand",
+  "Vietnam",
+  "Cambodia",
+  "Laos",
+  "Myanmar",
+  "Philippines",
+  "Indonesia",
+  "Brunei",
+  "East Timor",
+  "Papua New Guinea",
+  "Australia",
+  "New Zealand",
+  "Fiji",
+  "Samoa",
+  "Tonga",
+  "Vanuatu",
+  "Solomon Islands",
+  "Palau",
+  "Marshall Islands",
+  "Micronesia",
+  "Kiribati",
+  "Tuvalu",
+  "Nauru",
+  "South Africa",
+  "Egypt",
+  "Libya",
+  "Algeria",
+  "Morocco",
+  "Tunisia",
+  "Sudan",
+  "South Sudan",
+  "Ethiopia",
+  "Kenya",
+  "Uganda",
+  "Tanzania",
+  "Rwanda",
+  "Burundi",
+  "Democratic Republic of Congo",
+  "Republic of Congo",
+  "Central African Republic",
+  "Chad",
+  "Niger",
+  "Mali",
+  "Burkina Faso",
+  "Ghana",
+  "Ivory Coast",
+  "Liberia",
+  "Sierra Leone",
+  "Guinea",
+  "Guinea-Bissau",
+  "Senegal",
+  "Gambia",
+  "Mauritania",
+  "Cape Verde",
+  "Sao Tome and Principe",
+  "Equatorial Guinea",
+  "Gabon",
+  "Cameroon",
+  "Nigeria",
+  "Benin",
+  "Togo",
+  "Angola",
+  "Zambia",
+  "Malawi",
+  "Mozambique",
+  "Zimbabwe",
+  "Botswana",
+  "Namibia",
+  "Lesotho",
+  "Swaziland",
+  "Madagascar",
+  "Mauritius",
+  "Seychelles",
+  "Comoros",
+  "Djibouti",
+  "Eritrea",
+  "Somalia",
+  "Brazil",
+  "Argentina",
+  "Chile",
+  "Peru",
+  "Colombia",
+  "Venezuela",
+  "Ecuador",
+  "Bolivia",
+  "Paraguay",
+  "Uruguay",
+  "Guyana",
+  "Suriname",
+  "French Guiana",
+  "Mexico",
+  "Guatemala",
+  "Belize",
+  "El Salvador",
+  "Honduras",
+  "Nicaragua",
+  "Costa Rica",
+  "Panama",
+  "Cuba",
+  "Jamaica",
+  "Haiti",
+  "Dominican Republic",
+  "Puerto Rico",
+  "Trinidad and Tobago",
+  "Barbados",
+  "Saint Lucia",
+  "Grenada",
+  "Saint Vincent and the Grenadines",
+  "Antigua and Barbuda",
+  "Dominica",
+  "Saint Kitts and Nevis",
+  "Bahamas",
+].sort();
+
+// Treatments list
+const treatments = [
+  "Dental Treatments",
+  "Face & Nose Aesthetics",
+  "Body Aesthetics",
+  "Hair Restoration",
+  "Obesity Treatments",
+];
 
 interface HeroSectionProps {
   title?: string;
@@ -50,22 +234,156 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const words = title.split(" ");
-  const stats = [
-    { icon: Star, value: "4.9/5", label: "Verifiable Rating" },
-    { icon: Users, value: "3,000+", label: "Successful Procedures" },
-    { icon: Award, value: "7+", label: "Years of Experience" },
-    { icon: Clock, value: "24/7", label: "Support Available" },
-  ];
+  // Gallery state management
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedSpecialty, setSelectedSpecialty] = useState("Dental");
 
-  const services = [
-    "Hair Transplantation",
-    "Dental Treatment",
-    "Cosmetic Surgery",
-    "Skin Treatment",
-    "Weight Loss Surgery",
-    "Eye Surgery",
-  ];
+  // Treatment gallery data with images for each specialty
+  const treatmentGallery = {
+    Dental: [
+      {
+        image:
+          "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=600&fit=crop",
+        title: "Dental Implants",
+        description: "Advanced dental implant procedures",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        title: "Teeth Whitening",
+        description: "Professional whitening treatments",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop",
+        title: "Orthodontics",
+        description: "Braces and alignment solutions",
+      },
+    ],
+    "Face & Nose": [
+      {
+        image:
+          "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop",
+        title: "Rhinoplasty",
+        description: "Nose reshaping procedures",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1616391182219-e080b4d1043a?w=800&h=600&fit=crop",
+        title: "Facelift",
+        description: "Facial rejuvenation treatments",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&h=600&fit=crop",
+        title: "Botox & Fillers",
+        description: "Non-surgical facial enhancements",
+      },
+    ],
+    Body: [
+      {
+        image:
+          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop",
+        title: "Liposuction",
+        description: "Body contouring procedures",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop",
+        title: "Tummy Tuck",
+        description: "Abdominal reshaping surgery",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=600&fit=crop",
+        title: "Brazilian Butt Lift",
+        description: "Buttock enhancement procedures",
+      },
+    ],
+    Hair: [
+      {
+        image:
+          "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop",
+        title: "Hair Transplant",
+        description: "Advanced hair restoration",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&h=600&fit=crop",
+        title: "FUE Technique",
+        description: "Follicular unit extraction",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1559599238-1a9c79673b2d?w=800&h=600&fit=crop",
+        title: "Hair Line Design",
+        description: "Natural hairline restoration",
+      },
+    ],
+    Obesity: [
+      {
+        image:
+          "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop",
+        title: "Gastric Sleeve",
+        description: "Weight loss surgery",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&h=600&fit=crop",
+        title: "Gastric Bypass",
+        description: "Bariatric procedures",
+      },
+      {
+        image:
+          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop",
+        title: "Lap Band",
+        description: "Minimally invasive options",
+      },
+    ],
+  };
+
+  const currentGallery =
+    treatmentGallery[selectedSpecialty as keyof typeof treatmentGallery];
+
+  // Auto-rotate through all images and specialties every 5 seconds
+  useEffect(() => {
+    const specialties = ["Dental", "Face & Nose", "Body", "Hair", "Obesity"];
+    let totalImageCounter = 0;
+
+    const interval = setInterval(() => {
+      // Calculate which specialty and image we should be on
+      const imagesPerSpecialty = 3; // Each specialty has 3 images
+      const totalImages = specialties.length * imagesPerSpecialty;
+
+      totalImageCounter = (totalImageCounter + 1) % totalImages;
+
+      const specialtyIndex = Math.floor(totalImageCounter / imagesPerSpecialty);
+      const imageIndex = totalImageCounter % imagesPerSpecialty;
+
+      const newSpecialty = specialties[specialtyIndex];
+
+      // Update specialty if it changed
+      setSelectedSpecialty((prevSpecialty) => {
+        if (prevSpecialty !== newSpecialty) {
+          return newSpecialty;
+        }
+        return prevSpecialty;
+      });
+
+      // Update image index
+      setCurrentImageIndex(imageIndex);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []); // Remove dependency on currentGallery.length
+
+  // Handle manual specialty selection
+  const handleSpecialtyClick = (specialty: string) => {
+    setSelectedSpecialty(specialty);
+    setCurrentImageIndex(0); // Reset to first image when manually selected
+  };
+
+  const words = title.split(" ");
 
   const {
     register,
@@ -92,310 +410,460 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Background with Doctor Image */}
+      {/* Background with Custom Gradient */}
       <div className="absolute inset-0">
-        {/* Medical background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-right bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1920&h=1080&fit=crop&crop=center&q=80')`,
-            backgroundPosition: "center right",
-          }}
-        />
+        {/* Custom gradient background using the specified colors */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#A52C67] via-[#8B2A5B] to-[#3F1127]"></div>
 
-        {/* Improved gradient overlay - lighter to show image better */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#A52C67]/85 via-[#A52C67]/50 to-[#3F1127]/40"></div>
+        {/* Additional gradient overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#A52C67]/20 via-transparent to-[#3F1127]/20"></div>
 
-        {/* Additional texture overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-black/20"></div>
+        {/* Subtle texture overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-screen py-20">
-          {/* Left Content */}
+        {/* Two Column Layout */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-screen py-16 lg:py-20">
+          {/* Left Column - Content + Form */}
           <motion.div
-            className="space-y-8 text-center lg:text-left"
-            variants={staggerContainer}
+            className="order-2 lg:order-1 space-y-8"
+            variants={fadeIn}
             initial="hidden"
             animate="visible"
+            transition={{ delay: 0.5 }}
           >
-            {/* Main Title - Saray Estetica theme */}
-            <motion.h1
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
-              variants={wordStagger}
-              initial="hidden"
-              animate="visible"
-            >
-              {words.map((word, index) => (
-                <motion.span
-                  key={index}
-                  className="inline-block mr-4 mb-2"
-                  variants={wordReveal}
-                >
-                  {word === "Trust." ? (
-                    <span className="text-pink-200">{word}</span>
-                  ) : (
-                    word
-                  )}
-                </motion.span>
-              ))}
-            </motion.h1>
+            {/* Headlines */}
+            <div className="space-y-6">
+              {/* Main Headline */}
+              <motion.h1
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight font-sans"
+                variants={wordStagger}
+                initial="hidden"
+                animate="visible"
+              >
+                {words.map((word, index) => (
+                  <motion.span
+                    key={index}
+                    className="inline-block mr-3 mb-2"
+                    variants={wordReveal}
+                  >
+                    {word === "Trust." ? (
+                      <span className="text-pink-200">{word}</span>
+                    ) : (
+                      word
+                    )}
+                  </motion.span>
+                ))}
+              </motion.h1>
 
-            {/* Subtitle */}
-            <motion.p
-              className="text-xl lg:text-2xl text-pink-100 leading-relaxed max-w-2xl lg:max-w-none"
-              variants={fadeIn}
-              transition={{ delay: 0.8 }}
-            >
-              {subtitle}
-            </motion.p>
+              {/* Subheadline */}
+              <motion.p
+                className="text-lg lg:text-xl text-pink-100 leading-relaxed font-sans max-w-lg"
+                variants={fadeIn}
+                transition={{ delay: 0.8 }}
+              >
+                {subtitle}
+              </motion.p>
+            </div>
 
-            {/* Stats Grid - Medical themed */}
-            <motion.div
-              className="grid grid-cols-2 lg:grid-cols-4 gap-6 py-8"
-              variants={staggerContainer}
-              transition={{ delay: 1 }}
-            >
-              {stats.map((stat, index) => (
+            {/* Appointment Form */}
+            <div className="bg-white/95 backdrop-blur-lg rounded-2xl p-8 shadow-xl border border-white/20">
+              {isSubmitted ? (
                 <motion.div
-                  key={index}
+                  className="text-center py-16"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <motion.div
+                      className="text-green-500 text-3xl font-bold"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{
+                        delay: 0.2,
+                        type: "spring",
+                        stiffness: 400,
+                      }}
+                    >
+                      ✓
+                    </motion.div>
+                  </div>
+                  <h4 className="text-2xl font-semibold text-gray-900 mb-3">
+                    Thank You!
+                  </h4>
+                  <p className="text-gray-600 text-lg">
+                    We'll contact you within 24 hours to schedule your
+                    appointment.
+                  </p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                  <div className="mb-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2 font-sans">
+                      Book Your Consultation
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Start your transformation journey today
+                    </p>
+                  </div>
+
+                  {/* Name and Phone Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Full Name Field */}
+                    <div>
+                      <input
+                        {...register("fullName")}
+                        type="text"
+                        placeholder="Full Name"
+                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all text-gray-900 placeholder-gray-400"
+                      />
+                      {errors.fullName && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.fullName.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Phone Number Input */}
+                    <div>
+                      <Controller
+                        name="phone"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                          <PhoneInput
+                            value={value}
+                            onChange={onChange}
+                            defaultCountry="US"
+                            placeholder="Phone Number"
+                            international={false}
+                            withCountryCallingCode={true}
+                            countryCallingCodeEditable={false}
+                            displayInitialValueAsLocalNumber={false}
+                            className="phone-input-modern"
+                          />
+                        )}
+                      />
+                      {errors.phone && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.phone.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Email Field */}
+                  <div>
+                    <input
+                      {...register("email")}
+                      type="email"
+                      placeholder="Email Address"
+                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all text-gray-900 placeholder-gray-400"
+                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Country and Treatment Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Country Field */}
+                    <div>
+                      <select
+                        {...register("country")}
+                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all appearance-none text-gray-900"
+                      >
+                        <option value="">Country</option>
+                        {countries.map((country) => (
+                          <option key={country} value={country}>
+                            {country}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.country && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.country.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Treatment Field */}
+                    <div>
+                      <select
+                        {...register("treatment")}
+                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all appearance-none text-gray-900"
+                      >
+                        <option value="">Treatment</option>
+                        {treatments.map((treatment) => (
+                          <option key={treatment} value={treatment}>
+                            {treatment}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.treatment && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.treatment.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-[#A52C67] to-[#3F1127] hover:from-[#8B2A5B] hover:to-[#2A0E1C] text-white py-4 rounded-lg font-semibold text-base mt-6 disabled:opacity-50 shadow-lg hover:shadow-xl transition-all duration-300 font-sans"
+                    whileHover={{ scale: 1.01, y: -1 }}
+                    whileTap={{ scale: 0.99 }}
+                  >
+                    {isSubmitting ? (
+                      <div className="flex items-center justify-center space-x-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <span>Booking...</span>
+                      </div>
+                    ) : (
+                      "Book Appointment"
+                    )}
+                  </motion.button>
+                </form>
+              )}
+            </div>
+
+            {/* Statistics Section */}
+            <motion.div
+              className="mt-8"
+              variants={fadeIn}
+              transition={{ delay: 1.5 }}
+            >
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <motion.div
                   className="text-center lg:text-left"
                   variants={fadeIn}
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg border border-white/30">
-                    <stat.icon className="w-8 h-8 text-[#A52C67]" />
+                    <svg
+                      className="w-8 h-8 text-pink-200"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1">
-                    {stat.value}
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1 font-sans">
+                    4.9/5
                   </div>
-                  <div className="text-sm text-pink-200 font-medium">
-                    {stat.label}
+                  <div className="text-sm text-pink-200 font-medium font-sans">
+                    Verifiable Rating
                   </div>
                 </motion.div>
-              ))}
-            </motion.div>
 
-            {/* CTA Buttons - Medical themed */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
-              variants={fadeIn}
-              transition={{ delay: 1.2 }}
-            >
-              <motion.button
-                className="bg-[#A52C67] hover:bg-[#3F1127] text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center space-x-3 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>Get Free Consultation</span>
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
+                <motion.div
+                  className="text-center lg:text-left"
+                  variants={fadeIn}
+                  whileHover={{ y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg border border-white/30">
+                    <svg
+                      className="w-8 h-8 text-pink-200"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1 font-sans">
+                    3,000+
+                  </div>
+                  <div className="text-sm text-pink-200 font-medium font-sans">
+                    Successful Procedures
+                  </div>
+                </motion.div>
 
-              <motion.button
-                className="border-2 border-white/50 text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center space-x-3 text-lg hover:bg-white/10 transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Play className="w-5 h-5" />
-                <span>Watch Our Story</span>
-              </motion.button>
+                <motion.div
+                  className="text-center lg:text-left"
+                  variants={fadeIn}
+                  whileHover={{ y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg border border-white/30">
+                    <svg
+                      className="w-8 h-8 text-pink-200"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1 font-sans">
+                    7+
+                  </div>
+                  <div className="text-sm text-pink-200 font-medium font-sans">
+                    Years of Experience
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="text-center lg:text-left"
+                  variants={fadeIn}
+                  whileHover={{ y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg border border-white/30">
+                    <svg
+                      className="w-8 h-8 text-pink-200"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1 font-sans">
+                    24/7
+                  </div>
+                  <div className="text-sm text-pink-200 font-medium font-sans">
+                    Support Available
+                  </div>
+                </motion.div>
+              </div>
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Contact Form */}
+          {/* Right Column - Hero Image with Floating Elements */}
           <motion.div
-            className="flex justify-center lg:justify-end"
+            className="order-1 lg:order-2 relative"
             variants={slideRight}
             initial="hidden"
             animate="visible"
+            transition={{ delay: 0.7 }}
           >
-            <div className="w-full max-w-lg">
+            <div className="relative h-[600px] lg:h-[700px]">
+              {/* Dynamic Image Gallery */}
               <motion.div
-                className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 lg:p-10 border border-white/20 relative overflow-hidden"
-                whileHover={{ y: -10 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="relative h-full rounded-2xl overflow-hidden shadow-xl"
+                key={`${selectedSpecialty}-${currentImageIndex}`}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
               >
-                {/* Gradient Header - Custom theme */}
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#A52C67] to-[#3F1127]"></div>
+                <img
+                  src={currentGallery[currentImageIndex]?.image}
+                  alt={currentGallery[currentImageIndex]?.title}
+                  className="w-full h-full object-cover"
+                />
 
-                {/* Form Header */}
-                <div className="text-center mb-8">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67]/20 to-[#3F1127]/20 rounded-2xl mb-4">
-                    <User className="w-8 h-8 text-[#A52C67]" />
-                  </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
-                    Get Your Free Consultation
-                  </h3>
-                  <p className="text-gray-600 text-lg">
-                    Take the first step towards your transformation
-                  </p>
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"></div>
+
+                {/* Image Info Overlay - Bottom Left */}
+                <div className="absolute bottom-6 left-6 text-white">
+                  <motion.h3
+                    className="text-xl lg:text-2xl font-bold mb-2 font-sans drop-shadow-lg"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    {currentGallery[currentImageIndex]?.title}
+                  </motion.h3>
+                  <motion.p
+                    className="text-sm text-white/90 font-sans drop-shadow-md"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    {currentGallery[currentImageIndex]?.description}
+                  </motion.p>
                 </div>
 
-                {isSubmitted ? (
-                  <motion.div
-                    className="text-center py-12"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <motion.div
-                        className="text-green-500 text-3xl font-bold"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{
-                          delay: 0.2,
-                          type: "spring",
-                          stiffness: 400,
-                        }}
-                      >
-                        ✓
-                      </motion.div>
-                    </div>
-                    <h4 className="text-2xl font-semibold text-gray-900 mb-3">
-                      Thank You!
-                    </h4>
-                    <p className="text-gray-600 text-lg">
-                      We'll contact you within 24 hours to schedule your
-                      consultation.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    {/* Full Name Field */}
-                    <div>
-                      <div className="relative">
-                        <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                        <input
-                          {...register("fullName")}
-                          type="text"
-                          placeholder="Full Name"
-                          className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all text-lg"
-                        />
-                      </div>
-                      {errors.fullName && (
-                        <p className="text-red-500 text-sm mt-2">
-                          {errors.fullName.message}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* International Phone Number Input */}
-                    <div>
-                      <Controller
-                        name="phone"
-                        control={control}
-                        render={({ field: { onChange, value } }) => (
-                          <div className="relative">
-                            <PhoneInput
-                              value={value}
-                              onChange={onChange}
-                              defaultCountry="US"
-                              placeholder="Phone Number"
-                              international={false}
-                              withCountryCallingCode={true}
-                              countryCallingCodeEditable={false}
-                              displayInitialValueAsLocalNumber={false}
-                            />
-                          </div>
-                        )}
-                      />
-                      {errors.phone && (
-                        <p className="text-red-500 text-sm mt-2">
-                          {errors.phone.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                        <input
-                          {...register("email")}
-                          type="email"
-                          placeholder="Email Address"
-                          className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all text-lg"
-                        />
-                      </div>
-                      {errors.email && (
-                        <p className="text-red-500 text-sm mt-2">
-                          {errors.email.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <div className="relative">
-                        <ChevronDown className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                        <select
-                          {...register("serviceInterest")}
-                          className="w-full pl-4 pr-12 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all appearance-none bg-white text-lg"
-                        >
-                          <option value="">Select Service Interest</option>
-                          {services.map((service) => (
-                            <option key={service} value={service}>
-                              {service}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      {errors.serviceInterest && (
-                        <p className="text-red-500 text-sm mt-2">
-                          {errors.serviceInterest.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <motion.button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white py-4 rounded-xl font-semibold text-lg mt-8 disabled:opacity-50 shadow-xl hover:shadow-2xl transition-all duration-300"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {isSubmitting ? (
-                        <div className="flex items-center justify-center space-x-2">
-                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          <span>Sending Request...</span>
-                        </div>
-                      ) : (
-                        "Send Request"
-                      )}
-                    </motion.button>
-                  </form>
-                )}
+                {/* Image Progress Dots */}
+                <div className="absolute bottom-6 right-6 flex space-x-2 z-10">
+                  {currentGallery.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentImageIndex
+                          ? "bg-white scale-125"
+                          : "bg-white/50 hover:bg-white/75"
+                      }`}
+                    />
+                  ))}
+                </div>
               </motion.div>
+
+              {/* Interactive Service Category Buttons - Top Right */}
+              <motion.div
+                className="absolute top-6 right-6 max-w-sm"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2, duration: 0.6 }}
+              >
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/30">
+                  <div className="text-xs text-white/90 mb-3 font-medium font-sans drop-shadow-sm">
+                    Our Specialties
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {["Dental", "Face & Nose", "Body", "Hair", "Obesity"].map(
+                      (service) => (
+                        <motion.button
+                          key={service}
+                          onClick={() => handleSpecialtyClick(service)}
+                          className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 font-sans ${
+                            selectedSpecialty === service
+                              ? "bg-[#A52C67] text-white border-[#A52C67] shadow-lg backdrop-blur-sm"
+                              : "bg-white/80 text-[#A52C67] border-white/50 hover:bg-white/90 hover:shadow-md backdrop-blur-sm"
+                          }`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {service}
+                        </motion.button>
+                      )
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Floating Accent Elements */}
+              <motion.div
+                className="absolute top-1/2 -left-4 w-8 h-8 bg-pink-100 rounded-full shadow-lg"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 2, duration: 0.4 }}
+              />
+              <motion.div
+                className="absolute bottom-1/4 -right-4 w-6 h-6 bg-pink-200 rounded-full shadow-lg"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 2.2, duration: 0.4 }}
+              />
             </div>
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-500"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 0.6 }}
-      >
-        <motion.div
-          className="flex flex-col items-center space-y-3 cursor-pointer group"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          onClick={() =>
-            window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
-          }
-        >
-          <span className="text-sm font-medium group-hover:text-primary-600 transition-colors">
-            Scroll to explore
-          </span>
-          <motion.div
-            className="w-1 h-12 bg-gradient-to-b from-primary-400 to-accent-400 rounded-full"
-            animate={{ scaleY: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
