@@ -22,12 +22,17 @@ export const NAVIGATION_ITEMS: NavItem[] = [
   {
     id: 'before-after',
     label: 'Before & After',
-    href: '#before-after'
+    href: '#trust-results'
   },
   {
     id: 'about',
     label: 'About Us',
     href: '/about'
+  },
+  {
+    id: 'faq',
+    label: 'FAQ',
+    href: '#faq'
   },
   {
     id: 'contact',
