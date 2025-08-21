@@ -215,7 +215,7 @@ const FAQSection: React.FC = () => {
         ></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container-custom relative z-10">
         <motion.div
           variants={staggerContainer}
           initial="hidden"

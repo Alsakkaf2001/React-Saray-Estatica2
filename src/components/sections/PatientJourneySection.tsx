@@ -161,7 +161,7 @@ const PatientJourneySection: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-[#A52C67]/3 to-[#3F1127]/3 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container-custom relative z-10">
         <motion.div
           variants={staggerContainer}
           initial="hidden"

@@ -409,23 +409,62 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      {/* Background with Custom Gradient */}
+    <section className="py-20 bg-white relative overflow-hidden">
+      {/* Background Pattern */}
       <div className="absolute inset-0">
-        {/* Custom gradient background using the specified colors */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#A52C67] via-[#8B2A5B] to-[#3F1127]"></div>
-
-        {/* Additional gradient overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#A52C67]/20 via-transparent to-[#3F1127]/20"></div>
-
-        {/* Subtle texture overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#A52C67]/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#3F1127]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-[#A52C67]/3 to-[#3F1127]/3 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Two Column Layout */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-screen py-16 lg:py-20">
-          {/* Left Column - Content + Form */}
+      <div className="container-custom relative z-10">
+        {/* Mobile-First Layout: Headlines -> Gallery -> Form */}
+
+        {/* Headlines Section - Always first on mobile, hidden on desktop (will be shown in left column) */}
+        <motion.div
+          className="lg:hidden text-center py-12 space-y-6"
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.3 }}
+        >
+          {/* Main Headline */}
+          <motion.h1
+            className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight font-sans"
+            variants={wordStagger}
+            initial="hidden"
+            animate="visible"
+          >
+            {words.map((word, index) => (
+              <motion.span
+                key={index}
+                className="inline-block mr-2 mb-2"
+                variants={wordReveal}
+              >
+                {word === "Trust." ? (
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A52C67] to-[#3F1127]">
+                    {word}
+                  </span>
+                ) : (
+                  word
+                )}
+              </motion.span>
+            ))}
+          </motion.h1>
+
+          {/* Subheadline */}
+          <motion.p
+            className="text-base sm:text-lg text-gray-600 leading-relaxed font-sans max-w-2xl mx-auto"
+            variants={fadeIn}
+            transition={{ delay: 0.6 }}
+          >
+            {subtitle}
+          </motion.p>
+        </motion.div>
+
+        {/* Two Column Layout for Desktop */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[60vh] lg:min-h-screen py-8 lg:py-20">
+          {/* Left Column - Content + Form (Desktop Only Headlines) */}
           <motion.div
             className="order-2 lg:order-1 space-y-8"
             variants={fadeIn}
@@ -433,11 +472,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             animate="visible"
             transition={{ delay: 0.5 }}
           >
-            {/* Headlines */}
-            <div className="space-y-6">
+            {/* Headlines - Desktop Only */}
+            <div className="space-y-6 hidden lg:block">
               {/* Main Headline */}
               <motion.h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight font-sans"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight font-sans"
                 variants={wordStagger}
                 initial="hidden"
                 animate="visible"
@@ -449,7 +488,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     variants={wordReveal}
                   >
                     {word === "Trust." ? (
-                      <span className="text-pink-200">{word}</span>
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A52C67] to-[#3F1127]">
+                        {word}
+                      </span>
                     ) : (
                       word
                     )}
@@ -459,7 +500,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
               {/* Subheadline */}
               <motion.p
-                className="text-lg lg:text-xl text-pink-100 leading-relaxed font-sans max-w-lg"
+                className="text-lg lg:text-xl text-gray-600 leading-relaxed font-sans max-w-lg"
                 variants={fadeIn}
                 transition={{ delay: 0.8 }}
               >
@@ -468,168 +509,184 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
 
             {/* Appointment Form */}
-            <div className="bg-white/95 backdrop-blur-lg rounded-2xl p-8 shadow-xl border border-white/20">
-              {isSubmitted ? (
-                <motion.div
-                  className="text-center py-16"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <motion.div
-                      className="text-green-500 text-3xl font-bold"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{
-                        delay: 0.2,
-                        type: "spring",
-                        stiffness: 400,
-                      }}
-                    >
-                      ✓
-                    </motion.div>
-                  </div>
-                  <h4 className="text-2xl font-semibold text-gray-900 mb-3">
-                    Thank You!
-                  </h4>
-                  <p className="text-gray-600 text-lg">
-                    We'll contact you within 24 hours to schedule your
-                    appointment.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 font-sans">
-                      Book Your Consultation
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      Start your transformation journey today
+            <div className="bg-gradient-to-br from-[#A52C67] to-[#3F1127] rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+              {/* Subtle overlay for depth */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 rounded-3xl"></div>
+              <div className="relative z-10">
+                {isSubmitted ? (
+                  <motion.div
+                    className="text-center py-16"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <motion.div
+                        className="text-green-500 text-3xl font-bold"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.2,
+                          type: "spring",
+                          stiffness: 400,
+                        }}
+                      >
+                        ✓
+                      </motion.div>
+                    </div>
+                    <h4 className="text-2xl font-semibold text-gray-900 mb-3">
+                      Thank You!
+                    </h4>
+                    <p className="text-gray-600 text-lg">
+                      We'll contact you within 24 hours to schedule your
+                      appointment.
                     </p>
-                  </div>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                    <div className="mb-6">
+                      <h3 className="text-xl font-semibold text-white mb-2 font-sans">
+                        Book Your Consultation
+                      </h3>
+                      <p className="text-sm text-pink-100">
+                        Start your transformation journey today
+                      </p>
+                    </div>
 
-                  {/* Name and Phone Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Full Name Field */}
+                    {/* Name and Phone Row */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Full Name Field */}
+                      <div>
+                        <input
+                          {...register("fullName")}
+                          type="text"
+                          placeholder="Full Name"
+                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all text-white placeholder-pink-200 shadow-lg"
+                        />
+                        {errors.fullName && (
+                          <p className="text-red-300 text-xs mt-1">
+                            {errors.fullName.message}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Phone Number Input */}
+                      <div>
+                        <Controller
+                          name="phone"
+                          control={control}
+                          render={({ field: { onChange, value } }) => (
+                            <PhoneInput
+                              value={value}
+                              onChange={onChange}
+                              defaultCountry="US"
+                              placeholder="Phone Number"
+                              international={false}
+                              withCountryCallingCode={true}
+                              countryCallingCodeEditable={false}
+                              displayInitialValueAsLocalNumber={false}
+                              className="phone-input-modern"
+                            />
+                          )}
+                        />
+                        {errors.phone && (
+                          <p className="text-red-300 text-xs mt-1">
+                            {errors.phone.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Email Field */}
                     <div>
                       <input
-                        {...register("fullName")}
-                        type="text"
-                        placeholder="Full Name"
-                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all text-gray-900 placeholder-gray-400"
+                        {...register("email")}
+                        type="email"
+                        placeholder="Email Address"
+                        className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all text-white placeholder-pink-200 shadow-lg"
                       />
-                      {errors.fullName && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {errors.fullName.message}
+                      {errors.email && (
+                        <p className="text-red-300 text-xs mt-1">
+                          {errors.email.message}
                         </p>
                       )}
                     </div>
 
-                    {/* Phone Number Input */}
-                    <div>
-                      <Controller
-                        name="phone"
-                        control={control}
-                        render={({ field: { onChange, value } }) => (
-                          <PhoneInput
-                            value={value}
-                            onChange={onChange}
-                            defaultCountry="US"
-                            placeholder="Phone Number"
-                            international={false}
-                            withCountryCallingCode={true}
-                            countryCallingCodeEditable={false}
-                            displayInitialValueAsLocalNumber={false}
-                            className="phone-input-modern"
-                          />
+                    {/* Country and Treatment Row */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Country Field */}
+                      <div>
+                        <select
+                          {...register("country")}
+                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all appearance-none text-white shadow-lg"
+                        >
+                          <option value="" className="bg-gray-800 text-white">
+                            Country
+                          </option>
+                          {countries.map((country) => (
+                            <option
+                              key={country}
+                              value={country}
+                              className="bg-gray-800 text-white"
+                            >
+                              {country}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.country && (
+                          <p className="text-red-300 text-xs mt-1">
+                            {errors.country.message}
+                          </p>
                         )}
-                      />
-                      {errors.phone && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {errors.phone.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Email Field */}
-                  <div>
-                    <input
-                      {...register("email")}
-                      type="email"
-                      placeholder="Email Address"
-                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all text-gray-900 placeholder-gray-400"
-                    />
-                    {errors.email && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.email.message}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Country and Treatment Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Country Field */}
-                    <div>
-                      <select
-                        {...register("country")}
-                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all appearance-none text-gray-900"
-                      >
-                        <option value="">Country</option>
-                        {countries.map((country) => (
-                          <option key={country} value={country}>
-                            {country}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.country && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {errors.country.message}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Treatment Field */}
-                    <div>
-                      <select
-                        {...register("treatment")}
-                        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#A52C67] focus:border-transparent outline-none transition-all appearance-none text-gray-900"
-                      >
-                        <option value="">Treatment</option>
-                        {treatments.map((treatment) => (
-                          <option key={treatment} value={treatment}>
-                            {treatment}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.treatment && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {errors.treatment.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Submit Button */}
-                  <motion.button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-[#A52C67] to-[#3F1127] hover:from-[#8B2A5B] hover:to-[#2A0E1C] text-white py-4 rounded-lg font-semibold text-base mt-6 disabled:opacity-50 shadow-lg hover:shadow-xl transition-all duration-300 font-sans"
-                    whileHover={{ scale: 1.01, y: -1 }}
-                    whileTap={{ scale: 0.99 }}
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center justify-center space-x-2">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        <span>Booking...</span>
                       </div>
-                    ) : (
-                      "Book Appointment"
-                    )}
-                  </motion.button>
-                </form>
-              )}
+
+                      {/* Treatment Field */}
+                      <div>
+                        <select
+                          {...register("treatment")}
+                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all appearance-none text-white shadow-lg"
+                        >
+                          <option value="" className="bg-gray-800 text-white">
+                            Treatment
+                          </option>
+                          {treatments.map((treatment) => (
+                            <option
+                              key={treatment}
+                              value={treatment}
+                              className="bg-gray-800 text-white"
+                            >
+                              {treatment}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.treatment && (
+                          <p className="text-red-300 text-xs mt-1">
+                            {errors.treatment.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Submit Button */}
+                    <motion.button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-white/30 to-white/20 backdrop-blur-lg border border-white/40 hover:from-white/40 hover:to-white/30 text-white py-4 rounded-xl font-semibold text-base mt-6 disabled:opacity-50 shadow-xl hover:shadow-2xl transition-all duration-300 font-sans"
+                      whileHover={{ scale: 1.01, y: -1 }}
+                      whileTap={{ scale: 0.99 }}
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <span>Booking...</span>
+                        </div>
+                      ) : (
+                        "Book Appointment"
+                      )}
+                    </motion.button>
+                  </form>
+                )}
+              </div>
             </div>
 
             {/* Statistics Section */}
@@ -645,19 +702,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg border border-white/30">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl mb-4 shadow-lg">
                     <svg
-                      className="w-8 h-8 text-pink-200"
+                      className="w-8 h-8 text-white"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1 font-sans">
+                  <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-1 font-sans">
                     4.9/5
                   </div>
-                  <div className="text-sm text-pink-200 font-medium font-sans">
+                  <div className="text-sm text-gray-600 font-medium font-sans">
                     Verifiable Rating
                   </div>
                 </motion.div>
@@ -668,9 +725,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg border border-white/30">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl mb-4 shadow-lg">
                     <svg
-                      className="w-8 h-8 text-pink-200"
+                      className="w-8 h-8 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -683,10 +740,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1 font-sans">
+                  <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-1 font-sans">
                     3,000+
                   </div>
-                  <div className="text-sm text-pink-200 font-medium font-sans">
+                  <div className="text-sm text-gray-600 font-medium font-sans">
                     Successful Procedures
                   </div>
                 </motion.div>
@@ -697,9 +754,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg border border-white/30">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl mb-4 shadow-lg">
                     <svg
-                      className="w-8 h-8 text-pink-200"
+                      className="w-8 h-8 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -712,10 +769,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1 font-sans">
+                  <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-1 font-sans">
                     7+
                   </div>
-                  <div className="text-sm text-pink-200 font-medium font-sans">
+                  <div className="text-sm text-gray-600 font-medium font-sans">
                     Years of Experience
                   </div>
                 </motion.div>
@@ -726,9 +783,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 shadow-lg border border-white/30">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl mb-4 shadow-lg">
                     <svg
-                      className="w-8 h-8 text-pink-200"
+                      className="w-8 h-8 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -741,10 +798,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1 font-sans">
+                  <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-1 font-sans">
                     24/7
                   </div>
-                  <div className="text-sm text-pink-200 font-medium font-sans">
+                  <div className="text-sm text-gray-600 font-medium font-sans">
                     Support Available
                   </div>
                 </motion.div>
@@ -752,9 +809,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Hero Image with Floating Elements */}
+          {/* Right Column - Gallery (Second on mobile, Right on desktop) */}
           <motion.div
-            className="order-1 lg:order-2 relative"
+            className="order-1 lg:order-2 relative mb-8 lg:mb-0"
             variants={slideRight}
             initial="hidden"
             animate="visible"
@@ -814,18 +871,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
               </motion.div>
 
-              {/* Interactive Service Category Buttons - Top Right */}
+              {/* Interactive Service Category Buttons - Bottom Center */}
               <motion.div
-                className="absolute top-6 right-6 max-w-sm"
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
+                className="absolute bottom-6 left-1/2 transform -translate-x-1/2 max-w-sm"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.6 }}
               >
-                <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/30">
-                  <div className="text-xs text-white/90 mb-3 font-medium font-sans drop-shadow-sm">
+                <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/30">
+                  <div className="text-sm text-gray-800 mb-3 font-medium font-sans text-center">
                     Our Specialties
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 justify-center">
                     {["Dental", "Face & Nose", "Body", "Hair", "Obesity"].map(
                       (service) => (
                         <motion.button
@@ -833,8 +890,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                           onClick={() => handleSpecialtyClick(service)}
                           className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 font-sans ${
                             selectedSpecialty === service
-                              ? "bg-[#A52C67] text-white border-[#A52C67] shadow-lg backdrop-blur-sm"
-                              : "bg-white/80 text-[#A52C67] border-white/50 hover:bg-white/90 hover:shadow-md backdrop-blur-sm"
+                              ? "bg-[#A52C67] text-white border-[#A52C67] shadow-lg"
+                              : "bg-white text-[#A52C67] border-gray-200 hover:bg-gray-50 hover:shadow-md"
                           }`}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}

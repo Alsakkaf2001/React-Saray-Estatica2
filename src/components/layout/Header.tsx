@@ -99,8 +99,8 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <>
       {/* Top Bar */}
-      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-primary text-white h-8 px-3 hidden lg:flex z-50 items-center">
-        <div className="container-custom flex justify-between items-center text-sm">
+      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white h-10 px-3 hidden lg:flex z-50 items-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-sm">
           <div className="flex items-center space-x-6">
             <a
               href={`tel:${CONTACT_INFO.phone}`}
@@ -125,17 +125,21 @@ const Header: React.FC<HeaderProps> = ({
 
       {/* Main Header */}
       <motion.header
-        className={`fixed top-0 lg:top-8 left-0 right-0 w-full z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-100"
-            : "bg-white shadow-sm"
-        }`}
+        className="fixed top-0 lg:top-10 left-0 right-0 w-full z-50 transition-all duration-300"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="container-custom">
-          <div className="flex items-center justify-between h-14 md:h-16 lg:h-[68px]">
+        {/* Vitalease-style rounded container */}
+        <div className="container-custom py-3 lg:py-4">
+          <div className={`
+            ${scrolled
+              ? "bg-white/95 backdrop-blur-md shadow-xl border border-gray-200/50"
+              : "bg-white/90 backdrop-blur-sm shadow-lg border border-gray-100/50"
+            } 
+            rounded-2xl lg:rounded-3xl transition-all duration-300 px-4 lg:px-6
+          `}>
+            <div className="flex items-center justify-between h-14 lg:h-16">
             {/* Logo */}
             <motion.div
               className="flex-shrink-0"
@@ -160,14 +164,14 @@ const Header: React.FC<HeaderProps> = ({
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6">
+            <nav className="hidden lg:flex items-center space-x-2">
               {NAVIGATION_ITEMS.map((item, index) => (
                 <div key={item.id} className="relative group">
                   <motion.div
-                    className={`font-medium py-2 px-1 transition-colors duration-200 flex items-center ${
+                    className={`font-medium py-2 px-4 rounded-xl transition-all duration-200 flex items-center ${
                       activeSection === item.id
-                        ? "text-primary-500"
-                        : "text-text-primary hover:text-primary-500"
+                        ? "text-[#A52C67] bg-[#A52C67]/10"
+                        : "text-gray-700 hover:text-[#A52C67] hover:bg-gray-50"
                     }`}
                     whileHover={navItemHover}
                     initial={{ opacity: 0, y: -20 }}
@@ -180,7 +184,7 @@ const Header: React.FC<HeaderProps> = ({
                         e.preventDefault();
                         handleNavClick(item.href);
                       }}
-                      className="flex items-center"
+                      className="flex items-center text-sm font-medium"
                     >
                       {item.label}
                       {item.subItems && (
@@ -219,17 +223,26 @@ const Header: React.FC<HeaderProps> = ({
 
             {/* CTA Buttons */}
             <motion.div
-              className="hidden lg:flex items-center space-x-4"
+              className="hidden lg:flex items-center space-x-3"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Button variant="outline" size="sm">
+              {/* Language Switcher with modern styling */}
+              <div className="mr-2">
+                {/* Language switcher would go here - placeholder for now */}
+                <button className="p-2 text-gray-600 hover:text-[#A52C67] rounded-lg hover:bg-gray-50 transition-all duration-200">
+                  <span className="text-sm font-medium">EN</span>
+                </button>
+              </div>
+              
+              <button className="text-gray-700 hover:text-[#A52C67] px-4 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm font-medium">
                 Contact Us
-              </Button>
-              <Button variant="primary" size="sm">
+              </button>
+              
+              <button className="bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-200 text-sm font-medium">
                 Free Consultation
-              </Button>
+              </button>
             </motion.div>
 
             {/* Mobile Menu Button */}
@@ -254,6 +267,7 @@ const Header: React.FC<HeaderProps> = ({
               </motion.button>
             </div>
           </div>
+        </div>
         </div>
       </motion.header>
 
