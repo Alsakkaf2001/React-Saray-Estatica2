@@ -19,6 +19,10 @@ const Header: React.FC<HeaderProps> = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState("home");
+  const [hasAnimated, setHasAnimated] = useState(() => {
+    // Check if header has already animated in this session
+    return sessionStorage.getItem('headerAnimated') === 'true';
+  });
 
   // Handle scroll effect and active section detection
   useEffect(() => {
@@ -53,6 +57,14 @@ const Header: React.FC<HeaderProps> = ({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Track if this is initial load to prevent re-animations on navigation
+  useEffect(() => {
+    if (!hasAnimated) {
+      setHasAnimated(true);
+      sessionStorage.setItem('headerAnimated', 'true');
+    }
+  }, [hasAnimated]);
 
   const scrolled = propIsScrolled ?? isScrolled;
 
@@ -126,9 +138,9 @@ const Header: React.FC<HeaderProps> = ({
       {/* Main Header */}
       <motion.header
         className="fixed top-0 lg:top-10 left-0 right-0 w-full z-50 transition-all duration-300"
-        initial={{ y: -100 }}
+        initial={hasAnimated ? { y: 0 } : { y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={hasAnimated ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
       >
         {/* Vitalease-style rounded container */}
         <div className="container-custom py-3 lg:py-4">
@@ -143,9 +155,9 @@ const Header: React.FC<HeaderProps> = ({
             {/* Logo */}
             <motion.div
               className="flex-shrink-0"
-              initial={{ opacity: 0, x: -50 }}
+              initial={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={hasAnimated ? { duration: 0 } : { duration: 0.6, delay: 0.2 }}
             >
               <a
                 href="#home"
@@ -174,9 +186,9 @@ const Header: React.FC<HeaderProps> = ({
                         : "text-gray-700 hover:text-[#A52C67] hover:bg-gray-50"
                     }`}
                     whileHover={navItemHover}
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                    transition={hasAnimated ? { duration: 0 } : { duration: 0.6, delay: 0.3 + index * 0.1 }}
                   >
                     <a
                       href={item.href}
@@ -224,9 +236,9 @@ const Header: React.FC<HeaderProps> = ({
             {/* CTA Buttons */}
             <motion.div
               className="hidden lg:flex items-center space-x-3"
-              initial={{ opacity: 0, x: 50 }}
+              initial={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={hasAnimated ? { duration: 0 } : { duration: 0.6, delay: 0.4 }}
             >
               {/* Language Switcher with modern styling */}
               <div className="mr-2">
