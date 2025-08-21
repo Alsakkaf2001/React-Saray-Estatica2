@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
 import { NAVIGATION_ITEMS, CONTACT_INFO } from "../../utils/constants";
-import { slideDown, navItemHover } from "../../utils/animations";
-import Button from "../ui/Button";
+import { navItemHover } from "../../utils/animations";
 import logoImage from "../../assets/FINAL LOGO ABO KAREEM 1 (1).png";
 
 interface HeaderProps {
@@ -96,7 +95,23 @@ const Header: React.FC<HeaderProps> = ({
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
+    // Re-enable body scroll
+    document.body.style.overflow = "unset";
   };
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
 
   const handleNavClick = (href: string) => {
     if (href.startsWith("#")) {
@@ -325,7 +340,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Vitalease Style Mobile Menu */}
       {isMobileMenuOpen && (
         <motion.div
           className="fixed inset-0 z-[60] lg:hidden"
@@ -335,134 +350,111 @@ const Header: React.FC<HeaderProps> = ({
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/30"
             onClick={closeMobileMenu}
           />
 
           {/* Menu Content */}
           <motion.div
-            className="absolute top-0 right-0 w-full max-w-sm h-full bg-white shadow-2xl overflow-y-auto"
-            variants={slideDown}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            className="absolute top-4 left-4 right-4 bg-white rounded-2xl shadow-2xl max-h-[calc(100vh-2rem)] overflow-hidden"
+            initial={{ scale: 0.9, opacity: 0, y: -20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: -20 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
           >
-            <div className="p-6">
-              {/* Header */}
-              <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col max-h-[calc(100vh-2rem)]">
+              {/* Header Section */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-100">
                 <img
                   src={logoImage}
                   alt="Saray Estetic Logo"
-                  className="h-10 w-auto object-contain"
+                  className="h-8 w-auto object-contain"
                 />
                 <button
                   onClick={closeMobileMenu}
-                  className="p-3 min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-500 hover:text-text-primary hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                  className="p-2 bg-gray-800 hover:bg-gray-900 rounded-xl transition-colors duration-200"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5 text-white" />
                 </button>
               </div>
 
-              {/* Navigation */}
-              <nav className="space-y-2">
-                {NAVIGATION_ITEMS.map((item) => (
-                  <div key={item.id}>
-                    <div className="flex items-center justify-between">
-                      <a
-                        href={item.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (!item.subItems) {
-                            handleNavClick(item.href);
-                          }
-                        }}
-                        className={`flex items-center py-4 px-2 text-lg font-medium min-h-[48px] rounded-lg transition-colors ${
-                          activeSection === item.id
-                            ? "text-primary-500 bg-primary-50"
-                            : "text-text-primary hover:text-primary-500 hover:bg-primary-50"
-                        }`}
-                      >
-                        {item.label}
-                      </a>
-                      {item.subItems && (
-                        <button
-                          onClick={() => handleDropdownToggle(item.id)}
-                          className="p-3 min-w-[48px] min-h-[48px] flex items-center justify-center text-gray-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors duration-200"
-                        >
-                          <ChevronDown
-                            className={`w-4 h-4 transition-transform duration-200 ${
-                              activeDropdown === item.id ? "rotate-180" : ""
-                            }`}
-                          />
-                        </button>
-                      )}
-                    </div>
-
-                    {/* Sub Items */}
-                    {item.subItems && activeDropdown === item.id && (
-                      <motion.div
-                        className="ml-4 mt-2 space-y-2"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                      >
-                        {item.subItems.map((subItem) => (
+              {/* Navigation Section */}
+              <div className="flex-1 overflow-y-auto">
+                <nav className="px-6 py-4">
+                  <div className="space-y-0">
+                    {NAVIGATION_ITEMS.map((item) => (
+                      <div key={item.id}>
+                        <div className="flex items-center justify-between border-b border-gray-100 last:border-b-0">
                           <a
-                            key={subItem.id}
-                            href={subItem.href}
+                            href={item.href}
                             onClick={(e) => {
                               e.preventDefault();
-                              handleNavClick(subItem.href);
+                              if (!item.subItems) {
+                                handleNavClick(item.href);
+                              }
                             }}
-                            className="flex items-center py-3 px-4 text-gray-600 hover:text-primary-500 hover:bg-primary-50 transition-colors rounded-lg min-h-[48px]"
+                            className={`flex items-center py-4 px-2 text-base font-normal flex-1 transition-colors duration-200 ${
+                              activeSection === item.id
+                                ? "text-[#A52C67]"
+                                : "text-gray-800 hover:text-[#A52C67]"
+                            }`}
                           >
-                            {subItem.label}
+                            {item.label}
                           </a>
-                        ))}
-                      </motion.div>
-                    )}
-                  </div>
-                ))}
-              </nav>
+                          {item.subItems && (
+                            <button
+                              onClick={() => handleDropdownToggle(item.id)}
+                              className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                            >
+                              <ChevronDown
+                                className={`w-4 h-4 transition-transform duration-200 ${
+                                  activeDropdown === item.id ? "rotate-180" : ""
+                                }`}
+                              />
+                            </button>
+                          )}
+                        </div>
 
-              {/* CTA Buttons */}
-              <div className="mt-8 space-y-3">
-                <Button
-                  variant="outline"
-                  fullWidth
-                  size="lg"
-                  onClick={closeMobileMenu}
-                >
-                  Contact Us
-                </Button>
-                <Button
-                  variant="primary"
-                  fullWidth
-                  size="lg"
-                  onClick={closeMobileMenu}
-                >
-                  Free Consultation
-                </Button>
+                        {/* Sub Items */}
+                        {item.subItems && activeDropdown === item.id && (
+                          <motion.div
+                            className="bg-gray-50 mx-2 rounded-lg mt-2 mb-4"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            {item.subItems.map((subItem, index) => (
+                              <a
+                                key={subItem.id}
+                                href={subItem.href}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleNavClick(subItem.href);
+                                }}
+                                className={`block py-3 px-4 text-sm text-gray-600 hover:text-[#A52C67] transition-colors duration-200 ${
+                                  index !== item.subItems!.length - 1 ? "border-b border-gray-200" : ""
+                                }`}
+                              >
+                                {subItem.label}
+                              </a>
+                            ))}
+                          </motion.div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </nav>
               </div>
 
-              {/* Contact Info */}
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <div className="space-y-4">
-                  <a
-                    href={`tel:${CONTACT_INFO.phone}`}
-                    className="flex items-center py-3 px-2 text-gray-600 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors min-h-[48px]"
-                  >
-                    <Phone className="w-5 h-5 mr-3 flex-shrink-0" />
-                    <span className="text-base">{CONTACT_INFO.phone}</span>
-                  </a>
-                  <a
-                    href={`mailto:${CONTACT_INFO.email}`}
-                    className="flex items-center py-3 px-2 text-gray-600 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-colors min-h-[48px]"
-                  >
-                    <Mail className="w-5 h-5 mr-3 flex-shrink-0" />
-                    <span className="text-base">{CONTACT_INFO.email}</span>
-                  </a>
-                </div>
+              {/* Bottom Section - Optional CTA */}
+              <div className="p-6 border-t border-gray-100">
+                <button
+                  onClick={closeMobileMenu}
+                  className="w-full py-3 px-6 bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium"
+                >
+                  Free Consultation
+                </button>
               </div>
             </div>
           </motion.div>
