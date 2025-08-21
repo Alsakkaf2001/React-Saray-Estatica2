@@ -78,9 +78,7 @@ const SinglePage: React.FC<SinglePageProps> = ({
         </section>
 
         {/* Trust & Results Hub Section */}
-        <section id="trust-results" className="relative">
-          <TrustResultsSection />
-        </section>
+        <TrustResultsSection />
 
         {/* Patient Journey Section */}
         <section id="patient-journey" className="relative">

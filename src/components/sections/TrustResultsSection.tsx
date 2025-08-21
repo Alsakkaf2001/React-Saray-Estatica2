@@ -33,7 +33,7 @@ const TrustResultsSection: React.FC = () => {
   const galleryImages = BEFORE_AFTER_IMAGES.slice(0, 6);
 
   return (
-    <section className="section-padding bg-white">
+    <section id="trust-results" className="section-padding bg-white">
       <div className="container-custom">
         <motion.div
           variants={staggerContainer}
