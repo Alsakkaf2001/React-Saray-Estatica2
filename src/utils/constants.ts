@@ -25,19 +25,14 @@ export const NAVIGATION_ITEMS: NavItem[] = [
     href: '#trust-results'
   },
   {
-    id: 'about',
-    label: 'About Us',
-    href: '/about'
-  },
-  {
     id: 'faq',
     label: 'FAQ',
     href: '#faq'
   },
   {
-    id: 'contact',
-    label: 'Contact',
-    href: '#contact'
+    id: 'about',
+    label: 'About Us',
+    href: '/about'
   },
   {
     id: 'blog',
