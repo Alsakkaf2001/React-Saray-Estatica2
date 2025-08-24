@@ -4319,7 +4319,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
 
                     {/* Timeline section */}
                     <div className="space-y-6">
-                      {content.sections[1].timeline?.map((step, index) => (
+                      {(content.sections[1] as any).timeline?.map((step: any, index: number) => (
                         <motion.div
                           key={index}
                           initial={{ opacity: 0, y: 20 }}
@@ -4408,7 +4408,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                             !isArmLift &&
                             !isThighLift &&
                             index <
-                              content.sections[1].timeline!.length - 1 && (
+                              (content.sections[1] as any).timeline!.length - 1 && (
                               <div className="absolute left-6 top-16 w-0.5 h-6 bg-primary-200"></div>
                             )}
                         </motion.div>
