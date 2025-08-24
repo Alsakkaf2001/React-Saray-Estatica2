@@ -5,7 +5,7 @@ export interface Treatment {
   image: string;
   price?: string;
   duration?: string;
-  category: 'hair-transplant' | 'dental' | 'nose-surgery' | 'cosmetic-surgery';
+  category: 'hair-transplant' | 'dental' | 'nose-surgery' | 'cosmetic-surgery' | 'obesity-treatment';
   features?: string[];
 }
 

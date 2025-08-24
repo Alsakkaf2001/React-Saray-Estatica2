@@ -16,7 +16,8 @@ export const NAVIGATION_ITEMS: NavItem[] = [
       { id: 'hair-transplant', label: 'Hair Transplant', href: '#treatments' },
       { id: 'dental', label: 'Dental', href: '#treatments' },
       { id: 'nose-surgery', label: 'Nose Surgery', href: '#treatments' },
-      { id: 'cosmetic-surgery', label: 'Cosmetic Surgery', href: '#treatments' }
+      { id: 'cosmetic-surgery', label: 'Cosmetic Surgery', href: '#treatments' },
+      { id: 'obesity-treatment', label: 'Obesity Treatment', href: '#treatments' }
     ]
   },
   {
@@ -46,7 +47,8 @@ export const TREATMENT_CATEGORIES = {
   HAIR_TRANSPLANT: 'hair-transplant',
   DENTAL: 'dental',
   NOSE_SURGERY: 'nose-surgery',
-  COSMETIC_SURGERY: 'cosmetic-surgery'
+  COSMETIC_SURGERY: 'cosmetic-surgery',
+  OBESITY_TREATMENT: 'obesity-treatment'
 } as const;
 
 // Sample before/after images data
@@ -107,12 +109,12 @@ export const TREATMENTS: Treatment[] = [
   {
     id: 'sapphire-fue-hair-transplant',
     title: 'Sapphire FUE Hair Transplant',
-    description: 'A popular and effective choice for restoring your hairline. This minimally invasive technique helps you achieve a natural, fuller look with a comfortable recovery.',
-    image: getTreatmentImage('fue-hair-transplant'),
+    description: 'Advanced hair transplant using sapphire blades for natural results with minimal scarring.',
+    image: getTreatmentImage('sapphire-fue'),
     price: 'Starting from €2,500',
     duration: '6-8 hours',
     category: 'hair-transplant',
-    features: ['Natural hairline design', 'Minimally invasive', 'No linear scarring', 'Quick recovery']
+    features: ['Sapphire blade technology', 'Natural hairline design', 'Minimally invasive', 'Quick recovery']
   },
   {
     id: 'dhi-hair-transplant',
@@ -148,23 +150,43 @@ export const TREATMENTS: Treatment[] = [
   },
   {
     id: 'hollywood-smile',
-    title: 'Hollywood Smile',
-    description: 'Transform your smile with porcelain veneers for a perfect, radiant appearance.',
+    title: 'Hollywood Smile (Zirconium Crowns)',
+    description: 'Transform your smile with premium zirconium crowns for a perfect, radiant appearance.',
     image: getTreatmentImage('hollywood-smile'),
     price: 'Starting from €3,500',
     duration: '5-7 days',
     category: 'dental',
-    features: ['Custom design', 'Porcelain veneers', 'Color matching', 'Instant transformation']
+    features: ['Zirconium crowns', 'Custom design', 'Color matching', 'Instant transformation']
   },
   {
     id: 'dental-veneers-emax',
     title: 'Dental Veneers (E-MAX)',
     description: 'Premium E-MAX ceramic veneers for the most natural and durable smile transformation.',
-    image: getTreatmentImage('hollywood-smile'),
+    image: getTreatmentImage('dental-veneers'),
     price: 'Starting from €400',
     duration: '3-5 days',
     category: 'dental',
     features: ['E-MAX ceramic', 'Ultra-thin design', 'Natural translucency', 'Long-lasting']
+  },
+  {
+    id: 'teeth-whitening',
+    title: 'Professional Teeth Whitening',
+    description: 'Achieve a brighter, whiter smile with our professional-grade whitening treatments.',
+    image: getTreatmentImage('teeth-whitening'),
+    price: 'Starting from €300',
+    duration: '1-2 hours',
+    category: 'dental',
+    features: ['Immediate results', 'Safe procedure', 'Long-lasting', 'Professional grade']
+  },
+  {
+    id: 'all-on-4',
+    title: 'All-on-4 Implants',
+    description: 'Complete teeth replacement with just 4 implants per arch for immediate full mouth restoration.',
+    image: getTreatmentImage('all-on-4'),
+    price: 'Starting from €8,000',
+    duration: '1 day procedure',
+    category: 'dental',
+    features: ['Same day teeth', 'Full arch restoration', 'Immediate function', 'High success rate']
   },
   
   // Nose Surgery
@@ -191,6 +213,36 @@ export const TREATMENTS: Treatment[] = [
     features: ['Natural appearance', 'Various implant options', 'Minimal scarring', 'Expert care']
   },
   {
+    id: 'breast-lift',
+    title: 'Breast Lift (Mastopexy)',
+    description: 'Restore youthful breast shape and position with our advanced breast lift procedures.',
+    image: getTreatmentImage('breast-lift'),
+    price: 'Starting from €3,500',
+    duration: '2-3 hours',
+    category: 'cosmetic-surgery',
+    features: ['Youthful position', 'Natural shape', 'Long-lasting results', 'Minimal scarring']
+  },
+  {
+    id: 'breast-reduction',
+    title: 'Breast Reduction',
+    description: 'Reduce breast size and improve comfort with our expert breast reduction surgery.',
+    image: getTreatmentImage('breast-reduction'),
+    price: 'Starting from €4,500',
+    duration: '3-4 hours',
+    category: 'cosmetic-surgery',
+    features: ['Improved comfort', 'Better proportions', 'Reduced back pain', 'Enhanced confidence']
+  },
+  {
+    id: 'gynecomastia',
+    title: 'Gynecomastia Surgery',
+    description: 'Male breast reduction surgery to restore masculine chest contours.',
+    image: getTreatmentImage('gynecomastia'),
+    price: 'Starting from €3,000',
+    duration: '2-3 hours',
+    category: 'cosmetic-surgery',
+    features: ['Masculine contour', 'Permanent results', 'Minimal scarring', 'Quick recovery']
+  },
+  {
     id: 'liposuction',
     title: 'Liposuction',
     description: 'Remove stubborn fat deposits and achieve your ideal body contour with advanced liposuction techniques.',
@@ -201,14 +253,44 @@ export const TREATMENTS: Treatment[] = [
     features: ['Body contouring', 'Minimal downtime', 'Precise results', 'Advanced technology']
   },
   {
+    id: 'chin-liposuction',
+    title: 'Chin Liposuction',
+    description: 'Define your jawline and eliminate double chin with targeted chin liposuction.',
+    image: getTreatmentImage('chin-liposuction'),
+    price: 'Starting from €2,000',
+    duration: '1-2 hours',
+    category: 'cosmetic-surgery',
+    features: ['Defined jawline', 'Quick procedure', 'Minimal downtime', 'Natural results']
+  },
+  {
     id: 'tummy-tuck',
-    title: 'Tummy Tuck',
+    title: 'Tummy Tuck (Abdominoplasty)',
     description: 'Achieve a flatter, more toned abdomen by removing excess skin and tightening muscles.',
     image: getTreatmentImage('tummy-tuck'),
     price: 'Starting from €3,500',
     duration: '3-5 hours',
     category: 'cosmetic-surgery',
     features: ['Muscle tightening', 'Excess skin removal', 'Improved contour', 'Long-lasting results']
+  },
+  {
+    id: 'mommy-makeover',
+    title: 'Mommy Makeover',
+    description: 'Comprehensive body transformation combining multiple procedures to restore pre-pregnancy body.',
+    image: getTreatmentImage('mommy-makeover'),
+    price: 'Starting from €8,000',
+    duration: '4-6 hours',
+    category: 'cosmetic-surgery',
+    features: ['Complete transformation', 'Combined procedures', 'Restored confidence', 'Expert care']
+  },
+  {
+    id: 'brazilian-butt-lift',
+    title: 'Brazilian Butt Lift (BBL)',
+    description: 'Enhance your curves with fat transfer for natural, beautiful buttock augmentation.',
+    image: getTreatmentImage('brazilian-butt-lift'),
+    price: 'Starting from €4,500',
+    duration: '3-4 hours',
+    category: 'cosmetic-surgery',
+    features: ['Natural enhancement', 'Fat transfer', 'Improved curves', 'Long-lasting results']
   },
   {
     id: 'facelift',
@@ -220,27 +302,67 @@ export const TREATMENTS: Treatment[] = [
     category: 'cosmetic-surgery',
     features: ['Youthful appearance', 'Natural results', 'Minimal scarring', 'Expert technique']
   },
-  
-  // Additional Dental Treatments
   {
-    id: 'teeth-whitening',
-    title: 'Professional Teeth Whitening',
-    description: 'Achieve a brighter, whiter smile with our professional-grade whitening treatments.',
-    image: getTreatmentImage('teeth-whitening'),
-    price: 'Starting from €300',
-    duration: '1-2 hours',
-    category: 'dental',
-    features: ['Immediate results', 'Safe procedure', 'Long-lasting', 'Professional grade']
+    id: 'eyebrow-lift',
+    title: 'Eyebrow Lift (Brow Lift)',
+    description: 'Restore youthful, open eyes with precision eyebrow lift surgery.',
+    image: getTreatmentImage('eyebrow-lift'),
+    price: 'Starting from €3,000',
+    duration: '2-3 hours',
+    category: 'cosmetic-surgery',
+    features: ['Youthful appearance', 'Open eyes', 'Natural results', 'Minimal downtime']
   },
   {
-    id: 'all-on-4',
-    title: 'All-on-4 Implants',
-    description: 'Complete teeth replacement with just 4 implants per arch for immediate full mouth restoration.',
-    image: getTreatmentImage('all-on-4'),
-    price: 'Starting from €8,000',
-    duration: '1 day procedure',
-    category: 'dental',
-    features: ['Same day teeth', 'Full arch restoration', 'Immediate function', 'High success rate']
+    id: 'arm-lift',
+    title: 'Arm Lift (Brachioplasty)',
+    description: 'Remove excess skin and fat from upper arms for firmer, more toned contours.',
+    image: getTreatmentImage('arm-lift'),
+    price: 'Starting from €3,500',
+    duration: '2-3 hours',
+    category: 'cosmetic-surgery',
+    features: ['Firmer contours', 'Excess skin removal', 'Improved confidence', 'Long-lasting results']
+  },
+  {
+    id: 'thigh-lift',
+    title: 'Thigh Lift (Thighplasty)',
+    description: 'Reshape and tighten thighs by removing loose skin for improved lower body contours.',
+    image: getTreatmentImage('thigh-lift'),
+    price: 'Starting from €4,000',
+    duration: '2-3 hours',
+    category: 'cosmetic-surgery',
+    features: ['Tighter thighs', 'Improved mobility', 'Better proportions', 'Enhanced comfort']
+  },
+  
+  // Obesity Treatment
+  {
+    id: 'gastric-sleeve',
+    title: 'Gastric Sleeve Surgery',
+    description: 'Safe and effective weight loss surgery removing 70-80% of stomach for lasting results.',
+    image: getTreatmentImage('gastric-sleeve'),
+    price: 'Starting from €4,500',
+    duration: '1-2 hours',
+    category: 'obesity-treatment',
+    features: ['Lasting weight loss', 'Improved health', 'Reduced appetite', 'Life-changing results']
+  },
+  {
+    id: 'gastric-bypass',
+    title: 'Gastric Bypass Surgery',
+    description: 'Advanced bariatric surgery combining restriction and malabsorption for maximum weight loss.',
+    image: getTreatmentImage('gastric-bypass'),
+    price: 'Starting from €6,000',
+    duration: '2-3 hours',
+    category: 'obesity-treatment',
+    features: ['Maximum weight loss', 'Diabetes improvement', 'Metabolic benefits', 'Long-term success']
+  },
+  {
+    id: 'gastric-balloon',
+    title: 'Gastric Balloon',
+    description: 'Non-surgical weight loss solution with temporary balloon placement for appetite reduction.',
+    image: getTreatmentImage('gastric-balloon'),
+    price: 'Starting from €3,000',
+    duration: '30 minutes',
+    category: 'obesity-treatment',
+    features: ['Non-surgical', 'Temporary solution', 'Quick procedure', 'Effective results']
   }
 ];
 
@@ -299,6 +421,7 @@ export const TREATMENT_OPTIONS = [
   { value: 'dental-treatment', label: 'Dental Treatment' },
   { value: 'nose-surgery', label: 'Nose Surgery' },
   { value: 'cosmetic-surgery', label: 'Cosmetic Surgery' },
+  { value: 'obesity-treatment', label: 'Obesity Treatment' },
   { value: 'consultation', label: 'General Consultation' }
 ];
 

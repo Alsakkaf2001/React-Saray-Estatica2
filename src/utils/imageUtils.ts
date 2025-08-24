@@ -47,18 +47,41 @@ export const getPlaceholderImage = (
 
 export const getTreatmentImage = (treatmentType: string): string => {
   const images = {
-    'fue-hair-transplant': 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=600&h=400&fit=crop&crop=center',
-    'dhi-hair-transplant': 'https://images.unsplash.com/photo-1611095973362-70b1fe46fb08?w=600&h=400&fit=crop&crop=center',
-    'beard-transplant': 'https://images.unsplash.com/photo-1621786030484-4c855eed6974?w=600&h=400&fit=crop&crop=face',
+    // Hair Transplant - Natural hair growth and confident results
+    'fue-hair-transplant': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=face',
+    'sapphire-fue': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=400&fit=crop&crop=face',
+    'dhi-hair-transplant': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=400&fit=crop&crop=face',
+    'beard-transplant': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=face',
+    
+    // Dental - Perfect smiles and professional results  
     'dental-implants': 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=600&h=400&fit=crop&crop=center',
-    'hollywood-smile': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop&crop=center',
-    'rhinoplasty': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&h=400&fit=crop&crop=center',
-    'breast-augmentation': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop&crop=center',
-    'liposuction': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop&crop=center',
-    'tummy-tuck': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop&crop=center',
-    'facelift': 'https://images.unsplash.com/photo-1594824721832-8917c1ad1637?w=600&h=400&fit=crop&crop=center',
-    'teeth-whitening': 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop&crop=center',
+    'hollywood-smile': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=400&fit=crop&crop=center',
+    'dental-veneers': 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop&crop=center',
+    'teeth-whitening': 'https://images.unsplash.com/photo-1594824721832-8917c1ad1637?w=600&h=400&fit=crop&crop=center',
     'all-on-4': 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&h=400&fit=crop&crop=center',
+    
+    // Nose Surgery - Facial harmony and natural results
+    'rhinoplasty': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=600&h=400&fit=crop&crop=face',
+    
+    // Cosmetic Surgery - Natural body contouring and confidence
+    'breast-augmentation': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&h=400&fit=crop&crop=center',
+    'breast-lift': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop&crop=center',
+    'breast-reduction': 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop&crop=center',
+    'gynecomastia': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&h=400&fit=crop&crop=center',
+    'liposuction': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop&crop=center',
+    'chin-liposuction': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=600&h=400&fit=crop&crop=face',
+    'tummy-tuck': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop&crop=center',
+    'mommy-makeover': 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=400&fit=crop&crop=face',
+    'brazilian-butt-lift': 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&h=400&fit=crop&crop=center',
+    'facelift': 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&h=400&fit=crop&crop=face',
+    'eyebrow-lift': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&h=400&fit=crop&crop=face',
+    'arm-lift': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop&crop=center',
+    'thigh-lift': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&h=400&fit=crop&crop=center',
+    
+    // Obesity Treatment - Health transformation and wellness
+    'gastric-sleeve': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop&crop=center',
+    'gastric-bypass': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop&crop=center',
+    'gastric-balloon': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&h=400&fit=crop&crop=center',
   };
   
   return images[treatmentType as keyof typeof images] || getPlaceholderImage(600, 400, 'Treatment');
@@ -151,4 +174,45 @@ export const optimizeImageUrl = (url: string): string => {
   // In production, this would integrate with image optimization services
   // For now, return the original URL
   return url;
+};
+
+export const getLearnMoreImage = (treatmentType: string): string => {
+  const learnMoreImages = {
+    // Hair Transplant - Natural, thick hairlines showing confidence
+    'sapphire-fue': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1200&h=600&fit=crop&crop=face',
+    'dhi-hair-transplant': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=1200&h=600&fit=crop&crop=face',
+    'beard-transplant': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=600&fit=crop&crop=face',
+    
+    // Dental - Beautiful, confident smiles (40s-50s for implants)
+    'dental-implants': 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=1200&h=600&fit=crop&crop=center',
+    'hollywood-smile': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=1200&h=600&fit=crop&crop=center',
+    'dental-veneers': 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&h=600&fit=crop&crop=center',
+    'teeth-whitening': 'https://images.unsplash.com/photo-1594824721832-8917c1ad1637?w=1200&h=600&fit=crop&crop=center',
+    'all-on-4': 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=1200&h=600&fit=crop&crop=center',
+    
+    // Nose Surgery - Profile portraits showing facial harmony
+    'rhinoplasty': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=1200&h=600&fit=crop&crop=face',
+    
+    // Cosmetic Surgery - Natural confidence and proportions
+    'breast-augmentation': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1200&h=600&fit=crop&crop=center',
+    'breast-lift': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&h=600&fit=crop&crop=center',
+    'breast-reduction': 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=600&fit=crop&crop=center',
+    'gynecomastia': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1200&h=600&fit=crop&crop=center',
+    'liposuction': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&h=600&fit=crop&crop=center',
+    'chin-liposuction': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=1200&h=600&fit=crop&crop=face',
+    'tummy-tuck': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=600&fit=crop&crop=center',
+    'mommy-makeover': 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=1200&h=600&fit=crop&crop=face',
+    'brazilian-butt-lift': 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1200&h=600&fit=crop&crop=center',
+    'facelift': 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1200&h=600&fit=crop&crop=face',
+    'eyebrow-lift': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1200&h=600&fit=crop&crop=face',
+    'arm-lift': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&h=600&fit=crop&crop=center',
+    'thigh-lift': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1200&h=600&fit=crop&crop=center',
+    
+    // Obesity Treatment - Health transformation and wellness
+    'gastric-sleeve': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&h=600&fit=crop&crop=center',
+    'gastric-bypass': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=600&fit=crop&crop=center',
+    'gastric-balloon': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&h=600&fit=crop&crop=center',
+  };
+  
+  return learnMoreImages[treatmentType as keyof typeof learnMoreImages] || getPlaceholderImage(1200, 600, 'Learn More');
 };

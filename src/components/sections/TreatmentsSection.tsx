@@ -175,6 +175,7 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
     { id: "nose-surgery", label: "Face & Nose Aesthetics" },
     { id: "cosmetic-surgery", label: "Body Aesthetics" },
     { id: "hair-transplant", label: "Hair Restoration" },
+    { id: "obesity-treatment", label: "Obesity Treatment" },
   ];
 
   const handleViewDetails = (treatmentId: string) => {
