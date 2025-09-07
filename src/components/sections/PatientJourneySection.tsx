@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import { MessageCircle, MapPin, Stethoscope, Heart } from "lucide-react";
 import { staggerContainer, slideUp, fadeIn } from "../../utils/animations";
 
+// Import journey step images
+import freeOnlineConsultation3 from "../../assets/images/A Simple Path to Your Results/Free Online Consultation 3.jpg";
+import allInclusiveTrip from "../../assets/images/A Simple Path to Your Results/All-Inclusive Trip.jpg";
+import expertMedicalCare from "../../assets/images/A Simple Path to Your Results/Expert Medical Care.jpg";
+import recoveryLifelongSupport from "../../assets/images/A Simple Path to Your Results/Recovery & Lifelong Support.jpg";
+
 interface JourneyStepProps {
   number: string;
   icon: React.ElementType;
@@ -107,8 +113,7 @@ const PatientJourneySection: React.FC = () => {
       title: "Free Online Consultation",
       description:
         "Begin your transformation journey with a comprehensive online consultation. Share your photos, discuss your goals, and receive a personalized treatment plan with transparent pricing - all from the comfort of your home.",
-      image:
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop&crop=center&q=80",
+      image: freeOnlineConsultation3,
     },
     {
       number: "2",
@@ -116,8 +121,7 @@ const PatientJourneySection: React.FC = () => {
       title: "All-Inclusive Trip Planning",
       description:
         "Once you're ready to proceed, we handle every detail of your medical journey. From luxury accommodation to airport transfers and clinic visits - you just book your flight and we take care of the rest.",
-      image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop&crop=center&q=80",
+      image: allInclusiveTrip,
     },
     {
       number: "3",
@@ -125,8 +129,7 @@ const PatientJourneySection: React.FC = () => {
       title: "Expert Medical Care",
       description:
         "Receive world-class treatment from Turkey's leading specialists in state-of-the-art facilities. With personal translators and dedicated coordinators, you'll feel supported throughout your entire procedure.",
-      image:
-        "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=600&fit=crop&crop=center&q=80",
+      image: expertMedicalCare,
     },
     {
       number: "4",
@@ -134,8 +137,7 @@ const PatientJourneySection: React.FC = () => {
       title: "Recovery & Lifelong Support",
       description:
         "Your care continues long after you return home. We provide detailed aftercare instructions, schedule regular follow-up calls, and offer 24/7 support to ensure your complete satisfaction and success.",
-      image:
-        "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=600&fit=crop&crop=center&q=80",
+      image: recoveryLifelongSupport,
     },
   ];
 

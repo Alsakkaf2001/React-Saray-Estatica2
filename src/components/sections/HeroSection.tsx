@@ -3,6 +3,10 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import dentalImplantsImage from "../../assets/images/heroSection/1.png";
+import teethWhiteningImage from "../../assets/images/heroSection/2.png";
+import orthodonticsImage from "../../assets/images/heroSection/3.png";
+import dentalCareImage from "../../assets/images/heroSection/4.png";
 import {
   slideRight,
   fadeIn,
@@ -235,22 +239,24 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   const treatmentGallery = {
     Dental: [
       {
-        image:
-          "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=600&fit=crop",
+        image: dentalImplantsImage,
         title: "Dental Implants",
         description: "Advanced dental implant procedures",
       },
       {
-        image:
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        image: teethWhiteningImage,
         title: "Teeth Whitening",
         description: "Professional whitening treatments",
       },
       {
-        image:
-          "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop",
+        image: orthodonticsImage,
         title: "Orthodontics",
         description: "Braces and alignment solutions",
+      },
+      {
+        image: dentalCareImage,
+        title: "Dental Care",
+        description: "Comprehensive dental health services",
       },
     ],
     "Face & Nose": [

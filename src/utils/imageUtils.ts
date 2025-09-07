@@ -1,5 +1,33 @@
 // Utility for handling images in development and production
 
+// Import all treatment images
+import dentalImplant1 from '../assets/images/treatment/Dental Treatments/Dental Implant 1.jpg';
+import zirconiumCrown1 from '../assets/images/treatment/Dental Treatments/Zirconium Crown 1.jpg';
+import emaxVeneers from '../assets/images/treatment/Dental Treatments/E-MAX VENEERS.png';
+
+import rhinoplasty from '../assets/images/treatment/Face & Nose Aesthetics/Rhinoplasty.png';
+import faceliftSurgery6 from '../assets/images/treatment/Face & Nose Aesthetics/Facelift Surgery 6.jpg';
+import chinLiposuction from '../assets/images/treatment/Face & Nose Aesthetics/Chin Liposuction.png';
+import eyebrowLift3 from '../assets/images/treatment/Face & Nose Aesthetics/Eyebrow Lift (Brow Lift) 3.jpg';
+
+import liposuction1 from '../assets/images/treatment/Body Aesthetics/Liposuction 1.jpg';
+import tummyTuck2 from '../assets/images/treatment/Body Aesthetics/Tummy Tuck (Abdominoplasty) 2.jpg';
+import mommyMakeover1 from '../assets/images/treatment/Body Aesthetics/Mommy Makeover 1.jpg';
+import brazilianButtLift5 from '../assets/images/treatment/Body Aesthetics/Brazilian Butt Lift (BBL) 5.jpg';
+import armLift3 from '../assets/images/treatment/Body Aesthetics/Arm Lift (Brachioplasty) 3.jpg';
+import breastLift from '../assets/images/treatment/Body Aesthetics/Breast Lift (Mastopexy).jpg';
+import breastAugmentation1 from '../assets/images/treatment/Body Aesthetics/Breast Augmentation 1.jpg';
+import breastReduction from '../assets/images/treatment/Body Aesthetics/Breast Reduction.jpg';
+import gynecomastiaSurgery from '../assets/images/treatment/Body Aesthetics/Gynecomastia Surgery.jpg';
+
+import sapphireFue1 from '../assets/images/treatment/Hair Restoration/Sapphire FUE Hair Transplant 1.jpg';
+import dhiHairTransplant from '../assets/images/treatment/Hair Restoration/DHI Hair Transplant.jpg';
+import beardTransplant3 from '../assets/images/treatment/Hair Restoration/Beard Transplant 3.jpg';
+
+import gastricBypassSurgery from '../assets/images/treatment/Obesity Treatment/Gastric Bypass Surgery.jpg';
+import gastricBypassSurgeryWebp from '../assets/images/treatment/Obesity Treatment/Gastric Bypass Surgery.webp';
+import gastricSleeveSurgery1 from '../assets/images/treatment/Obesity Treatment/Gastric Sleeve Surgery 1.jpg';
+
 export const getPlaceholderImage = (
   width: number, 
   height: number, 
@@ -47,41 +75,37 @@ export const getPlaceholderImage = (
 
 export const getTreatmentImage = (treatmentType: string): string => {
   const images = {
-    // Hair Transplant - Natural hair growth and confident results
-    'fue-hair-transplant': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=face',
-    'sapphire-fue': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=400&fit=crop&crop=face',
-    'dhi-hair-transplant': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=400&fit=crop&crop=face',
-    'beard-transplant': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=face',
+    // Dental Treatments - Using imported local images
+    'dental-implants': dentalImplant1,
+    'zirconium-crowns': zirconiumCrown1,
+    'dental-veneers-emax': emaxVeneers,
     
-    // Dental - Perfect smiles and professional results  
-    'dental-implants': 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=600&h=400&fit=crop&crop=center',
-    'hollywood-smile': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=400&fit=crop&crop=center',
-    'dental-veneers': 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop&crop=center',
-    'teeth-whitening': 'https://images.unsplash.com/photo-1594824721832-8917c1ad1637?w=600&h=400&fit=crop&crop=center',
-    'all-on-4': 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&h=400&fit=crop&crop=center',
+    // Nose & Face Aesthetics - Using imported local images
+    'rhinoplasty': rhinoplasty,
+    'facelift': faceliftSurgery6,
+    'double-chin-liposuction': chinLiposuction,
+    'eyebrow-lift': eyebrowLift3,
     
-    // Nose Surgery - Facial harmony and natural results
-    'rhinoplasty': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=600&h=400&fit=crop&crop=face',
+    // Body Aesthetics - Using imported local images
+    'liposuction': liposuction1,
+    'tummy-tuck': tummyTuck2,
+    'mommy-makeover': mommyMakeover1,
+    'brazilian-butt-lift': brazilianButtLift5,
+    'arm-lift': armLift3,
+    'breast-lift': breastLift,
+    'breast-augmentation': breastAugmentation1,
+    'breast-reduction': breastReduction,
+    'gynecomastia': gynecomastiaSurgery,
     
-    // Cosmetic Surgery - Natural body contouring and confidence
-    'breast-augmentation': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&h=400&fit=crop&crop=center',
-    'breast-lift': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop&crop=center',
-    'breast-reduction': 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop&crop=center',
-    'gynecomastia': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&h=400&fit=crop&crop=center',
-    'liposuction': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop&crop=center',
-    'chin-liposuction': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=600&h=400&fit=crop&crop=face',
-    'tummy-tuck': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop&crop=center',
-    'mommy-makeover': 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=400&fit=crop&crop=face',
-    'brazilian-butt-lift': 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&h=400&fit=crop&crop=center',
-    'facelift': 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&h=400&fit=crop&crop=face',
-    'eyebrow-lift': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&h=400&fit=crop&crop=face',
-    'arm-lift': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop&crop=center',
-    'thigh-lift': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&h=400&fit=crop&crop=center',
+    // Hair Restoration - Using imported local images
+    'sapphire-fue-hair-transplant': sapphireFue1,
+    'dhi-hair-transplant': dhiHairTransplant,
+    'beard-transplant': beardTransplant3,
     
-    // Obesity Treatment - Health transformation and wellness
-    'gastric-sleeve': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop&crop=center',
-    'gastric-bypass': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop&crop=center',
-    'gastric-balloon': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&h=400&fit=crop&crop=center',
+    // Weight-Loss (Obesity) Treatments - Using imported local images
+    'gastric-bypass': gastricBypassSurgery,
+    'gastric-balloon': gastricBypassSurgeryWebp,
+    'gastric-sleeve': gastricSleeveSurgery1,
   };
   
   return images[treatmentType as keyof typeof images] || getPlaceholderImage(600, 400, 'Treatment');
