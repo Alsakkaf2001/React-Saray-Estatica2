@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowLeft,
   Clock,
   DollarSign,
   CheckCircle,
   Phone,
-  MessageCircle,
   Plus,
   Minus,
   Star,
@@ -4023,26 +4021,6 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       />
       <Layout onNavigate={onNavigate}>
         <div className="bg-white">
-          {/* Back Button */}
-          <section className="section-padding-sm">
-            <div className="container-custom">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-6 px-4 sm:px-0"
-              >
-                <Button
-                  variant="outline"
-                  leftIcon={<ArrowLeft className="w-4 h-4" />}
-                  onClick={onBack}
-                  className="mb-4"
-                >
-                  Back to Treatments
-                </Button>
-              </motion.div>
-            </div>
-          </section>
-
           {/* SECTION 1: HERO */}
           <section className="relative overflow-hidden">
             {/* Background Image */}
@@ -4055,7 +4033,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
             </div>
 
-            <div className="relative section-padding">
+            <div className="relative py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
               <div className="container-custom">
                 <motion.div
                   variants={staggerContainer}
@@ -4064,8 +4042,8 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                   className="max-w-3xl px-4 sm:px-0"
                 >
                   {content?.hero.visual && (
-                    <motion.div variants={fadeIn} className="mb-6">
-                      <p className="text-sm text-white/80 italic bg-black/30 p-3 rounded-lg backdrop-blur-sm">
+                    <motion.div variants={fadeIn} className="mb-4 sm:mb-6">
+                      <p className="text-xs sm:text-sm text-white/80 italic bg-black/30 p-2 sm:p-3 rounded-lg backdrop-blur-sm">
                         {content.hero.visual}
                       </p>
                     </motion.div>
@@ -4073,14 +4051,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
 
                   <motion.h1
                     variants={fadeIn}
-                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
                   >
                     {content?.hero.headline || treatment.title}
                   </motion.h1>
 
                   <motion.p
                     variants={fadeIn}
-                    className="text-xl sm:text-2xl text-white/90 leading-relaxed mb-8"
+                    className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed mb-6 sm:mb-8"
                   >
                     {content?.hero.subheadline || treatment.description}
                   </motion.p>
@@ -4088,51 +4066,61 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                   {/* Price and Duration Cards */}
                   <motion.div
                     variants={fadeIn}
-                    className="flex flex-col sm:flex-row gap-4 mb-8"
+                    className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8"
                   >
                     {treatment.price && (
-                      <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                        <div className="flex items-center text-white/80 mb-2">
-                          <DollarSign className="w-5 h-5 mr-2 text-primary-300" />
-                          <span className="font-medium">Starting Price</span>
+                      <div className="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20">
+                        <div className="flex items-center text-white/80 mb-1 sm:mb-2">
+                          <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-primary-300" />
+                          <span className="font-medium text-sm sm:text-base">
+                            Starting Price
+                          </span>
                         </div>
-                        <div className="text-2xl font-bold text-white">
+                        <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
                           {treatment.price}
                         </div>
                       </div>
                     )}
                     {treatment.duration && (
-                      <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                        <div className="flex items-center text-white/80 mb-2">
-                          <Clock className="w-5 h-5 mr-2 text-primary-300" />
-                          <span className="font-medium">Duration</span>
+                      <div className="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20">
+                        <div className="flex items-center text-white/80 mb-1 sm:mb-2">
+                          <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-primary-300" />
+                          <span className="font-medium text-sm sm:text-base">
+                            Duration
+                          </span>
                         </div>
-                        <div className="text-2xl font-bold text-white">
+                        <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
                           {treatment.duration}
                         </div>
                       </div>
                     )}
                   </motion.div>
 
-                  <motion.div
-                    variants={fadeIn}
-                    className="flex flex-col sm:flex-row gap-4"
-                  >
+                  <motion.div variants={fadeIn} className="flex justify-start">
                     <Button
                       variant="primary"
-                      size="lg"
-                      leftIcon={<Phone className="w-5 h-5" />}
-                      className="bg-primary-500 hover:bg-primary-600 text-white shadow-xl"
+                      size="md"
+                      leftIcon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
+                      className="bg-primary-500 hover:bg-primary-600 text-white shadow-xl text-sm sm:text-base"
+                      onClick={() => {
+                        // Navigate to home page and scroll to consultation form
+                        if (onNavigate) {
+                          onNavigate("/");
+                          // Small delay to ensure navigation completes before scrolling
+                          setTimeout(() => {
+                            const formElement =
+                              document.getElementById("consultation-form");
+                            if (formElement) {
+                              formElement.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center",
+                              });
+                            }
+                          }, 100);
+                        }
+                      }}
                     >
                       Book Free Consultation
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      leftIcon={<MessageCircle className="w-5 h-5" />}
-                      className="border-white text-white hover:bg-white hover:text-primary-600 backdrop-blur-sm"
-                    >
-                      Get Instant Quote
                     </Button>
                   </motion.div>
                 </motion.div>
@@ -4319,100 +4307,103 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
 
                     {/* Timeline section */}
                     <div className="space-y-6">
-                      {(content.sections[1] as any).timeline?.map((step: any, index: number) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.2 }}
-                          className="relative"
-                        >
-                          {isDhiHairTransplant ||
-                          isSapphireFue ||
-                          isRhinoplasty ||
-                          isChinLiposuction ||
-                          isLiposuction ||
-                          isTummyTuck ||
-                          isMommyMakeover ||
-                          isBBL ||
-                          isBreastLift ||
-                          isBreastAugmentation ||
-                          isBreastReduction ||
-                          isGynecomastia ||
-                          isGastricSleeve ||
-                          isGastricBypass ||
-                          isGastricBalloon ||
-                          isArmLift ||
-                          isThighLift ? (
-                            /* Rhinoplasty timeline with table-like structure */
-                            <Card className="p-6">
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div className="flex items-center">
-                                  <div className="bg-primary-100 rounded-full p-3 mr-4">
-                                    <span className="text-2xl">
-                                      {step.icon}
-                                    </span>
+                      {(content.sections[1] as any).timeline?.map(
+                        (step: any, index: number) => (
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.2 }}
+                            className="relative"
+                          >
+                            {isDhiHairTransplant ||
+                            isSapphireFue ||
+                            isRhinoplasty ||
+                            isChinLiposuction ||
+                            isLiposuction ||
+                            isTummyTuck ||
+                            isMommyMakeover ||
+                            isBBL ||
+                            isBreastLift ||
+                            isBreastAugmentation ||
+                            isBreastReduction ||
+                            isGynecomastia ||
+                            isGastricSleeve ||
+                            isGastricBypass ||
+                            isGastricBalloon ||
+                            isArmLift ||
+                            isThighLift ? (
+                              /* Rhinoplasty timeline with table-like structure */
+                              <Card className="p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                  <div className="flex items-center">
+                                    <div className="bg-primary-100 rounded-full p-3 mr-4">
+                                      <span className="text-2xl">
+                                        {step.icon}
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <h4 className="text-lg font-bold text-text-primary">
+                                        {(step as any).stage}
+                                      </h4>
+                                    </div>
+                                  </div>
+                                  <div className="text-center md:text-left">
+                                    <div className="bg-primary-50 rounded-lg px-4 py-2 inline-block">
+                                      <span className="font-semibold text-primary-700">
+                                        {(step as any).timeframe}
+                                      </span>
+                                    </div>
                                   </div>
                                   <div>
-                                    <h4 className="text-lg font-bold text-text-primary">
-                                      {(step as any).stage}
-                                    </h4>
+                                    <p className="text-gray-700 leading-relaxed">
+                                      {step.description}
+                                    </p>
                                   </div>
                                 </div>
-                                <div className="text-center md:text-left">
-                                  <div className="bg-primary-50 rounded-lg px-4 py-2 inline-block">
-                                    <span className="font-semibold text-primary-700">
-                                      {(step as any).timeframe}
-                                    </span>
-                                  </div>
+                              </Card>
+                            ) : (
+                              /* Standard timeline for other treatments */
+                              <div className="flex items-start">
+                                <div className="bg-primary-100 rounded-full p-3 mr-4 mt-1">
+                                  <span className="text-2xl">{step.icon}</span>
                                 </div>
-                                <div>
+                                <div className="flex-1">
+                                  <h4 className="text-xl font-bold text-primary-600 mb-3">
+                                    {(step as any).day || (step as any).stage}
+                                  </h4>
                                   <p className="text-gray-700 leading-relaxed">
                                     {step.description}
                                   </p>
                                 </div>
                               </div>
-                            </Card>
-                          ) : (
-                            /* Standard timeline for other treatments */
-                            <div className="flex items-start">
-                              <div className="bg-primary-100 rounded-full p-3 mr-4 mt-1">
-                                <span className="text-2xl">{step.icon}</span>
-                              </div>
-                              <div className="flex-1">
-                                <h4 className="text-xl font-bold text-primary-600 mb-3">
-                                  {(step as any).day || (step as any).stage}
-                                </h4>
-                                <p className="text-gray-700 leading-relaxed">
-                                  {step.description}
-                                </p>
-                              </div>
-                            </div>
-                          )}
-                          {!isDhiHairTransplant &&
-                            !isSapphireFue &&
-                            !isRhinoplasty &&
-                            !isChinLiposuction &&
-                            !isLiposuction &&
-                            !isTummyTuck &&
-                            !isMommyMakeover &&
-                            !isBBL &&
-                            !isBreastLift &&
-                            !isBreastAugmentation &&
-                            !isBreastReduction &&
-                            !isGynecomastia &&
-                            !isGastricSleeve &&
-                            !isGastricBypass &&
-                            !isGastricBalloon &&
-                            !isArmLift &&
-                            !isThighLift &&
-                            index <
-                              (content.sections[1] as any).timeline!.length - 1 && (
-                              <div className="absolute left-6 top-16 w-0.5 h-6 bg-primary-200"></div>
                             )}
-                        </motion.div>
-                      ))}
+                            {!isDhiHairTransplant &&
+                              !isSapphireFue &&
+                              !isRhinoplasty &&
+                              !isChinLiposuction &&
+                              !isLiposuction &&
+                              !isTummyTuck &&
+                              !isMommyMakeover &&
+                              !isBBL &&
+                              !isBreastLift &&
+                              !isBreastAugmentation &&
+                              !isBreastReduction &&
+                              !isGynecomastia &&
+                              !isGastricSleeve &&
+                              !isGastricBypass &&
+                              !isGastricBalloon &&
+                              !isArmLift &&
+                              !isThighLift &&
+                              index <
+                                (content.sections[1] as any).timeline!.length -
+                                  1 && (
+                                <div className="absolute left-6 top-16 w-0.5 h-6 bg-primary-200"></div>
+                              )}
+                          </motion.div>
+                        )
+                      )}
                     </div>
                   </motion.div>
                 </div>
@@ -4736,22 +4727,31 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                     "Take the first step towards your transformation. Get your personalized consultation today."}
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+                <div className="flex justify-center mb-8">
                   <Button
                     variant="secondary"
                     size="lg"
                     leftIcon={<Phone className="w-5 h-5" />}
                     className="bg-white text-primary-600 hover:bg-gray-50 shadow-xl px-8 py-4 text-lg font-semibold"
+                    onClick={() => {
+                      // Navigate to home page and scroll to consultation form
+                      if (onNavigate) {
+                        onNavigate("/");
+                        // Small delay to ensure navigation completes before scrolling
+                        setTimeout(() => {
+                          const formElement =
+                            document.getElementById("consultation-form");
+                          if (formElement) {
+                            formElement.scrollIntoView({
+                              behavior: "smooth",
+                              block: "center",
+                            });
+                          }
+                        }, 100);
+                      }
+                    }}
                   >
                     {content?.cta.buttonText || "Book Free Consultation"}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    leftIcon={<MessageCircle className="w-5 h-5" />}
-                    className="border-white text-white hover:bg-white hover:text-primary-600 px-8 py-4 text-lg font-semibold"
-                  >
-                    Get Instant Quote
                   </Button>
                 </div>
 

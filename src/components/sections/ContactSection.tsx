@@ -151,7 +151,7 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section className="section-padding bg-gray-50">
+    <section id="contact" className="section-padding bg-gray-50">
       <div className="container-custom">
         <motion.div
           variants={staggerContainer}
@@ -164,7 +164,7 @@ const ContactSection: React.FC = () => {
             variants={fadeIn}
             className="text-center mb-8 sm:mb-12 lg:mb-16 px-4 sm:px-0"
           >
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-text-primary mb-4 sm:mb-6">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-text-primary mb-3 sm:mb-4 lg:mb-6">
               Ready to See Your Personalized Plan?
             </h2>
           </motion.div>

@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({
       <Header onNavigate={onNavigate} />
 
       <motion.main
-        className={`flex-grow mobile-no-scroll pt-14 md:pt-16 lg:pt-28 ${className}`}
+        className={`flex-grow mobile-no-scroll pt-2 md:pt-3 lg:pt-4 ${className}`}
         initial="initial"
         animate="in"
         exit="out"

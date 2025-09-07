@@ -101,25 +101,28 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       />
       <Layout onNavigate={onNavigate}>
         {/* SECTION 1: HERO - New Content */}
-        <section className="relative overflow-hidden bg-white">
-          <div className="container-custom section-padding">
+        <section className="relative overflow-hidden bg-white pt-20 sm:pt-24 lg:pt-28">
+          <div className="container-custom py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16 items-center"
             >
               {/* Hero Content */}
-              <motion.div variants={fadeIn} className="space-y-6 lg:space-y-8">
+              <motion.div
+                variants={fadeIn}
+                className="space-y-4 sm:space-y-6 lg:space-y-8"
+              >
                 <div>
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight mb-6">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight mb-3 sm:mb-4 lg:mb-6">
                     A Higher Standard of{" "}
                     <span className="text-primary-600">
                       International Patient Care
                     </span>
                   </h1>
-                  <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl">
+                  <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-600 leading-relaxed max-w-2xl">
                     Saray Estetica was founded on a commitment to redefine the
                     standard of care for international patients. Our entire
                     practice is built on a foundation of clinical excellence,
@@ -130,7 +133,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
 
               {/* Hero Image */}
               <motion.div variants={slideUp} className="relative">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+                <div className="aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl">
                   <img
                     src={getClinicImages().reception}
                     alt="Saray Estetica Modern Reception Area"
@@ -691,14 +694,6 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                       >
                         Get Directions
                       </Button>
-                      <Button
-                        variant="outline"
-                        size="lg"
-                        fullWidth
-                        className="border-primary-300 text-primary-600 hover:bg-primary-50"
-                      >
-                        Schedule Visit
-                      </Button>
                     </div>
                   </Card>
                 </motion.div>
@@ -733,7 +728,16 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                     variant="primary"
                     size="xl"
                     className="bg-white text-primary-600 hover:bg-gray-50 hover:shadow-lg transform hover:scale-105 transition-all duration-300 font-semibold px-8 py-4"
-                    onClick={() => onNavigate?.("#contact")}
+                    onClick={() => {
+                      const formElement =
+                        document.getElementById("consultation-form");
+                      if (formElement) {
+                        formElement.scrollIntoView({
+                          behavior: "smooth",
+                          block: "center",
+                        });
+                      }
+                    }}
                   >
                     Request a Consultation
                     <ArrowRight className="w-5 h-5 ml-2" />

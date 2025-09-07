@@ -305,11 +305,34 @@ const Header: React.FC<HeaderProps> = ({
                   </button>
                 </div>
 
-                <button className="text-gray-700 hover:text-[#A52C67] px-4 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm font-medium">
+                <button
+                  className="text-gray-700 hover:text-[#A52C67] px-4 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm font-medium"
+                  onClick={() => {
+                    const contactElement = document.getElementById("contact");
+                    if (contactElement) {
+                      contactElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }
+                  }}
+                >
                   Contact Us
                 </button>
 
-                <button className="bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-200 text-sm font-medium">
+                <button
+                  className="bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-200 text-sm font-medium"
+                  onClick={() => {
+                    const formElement =
+                      document.getElementById("consultation-form");
+                    if (formElement) {
+                      formElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                      });
+                    }
+                  }}
+                >
                   Free Consultation
                 </button>
               </motion.div>
@@ -433,7 +456,9 @@ const Header: React.FC<HeaderProps> = ({
                                   handleNavClick(subItem.href);
                                 }}
                                 className={`block py-3 px-4 text-sm text-gray-600 hover:text-[#A52C67] transition-colors duration-200 ${
-                                  index !== item.subItems!.length - 1 ? "border-b border-gray-200" : ""
+                                  index !== item.subItems!.length - 1
+                                    ? "border-b border-gray-200"
+                                    : ""
                                 }`}
                               >
                                 {subItem.label}
@@ -450,7 +475,17 @@ const Header: React.FC<HeaderProps> = ({
               {/* Bottom Section - Optional CTA */}
               <div className="p-6 border-t border-gray-100">
                 <button
-                  onClick={closeMobileMenu}
+                  onClick={() => {
+                    closeMobileMenu();
+                    const formElement =
+                      document.getElementById("consultation-form");
+                    if (formElement) {
+                      formElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                      });
+                    }
+                  }}
                   className="w-full py-3 px-6 bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium"
                 >
                   Free Consultation

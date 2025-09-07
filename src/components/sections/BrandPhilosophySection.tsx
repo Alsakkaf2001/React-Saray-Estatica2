@@ -9,7 +9,13 @@ import {
 import { getClinicImages, handleImageError } from "../../utils/imageUtils";
 import Button from "../ui/Button";
 
-const BrandPhilosophySection: React.FC = () => {
+interface BrandPhilosophySectionProps {
+  onNavigateToAbout?: () => void;
+}
+
+const BrandPhilosophySection: React.FC<BrandPhilosophySectionProps> = ({
+  onNavigateToAbout,
+}) => {
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
@@ -24,10 +30,10 @@ const BrandPhilosophySection: React.FC = () => {
             {/* Left Content */}
             <motion.div variants={slideLeft} className="space-y-6 sm:space-y-8">
               <div>
-                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-text-primary mb-6 sm:mb-8">
+                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-text-primary mb-4 sm:mb-6 lg:mb-8">
                   Our Promise to You
                 </h2>
-                <div className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed space-y-4 sm:space-y-6">
+                <div className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed space-y-3 sm:space-y-4 lg:space-y-6">
                   <p>
                     At Saray Estetica, our work is guided by a simple belief:
                     high-quality care should be clear, honest, and accessible.
@@ -50,6 +56,7 @@ const BrandPhilosophySection: React.FC = () => {
                   size="lg"
                   rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
                   className="w-full sm:w-auto"
+                  onClick={() => onNavigateToAbout?.()}
                 >
                   Learn More About Our Clinic
                 </Button>

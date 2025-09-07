@@ -87,7 +87,7 @@ const SinglePage: React.FC<SinglePageProps> = ({
 
         {/* Brand Philosophy Section */}
         <section id="about" className="relative">
-          <BrandPhilosophySection />
+          <BrandPhilosophySection onNavigateToAbout={onNavigateToAbout} />
         </section>
 
         {/* FAQ Section */}

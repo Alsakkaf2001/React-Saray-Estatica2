@@ -24,13 +24,13 @@ const JourneyStep: React.FC<JourneyStepProps & { index: number }> = ({
   return (
     <motion.div
       variants={slideUp}
-      className="relative mb-20"
+      className="relative mb-12 sm:mb-16 lg:mb-20"
       whileInView={{ opacity: 1, x: 0 }}
       initial={{ opacity: 0, x: isEven ? -50 : 50 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
     >
       <div
-        className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${
+        className={`flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-16 ${
           !isEven ? "lg:flex-row-reverse" : ""
         }`}
       >
@@ -59,40 +59,27 @@ const JourneyStep: React.FC<JourneyStepProps & { index: number }> = ({
         </div>
 
         {/* Content Side */}
-        <div className="flex-1">
-          <div className="space-y-6">
+        <div className="flex-1 w-full">
+          <div className="space-y-4 sm:space-y-6">
             {/* Icon and Title */}
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl flex items-center justify-center shadow-lg">
-                <Icon className="w-8 h-8 text-white" />
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <div>
-                <div className="text-sm font-semibold text-[#A52C67] uppercase tracking-wide mb-1">
+              <div className="min-w-0 flex-1">
+                <div className="text-xs sm:text-sm font-semibold text-[#A52C67] uppercase tracking-wide mb-1">
                   Step {number}
                 </div>
-                <h3 className="text-3xl font-bold text-gray-900">{title}</h3>
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 leading-tight">
+                  {title}
+                </h3>
               </div>
             </div>
 
             {/* Description */}
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
               {description}
             </p>
-
-            {/* Action Button */}
-            <motion.button
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Learn More
-              <motion.div
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                →
-              </motion.div>
-            </motion.button>
           </div>
         </div>
       </div>
@@ -173,13 +160,13 @@ const PatientJourneySection: React.FC = () => {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-3xl mb-8 shadow-xl">
               <Heart className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
               A Simple Path to{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A52C67] to-[#3F1127]">
                 Your Results
               </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Follow our proven 4-step process designed to make your
               transformation journey as smooth and successful as possible.
             </p>
@@ -199,13 +186,23 @@ const PatientJourneySection: React.FC = () => {
             transition={{ delay: 1 }}
           >
             <motion.button
-              className="bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white px-12 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="bg-gradient-to-r from-[#A52C67] to-[#3F1127] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-lg sm:text-xl shadow-xl hover:shadow-2xl transition-all duration-300"
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const formElement =
+                  document.getElementById("consultation-form");
+                if (formElement) {
+                  formElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+                }
+              }}
             >
               Start Your Journey Today
             </motion.button>
-            <p className="text-gray-500 mt-4">
+            <p className="text-gray-500 mt-3 sm:mt-4 text-sm sm:text-base">
               No obligation • Free consultation • Transparent pricing
             </p>
           </motion.div>

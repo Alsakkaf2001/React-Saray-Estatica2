@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import PhoneInput from "react-phone-number-input";
-import { isValidPhoneNumber } from "react-phone-number-input";
-import "react-phone-number-input/style.css";
-import "./PhoneInputStyles.css";
 import {
   slideRight,
   fadeIn,
@@ -17,9 +13,7 @@ import {
 // Contact form validation schema
 const contactSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
-  phone: z.string().refine((phone) => isValidPhoneNumber(phone || ""), {
-    message: "Please enter a valid phone number",
-  }),
+  phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email address"),
   country: z.string().min(1, "Please select your country"),
   treatment: z.string().min(1, "Please select a treatment"),
@@ -236,7 +230,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   // Gallery state management
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedSpecialty, setSelectedSpecialty] = useState("Dental");
 
   // Treatment gallery data with images for each specialty
   const treatmentGallery = {
@@ -342,53 +335,24 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     ],
   };
 
-  const currentGallery =
-    treatmentGallery[selectedSpecialty as keyof typeof treatmentGallery];
+  const currentGallery = treatmentGallery["Dental"];
 
-  // Auto-rotate through all images and specialties every 5 seconds
+  // Auto-rotate through images every 5 seconds
   useEffect(() => {
-    const specialties = ["Dental", "Face & Nose", "Body", "Hair", "Obesity"];
-    let totalImageCounter = 0;
-
     const interval = setInterval(() => {
-      // Calculate which specialty and image we should be on
-      const imagesPerSpecialty = 3; // Each specialty has 3 images
-      const totalImages = specialties.length * imagesPerSpecialty;
-
-      totalImageCounter = (totalImageCounter + 1) % totalImages;
-
-      const specialtyIndex = Math.floor(totalImageCounter / imagesPerSpecialty);
-      const imageIndex = totalImageCounter % imagesPerSpecialty;
-
-      const newSpecialty = specialties[specialtyIndex];
-
-      // Update specialty if it changed
-      setSelectedSpecialty((prevSpecialty) => {
-        if (prevSpecialty !== newSpecialty) {
-          return newSpecialty;
-        }
-        return prevSpecialty;
-      });
-
-      // Update image index
-      setCurrentImageIndex(imageIndex);
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % currentGallery.length
+      );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []); // Remove dependency on currentGallery.length
-
-  // Handle manual specialty selection
-  const handleSpecialtyClick = (specialty: string) => {
-    setSelectedSpecialty(specialty);
-    setCurrentImageIndex(0); // Reset to first image when manually selected
-  };
+  }, [currentGallery.length]);
 
   const words = title.split(" ");
 
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<ContactFormData>({
@@ -509,7 +473,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
 
             {/* Appointment Form */}
-            <div className="bg-gradient-to-br from-[#A52C67] to-[#3F1127] rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+            <div
+              id="consultation-form"
+              className="bg-gradient-to-br from-[#A52C67] to-[#3F1127] rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+            >
               {/* Subtle overlay for depth */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 rounded-3xl"></div>
               <div className="relative z-10">
@@ -572,22 +539,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
                       {/* Phone Number Input */}
                       <div>
-                        <Controller
-                          name="phone"
-                          control={control}
-                          render={({ field: { onChange, value } }) => (
-                            <PhoneInput
-                              value={value}
-                              onChange={onChange}
-                              defaultCountry="US"
-                              placeholder="Phone Number"
-                              international={false}
-                              withCountryCallingCode={true}
-                              countryCallingCodeEditable={false}
-                              displayInitialValueAsLocalNumber={false}
-                              className="phone-input-modern"
-                            />
-                          )}
+                        <input
+                          {...register("phone")}
+                          type="tel"
+                          placeholder="Phone Number WhatsApp"
+                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all text-white placeholder-pink-200 shadow-lg"
                         />
                         {errors.phone && (
                           <p className="text-red-300 text-xs mt-1">
@@ -681,7 +637,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                           <span>Booking...</span>
                         </div>
                       ) : (
-                        "Book Appointment"
+                        "Free Consultation"
                       )}
                     </motion.button>
                   </form>
@@ -821,7 +777,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Dynamic Image Gallery */}
               <motion.div
                 className="relative h-full rounded-2xl overflow-hidden shadow-xl"
-                key={`${selectedSpecialty}-${currentImageIndex}`}
+                key={`Dental-${currentImageIndex}`}
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
@@ -868,39 +824,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       }`}
                     />
                   ))}
-                </div>
-              </motion.div>
-
-              {/* Interactive Service Category Buttons - Bottom Center */}
-              <motion.div
-                className="absolute bottom-6 left-1/2 transform -translate-x-1/2 max-w-sm"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 0.6 }}
-              >
-                <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/30">
-                  <div className="text-sm text-gray-800 mb-3 font-medium font-sans text-center">
-                    Our Specialties
-                  </div>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {["Dental", "Face & Nose", "Body", "Hair", "Obesity"].map(
-                      (service) => (
-                        <motion.button
-                          key={service}
-                          onClick={() => handleSpecialtyClick(service)}
-                          className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 font-sans ${
-                            selectedSpecialty === service
-                              ? "bg-[#A52C67] text-white border-[#A52C67] shadow-lg"
-                              : "bg-white text-[#A52C67] border-gray-200 hover:bg-gray-50 hover:shadow-md"
-                          }`}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          {service}
-                        </motion.button>
-                      )
-                    )}
-                  </div>
                 </div>
               </motion.div>
 
