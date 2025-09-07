@@ -31,9 +31,9 @@ const BeforeAfterGallery: React.FC<BeforeAfterGalleryProps> = ({
 
   const categories = [
     { id: "all", label: "All Results", icon: Eye },
-    { id: "hair-transplant", label: "Hair Transplant", icon: Camera },
+    { id: "hair-restoration", label: "Hair Restoration", icon: Camera },
     { id: "dental", label: "Dental", icon: Award },
-    { id: "cosmetic-surgery", label: "Cosmetic Surgery", icon: Heart },
+    { id: "nose-face-aesthetics", label: "Nose & Face Aesthetics", icon: Heart },
   ];
 
   useEffect(() => {

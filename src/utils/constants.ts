@@ -59,7 +59,7 @@ export const BEFORE_AFTER_IMAGES = [
     afterImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&h=400&fit=crop&crop=face",
     treatment: "Hair Transplant - FUE Method",
     description: "Complete hair restoration using advanced FUE technique. 3000 grafts transplanted with natural hairline design.",
-    category: "hair-transplant"
+    category: "hair-restoration"
   },
   {
     id: "hair-2", 
@@ -67,7 +67,7 @@ export const BEFORE_AFTER_IMAGES = [
     afterImage: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&h=400&fit=crop&crop=face",
     treatment: "Hair Transplant - DHI Technique",
     description: "Advanced DHI hair transplantation for natural density and perfect hairline. 2500 grafts with minimal scarring.",
-    category: "hair-transplant"
+    category: "hair-restoration"
   },
   {
     id: "dental-1",
@@ -91,7 +91,7 @@ export const BEFORE_AFTER_IMAGES = [
     afterImage: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&h=400&fit=crop&crop=face",
     treatment: "Rhinoplasty Surgery",
     description: "Natural nose reshaping with advanced surgical techniques. Enhanced facial harmony and improved breathing.",
-    category: "cosmetic-surgery"
+    category: "nose-face-aesthetics"
   },
   {
     id: "cosmetic-2",
@@ -99,7 +99,7 @@ export const BEFORE_AFTER_IMAGES = [
     afterImage: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=500&h=400&fit=crop&crop=face",
     treatment: "Facelift Surgery",
     description: "Natural facelift with advanced techniques for youthful appearance. Minimal scarring with dramatic results.",
-    category: "cosmetic-surgery"
+    category: "nose-face-aesthetics"
   }
 ];
 
@@ -646,7 +646,7 @@ Remember, every patient heals differently. Trust the process and follow your sur
     author: 'dr-sara-thompson',
     publishDate: '2024-01-05',
     readTime: '7 min read',
-    category: 'cosmetic-surgery',
+    category: 'nose-face-aesthetics',
     tags: ['rhinoplasty', 'nose surgery', 'recovery', 'post-operative care'],
     featured: false,
     views: 670,
