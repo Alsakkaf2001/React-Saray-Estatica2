@@ -293,6 +293,16 @@ const FAQSection: React.FC = () => {
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const formElement =
+                      document.getElementById("consultation-form");
+                    if (formElement) {
+                      formElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                      });
+                    }
+                  }}
                   className="bg-white text-primary-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
                 >
                   Get Free Consultation
@@ -301,6 +311,15 @@ const FAQSection: React.FC = () => {
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const contactElement = document.getElementById("contact");
+                    if (contactElement) {
+                      contactElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }
+                  }}
                   className="bg-white/10 text-white border-2 border-white/30 px-8 py-4 rounded-xl font-bold text-lg backdrop-blur-sm hover:bg-white/20 transition-all duration-300 w-full sm:w-auto"
                 >
                   Contact Our Team

@@ -68,29 +68,35 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-3 flex flex-col h-full">
-          <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-1 group-hover:text-primary-500 transition-colors leading-tight">
-            {treatment.title}
-          </h3>
+        <div className="p-6 flex flex-col h-full space-y-4">
+          {/* Title Section */}
+          <div>
+            <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2 group-hover:text-primary-500 transition-colors leading-tight">
+              {treatment.title}
+            </h3>
+          </div>
 
-          <p className="text-base text-gray-600 mb-1 line-clamp-2 leading-relaxed flex-grow">
-            {treatment.description}
-          </p>
+          {/* Description Section */}
+          <div className="flex-grow">
+            <p className="text-base text-gray-600 leading-relaxed line-clamp-2">
+              {treatment.description}
+            </p>
+          </div>
 
-          {/* Features */}
+          {/* Features Section */}
           {treatment.features && treatment.features.length > 0 && (
-            <div className="mb-1.5">
-              <div className="flex flex-wrap gap-1">
+            <div>
+              <div className="flex flex-wrap gap-2">
                 {treatment.features.slice(0, 3).map((feature, index) => (
                   <span
                     key={index}
-                    className="px-2 py-0.5 bg-primary-50 text-primary-700 text-xs font-medium rounded-full"
+                    className="px-3 py-1 bg-primary-50 text-primary-700 text-xs font-medium rounded-full"
                   >
                     {feature}
                   </span>
                 ))}
                 {treatment.features.length > 3 && (
-                  <span className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+                  <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
                     +{treatment.features.length - 3} more
                   </span>
                 )}
@@ -98,11 +104,11 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
             </div>
           )}
 
-          {/* Meta Information */}
-          <div className="flex items-center justify-between text-xs text-gray-500 mb-1.5">
+          {/* Meta Information Section */}
+          <div className="flex justify-between items-center text-xs text-gray-500">
             {treatment.duration && (
               <div className="flex items-center">
-                <Clock className="w-3 h-3 mr-1" />
+                <Clock className="w-4 h-4 mr-2" />
                 <span className="truncate font-medium">
                   {treatment.duration}
                 </span>
@@ -110,23 +116,25 @@ const TreatmentCard: React.FC<TreatmentCardProps> = ({
             )}
             {treatment.price && (
               <div className="flex items-center">
-                <DollarSign className="w-3 h-3 mr-1" />
+                <DollarSign className="w-4 h-4 mr-2" />
                 <span className="truncate font-medium">{treatment.price}</span>
               </div>
             )}
           </div>
 
-          {/* CTA Button */}
-          <Button
-            variant="primary"
-            fullWidth
-            size="sm"
-            rightIcon={<ArrowRight className="w-3 h-3" />}
-            onClick={() => onViewDetails(treatment.id)}
-            className="text-base font-semibold"
-          >
-            Learn More
-          </Button>
+          {/* CTA Button Section */}
+          <div className="mt-2">
+            <Button
+              variant="primary"
+              fullWidth
+              size="sm"
+              rightIcon={<ArrowRight className="w-3 h-3" />}
+              onClick={() => onViewDetails(treatment.id)}
+              className="text-sm font-semibold"
+            >
+              Learn More
+            </Button>
+          </div>
         </div>
       </Card>
     </motion.div>
@@ -174,10 +182,10 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
 
   const categories = [
     { id: "dental", label: "Dental Treatments" },
-    { id: "nose-surgery", label: "Face & Nose Aesthetics" },
-    { id: "cosmetic-surgery", label: "Body Aesthetics" },
-    { id: "hair-transplant", label: "Hair Restoration" },
-    { id: "obesity-treatment", label: "Obesity Treatment" },
+    { id: "nose-face-aesthetics", label: "Nose & Face Aesthetics" },
+    { id: "body-aesthetics", label: "Body Aesthetics" },
+    { id: "hair-restoration", label: "Hair Restoration" },
+    { id: "weight-loss", label: "Weight-Loss Treatments" },
   ];
 
   const handleViewDetails = (treatmentId: string) => {
