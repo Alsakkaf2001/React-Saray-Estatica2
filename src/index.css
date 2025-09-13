@@ -140,10 +140,12 @@
 
   .section-padding {
     @apply py-6 sm:py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8;
+    padding: clamp(1rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem);
   }
 
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full;
+    max-width: min(1200px, 90vw);
   }
 
   .text-gradient {
@@ -252,6 +254,144 @@
   .mobile-no-scroll {
     overflow-x: hidden;
     max-width: 100vw;
+  }
+
+  /* Responsive scaling utilities */
+  .responsive-text-xs {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+  }
+
+  .responsive-text-sm {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+
+  .responsive-text-base {
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+  }
+
+  .responsive-text-lg {
+    font-size: clamp(1.125rem, 3vw, 1.25rem);
+  }
+
+  .responsive-text-xl {
+    font-size: clamp(1.25rem, 3.5vw, 1.5rem);
+  }
+
+  .responsive-text-2xl {
+    font-size: clamp(1.5rem, 4vw, 1.875rem);
+  }
+
+  .responsive-text-3xl {
+    font-size: clamp(1.875rem, 5vw, 2.25rem);
+  }
+
+  .responsive-text-4xl {
+    font-size: clamp(2.25rem, 6vw, 3rem);
+  }
+
+  .responsive-text-5xl {
+    font-size: clamp(3rem, 7vw, 3.75rem);
+  }
+
+  .responsive-text-6xl {
+    font-size: clamp(3.75rem, 8vw, 4.5rem);
+  }
+
+  /* Responsive spacing utilities */
+  .responsive-padding {
+    padding: clamp(1rem, 4vw, 2rem);
+  }
+
+  .responsive-margin {
+    margin: clamp(1rem, 4vw, 2rem);
+  }
+
+  .responsive-gap {
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  /* Responsive container utilities */
+  .responsive-container {
+    max-width: min(1200px, 90vw);
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+  }
+
+  /* Responsive image container */
+  .responsive-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+  }
+
+  /* Responsive grid utilities */
+  .responsive-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .responsive-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .responsive-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  /* Compact layout utilities for desktop optimization */
+  .hero-section {
+    max-height: 80vh;
+    padding: 2rem 0;
+  }
+
+  .form-gallery-container {
+    height: fit-content;
+    max-height: 60vh;
+  }
+
+  .stats-section {
+    padding: 1.5rem 0;
+  }
+
+  /* Space-efficient form styling */
+  .compact-form {
+    padding: 1rem 1.5rem;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .compact-form .form-field {
+    margin-bottom: 1rem;
+  }
+
+  .compact-form input,
+  .compact-form select {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  /* Compact gallery styling */
+  .compact-gallery {
+    height: 50vh;
+    max-height: 500px;
+  }
+
+  /* Mobile-first compact design */
+  @media (max-width: 1024px) {
+    .hero-section {
+      max-height: 100vh;
+      padding: 1rem 0;
+    }
+    
+    .form-gallery-container {
+      max-height: 80vh;
+    }
   }
 }
 

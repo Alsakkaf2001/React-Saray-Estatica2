@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send } from "lucide-react";
+import { Send, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import dentalImplantsImage from "../../assets/images/heroSection/1.png";
 import teethWhiteningImage from "../../assets/images/heroSection/2.png";
 import orthodonticsImage from "../../assets/images/heroSection/3.png";
@@ -237,8 +237,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Gallery state management
+  // Enhanced Gallery state management
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Treatment gallery data with images for each specialty
   const treatmentGallery = {
@@ -348,16 +353,67 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   const currentGallery = treatmentGallery["Dental"];
 
-  // Auto-rotate through images every 5 seconds
+  // Enhanced auto-play with pause on hover and touch support
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % currentGallery.length
-      );
-    }, 5000);
+    if (isPlaying && !isHovered) {
+      intervalRef.current = setInterval(() => {
+        setCurrentImageIndex(
+          (prevIndex) => (prevIndex + 1) % currentGallery.length
+        );
+      }, 4000);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    }
 
-    return () => clearInterval(interval);
-  }, [currentGallery.length]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isPlaying, isHovered, currentGallery.length]);
+
+  // Touch/swipe support for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextImage();
+    } else if (isRightSwipe) {
+      prevImage();
+    }
+  };
+
+  // Navigation functions
+  const nextImage = () => {
+    setCurrentImageIndex(
+      (prevIndex) => (prevIndex + 1) % currentGallery.length
+    );
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? currentGallery.length - 1 : prevIndex - 1
+    );
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
 
   const words = title.split(" ");
 
@@ -384,28 +440,28 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
-      {/* Background Pattern */}
+    <section className="pt-8 pb-4 sm:pt-12 sm:pb-6 lg:pt-16 lg:pb-8 bg-white relative overflow-hidden">
+      {/* Background Pattern - Compact */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#A52C67]/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#3F1127]/5 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-[#A52C67]/3 to-[#3F1127]/3 rounded-full blur-3xl"></div>
+        <div className="absolute top-12 sm:top-16 left-4 sm:left-8 w-32 sm:w-48 h-32 sm:h-48 bg-[#A52C67]/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-12 sm:bottom-16 right-4 sm:right-8 w-40 sm:w-64 h-40 sm:h-64 bg-[#3F1127]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] lg:w-[500px] h-[300px] sm:h-[400px] lg:h-[500px] bg-gradient-to-r from-[#A52C67]/3 to-[#3F1127]/3 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container-custom relative z-10">
+      <div className="container-custom relative z-10 h-full">
         {/* Mobile-First Layout: Headlines -> Gallery -> Form */}
 
         {/* Headlines Section - Always first on mobile, hidden on desktop (will be shown in left column) */}
         <motion.div
-          className="lg:hidden text-center py-12 space-y-6"
+          className="lg:hidden text-center py-4 sm:py-6 space-y-3 sm:space-y-4"
           variants={fadeIn}
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.3 }}
         >
-          {/* Main Headline */}
+          {/* Main Headline - Responsive */}
           <motion.h1
-            className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight font-sans"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-sans"
             variants={wordStagger}
             initial="hidden"
             animate="visible"
@@ -413,7 +469,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             {words.map((word, index) => (
               <motion.span
                 key={index}
-                className="inline-block mr-2 mb-2"
+                className="inline-block mr-1 mb-1"
                 variants={wordReveal}
               >
                 {word === "Trust." ? (
@@ -427,9 +483,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             ))}
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Subheadline - Responsive */}
           <motion.p
-            className="text-base sm:text-lg text-gray-600 leading-relaxed font-sans max-w-2xl mx-auto"
+            className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed font-sans max-w-2xl mx-auto px-4"
             variants={fadeIn}
             transition={{ delay: 0.6 }}
           >
@@ -437,21 +493,21 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           </motion.p>
         </motion.div>
 
-        {/* Two Column Layout for Desktop */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[60vh] lg:min-h-screen py-8 lg:py-20">
+        {/* Compact Two Column Layout for Desktop - Space Efficient */}
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-stretch py-2 sm:py-4 lg:py-6">
           {/* Left Column - Content + Form (Desktop Only Headlines) */}
           <motion.div
-            className="order-2 lg:order-1 space-y-8"
+            className="order-2 lg:order-1 space-y-4 sm:space-y-6"
             variants={fadeIn}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.5 }}
           >
             {/* Headlines - Desktop Only */}
-            <div className="space-y-6 hidden lg:block">
-              {/* Main Headline */}
+            <div className="space-y-3 sm:space-y-4 hidden lg:block">
+              {/* Main Headline - Responsive */}
               <motion.h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight font-sans"
+                className="text-3xl xl:text-4xl 2xl:text-5xl font-bold text-gray-900 leading-tight font-sans"
                 variants={wordStagger}
                 initial="hidden"
                 animate="visible"
@@ -459,7 +515,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 {words.map((word, index) => (
                   <motion.span
                     key={index}
-                    className="inline-block mr-3 mb-2"
+                    className="inline-block mr-2 mb-1"
                     variants={wordReveal}
                   >
                     {word === "Trust." ? (
@@ -473,9 +529,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 ))}
               </motion.h1>
 
-              {/* Subheadline */}
+              {/* Subheadline - Responsive */}
               <motion.p
-                className="text-lg lg:text-xl text-gray-600 leading-relaxed font-sans max-w-lg"
+                className="text-base xl:text-lg 2xl:text-xl text-gray-600 leading-relaxed font-sans max-w-lg"
                 variants={fadeIn}
                 transition={{ delay: 0.8 }}
               >
@@ -483,10 +539,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               </motion.p>
             </div>
 
-            {/* Enhanced Appointment Form */}
+            {/* Compact Appointment Form - Space Efficient */}
             <motion.div
               id="consultation-form"
-              className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl max-w-2xl mx-auto border border-white/20"
+              className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-6 shadow-xl max-w-2xl mx-auto border border-white/20"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -554,25 +610,28 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   </motion.div>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-                  {/* Enhanced Form Title */}
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="space-y-4 sm:space-y-6"
+                >
+                  {/* Compact Form Title */}
                   <motion.div
-                    className="text-center mb-8"
+                    className="text-center mb-4 sm:mb-6"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                   >
-                    <h3 className="text-3xl font-bold bg-gradient-to-r from-[#7a1430] to-[#b52d65] bg-clip-text text-transparent mb-3 font-sans">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#7a1430] to-[#b52d65] bg-clip-text text-transparent mb-1 sm:mb-2 font-sans">
                       Start Your Free Consultation
                     </h3>
-                    <p className="text-gray-600 text-lg">
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">
                       Get expert advice on your aesthetic journey
                     </p>
                   </motion.div>
 
-                  {/* Enhanced Name and Phone Row */}
+                  {/* Compact Name and Phone Row */}
                   <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
@@ -583,14 +642,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: 0.3 }}
                     >
-                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                         Full Name
                       </label>
                       <input
                         {...register("fullName")}
                         type="text"
                         placeholder="Enter your full name"
-                        className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300"
+                        className="w-full px-3 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300 text-sm"
                       />
                       {errors.fullName && (
                         <p className="text-red-500 text-sm mt-2 flex items-center">
@@ -616,14 +675,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: 0.4 }}
                     >
-                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                         Phone Number WhatsApp
                       </label>
                       <input
                         {...register("phone")}
                         type="tel"
                         placeholder="Enter your phone number"
-                        className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300"
+                        className="w-full px-3 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300 text-sm"
                       />
                       {errors.phone && (
                         <p className="text-red-500 text-sm mt-2 flex items-center">
@@ -644,20 +703,20 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     </motion.div>
                   </motion.div>
 
-                  {/* Enhanced Email Field */}
+                  {/* Compact Email Field */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.5 }}
                   >
-                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                       Email Address
                     </label>
                     <input
                       {...register("email")}
                       type="email"
                       placeholder="your@email.com"
-                      className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300"
+                      className="w-full px-3 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300 text-sm"
                     />
                     {errors.email && (
                       <p className="text-red-500 text-sm mt-2 flex items-center">
@@ -677,9 +736,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     )}
                   </motion.div>
 
-                  {/* Enhanced Country and Treatment Row */}
+                  {/* Compact Country and Treatment Row */}
                   <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6 }}
@@ -690,13 +749,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: 0.7 }}
                     >
-                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                         Country
                       </label>
                       <div className="relative">
                         <select
                           {...register("country")}
-                          className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 appearance-none cursor-pointer hover:border-gray-300"
+                          className="w-full px-3 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 appearance-none cursor-pointer hover:border-gray-300 text-sm"
                         >
                           <option value="">Select your country</option>
                           {countries.map((country) => (
@@ -745,13 +804,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: 0.8 }}
                     >
-                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                         Treatment
                       </label>
                       <div className="relative">
                         <select
                           {...register("treatment")}
-                          className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 appearance-none cursor-pointer hover:border-gray-300"
+                          className="w-full px-3 py-2 sm:py-2.5 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 appearance-none cursor-pointer hover:border-gray-300 text-sm"
                         >
                           <option value="">Select a service</option>
                           {treatments.map((treatment) => (
@@ -795,7 +854,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     </motion.div>
                   </motion.div>
 
-                  {/* Enhanced Submit Button */}
+                  {/* Compact Submit Button */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -804,7 +863,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     <motion.button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-[#7a1430] to-[#b52d65] hover:from-[#8a1a3a] hover:to-[#c53d75] text-white py-4 rounded-lg font-bold text-base mt-8 disabled:opacity-50 shadow-lg hover:shadow-xl transition-all duration-300 font-sans border-0 flex items-center justify-center space-x-2 group"
+                      className="w-full bg-gradient-to-r from-[#7a1430] to-[#b52d65] hover:from-[#8a1a3a] hover:to-[#c53d75] text-white py-3 sm:py-3.5 rounded-lg font-bold text-sm mt-4 sm:mt-6 disabled:opacity-50 shadow-lg hover:shadow-xl transition-all duration-300 font-sans border-0 flex items-center justify-center space-x-2 group"
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -825,32 +884,32 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               )}
             </motion.div>
 
-            {/* Statistics Section */}
+            {/* Compact Statistics Section */}
             <motion.div
-              className="mt-8"
+              className="mt-3 sm:mt-4"
               variants={fadeIn}
               transition={{ delay: 1.5 }}
             >
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
                 <motion.div
                   className="text-center lg:text-left"
                   variants={fadeIn}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl mb-4 shadow-lg">
+                  <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg mb-1.5 sm:mb-2 shadow-md">
                     <svg
-                      className="w-8 h-8 text-white"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-1 font-sans">
+                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 font-sans">
                     4.9/5
                   </div>
-                  <div className="text-sm text-gray-600 font-medium font-sans">
+                  <div className="text-xs text-gray-600 font-medium font-sans">
                     Verifiable Rating
                   </div>
                 </motion.div>
@@ -858,12 +917,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 <motion.div
                   className="text-center lg:text-left"
                   variants={fadeIn}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl mb-4 shadow-lg">
+                  <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg mb-1.5 sm:mb-2 shadow-md">
                     <svg
-                      className="w-8 h-8 text-white"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -876,10 +935,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-1 font-sans">
+                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 font-sans">
                     3,000+
                   </div>
-                  <div className="text-sm text-gray-600 font-medium font-sans">
+                  <div className="text-xs text-gray-600 font-medium font-sans">
                     Successful Procedures
                   </div>
                 </motion.div>
@@ -887,12 +946,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 <motion.div
                   className="text-center lg:text-left"
                   variants={fadeIn}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl mb-4 shadow-lg">
+                  <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg mb-1.5 sm:mb-2 shadow-md">
                     <svg
-                      className="w-8 h-8 text-white"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -905,10 +964,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-1 font-sans">
+                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 font-sans">
                     7+
                   </div>
-                  <div className="text-sm text-gray-600 font-medium font-sans">
+                  <div className="text-xs text-gray-600 font-medium font-sans">
                     Years of Experience
                   </div>
                 </motion.div>
@@ -916,12 +975,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 <motion.div
                   className="text-center lg:text-left"
                   variants={fadeIn}
-                  whileHover={{ y: -5 }}
+                  whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-2xl mb-4 shadow-lg">
+                  <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg mb-1.5 sm:mb-2 shadow-md">
                     <svg
-                      className="w-8 h-8 text-white"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -934,10 +993,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-gray-900 mb-1 font-sans">
+                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 font-sans">
                     24/7
                   </div>
-                  <div className="text-sm text-gray-600 font-medium font-sans">
+                  <div className="text-xs text-gray-600 font-medium font-sans">
                     Support Available
                   </div>
                 </motion.div>
@@ -945,77 +1004,145 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Gallery (Second on mobile, Right on desktop) */}
+          {/* Right Column - Compact Gallery (Second on mobile, Right on desktop) */}
           <motion.div
-            className="order-1 lg:order-2 relative mb-8 lg:mb-0"
+            className="order-1 lg:order-2 relative mb-4 sm:mb-6 lg:mb-0 flex flex-col"
             variants={slideRight}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.7 }}
           >
-            <div className="relative h-[600px] lg:h-[700px]">
-              {/* Dynamic Image Gallery */}
+            <div className="relative h-[400px] sm:h-[450px] lg:h-[600px] xl:h-[700px]">
+              {/* Enhanced Dynamic Image Gallery */}
               <motion.div
-                className="relative h-full rounded-2xl overflow-hidden shadow-xl"
-                key={`Dental-${currentImageIndex}`}
-                initial={{ opacity: 0, scale: 1.1 }}
+                className="relative h-full rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+                key={`gallery-${currentImageIndex}`}
+                initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
               >
-                <img
-                  src={currentGallery[currentImageIndex]?.image}
-                  alt={currentGallery[currentImageIndex]?.title}
-                  className="w-full h-full object-cover"
-                />
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentImageIndex}
+                    src={currentGallery[currentImageIndex]?.image}
+                    alt={currentGallery[currentImageIndex]?.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    loading="lazy"
+                  />
+                </AnimatePresence>
 
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"></div>
+                {/* Enhanced Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
-                {/* Image Info Overlay - Bottom Left */}
-                <div className="absolute bottom-6 left-6 text-white">
+                {/* Treatment Name Overlay - Top Center - Responsive */}
+                <motion.div
+                  className="absolute top-4 sm:top-6 left-4 sm:left-6 right-4 sm:right-6"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="bg-white/10 backdrop-blur-md rounded-full px-3 sm:px-4 py-1.5 sm:py-2 inline-block border border-white/20">
+                    <span className="text-white font-semibold text-xs sm:text-sm tracking-wide">
+                      {currentGallery[currentImageIndex]?.title}
+                    </span>
+                  </div>
+                </motion.div>
+
+                {/* Enhanced Image Info Overlay - Bottom Left - Responsive */}
+                <motion.div
+                  className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white max-w-[70%]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
                   <motion.h3
-                    className="text-xl lg:text-2xl font-bold mb-2 font-sans drop-shadow-lg"
+                    className="text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 font-sans drop-shadow-lg"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
+                    transition={{ delay: 0.6 }}
                   >
                     {currentGallery[currentImageIndex]?.title}
                   </motion.h3>
                   <motion.p
-                    className="text-sm text-white/90 font-sans drop-shadow-md"
+                    className="text-xs sm:text-sm text-white/90 font-sans drop-shadow-md leading-relaxed"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
+                    transition={{ delay: 0.7 }}
                   >
                     {currentGallery[currentImageIndex]?.description}
                   </motion.p>
+                </motion.div>
+
+                {/* Enhanced Navigation Controls - Responsive */}
+                <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 sm:px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <motion.button
+                    onClick={prevImage}
+                    className="bg-white/20 backdrop-blur-sm rounded-full p-2 sm:p-3 hover:bg-white/30 transition-all duration-300 border border-white/30"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                  </motion.button>
+                  <motion.button
+                    onClick={nextImage}
+                    className="bg-white/20 backdrop-blur-sm rounded-full p-2 sm:p-3 hover:bg-white/30 transition-all duration-300 border border-white/30"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                  </motion.button>
                 </div>
 
-                {/* Image Progress Dots */}
-                <div className="absolute bottom-6 right-6 flex space-x-2 z-10">
+                {/* Enhanced Play/Pause Control - Responsive */}
+                <motion.button
+                  onClick={togglePlayPause}
+                  className="absolute top-4 sm:top-6 right-4 sm:right-6 bg-white/20 backdrop-blur-sm rounded-full p-2 sm:p-3 hover:bg-white/30 transition-all duration-300 border border-white/30 opacity-0 group-hover:opacity-100"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  {isPlaying ? (
+                    <Pause className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  ) : (
+                    <Play className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  )}
+                </motion.button>
+
+                {/* Enhanced Thumbnail Navigation Dots - Responsive */}
+                <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 flex space-x-1.5 sm:space-x-2 z-10">
                   {currentGallery.map((_, index) => (
-                    <button
+                    <motion.button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                         index === currentImageIndex
-                          ? "bg-white scale-125"
+                          ? "bg-white scale-125 shadow-lg"
                           : "bg-white/50 hover:bg-white/75"
                       }`}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
                     />
                   ))}
                 </div>
               </motion.div>
 
-              {/* Floating Accent Elements */}
+              {/* Enhanced Floating Accent Elements */}
               <motion.div
-                className="absolute top-1/2 -left-4 w-8 h-8 bg-pink-100 rounded-full shadow-lg"
+                className="absolute top-1/2 -left-4 w-8 h-8 bg-gradient-to-r from-[#A52C67]/20 to-[#3F1127]/20 rounded-full shadow-lg backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 2, duration: 0.4 }}
               />
               <motion.div
-                className="absolute bottom-1/4 -right-4 w-6 h-6 bg-pink-200 rounded-full shadow-lg"
+                className="absolute bottom-1/4 -right-4 w-6 h-6 bg-gradient-to-r from-[#A52C67]/30 to-[#3F1127]/30 rounded-full shadow-lg backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 2.2, duration: 0.4 }}
