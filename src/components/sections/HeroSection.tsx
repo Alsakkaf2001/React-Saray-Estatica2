@@ -884,45 +884,45 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               )}
             </motion.div>
 
-            {/* Compact Statistics Section */}
+            {/* Centered Statistics Section */}
             <motion.div
-              className="mt-3 sm:mt-4"
+              className="mt-4 sm:mt-6 flex justify-center"
               variants={fadeIn}
               transition={{ delay: 1.5 }}
             >
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-4xl">
                 <motion.div
-                  className="text-center lg:text-left"
+                  className="text-center"
                   variants={fadeIn}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: -3 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg mb-1.5 sm:mb-2 shadow-md">
+                  <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg sm:rounded-xl mb-2 sm:mb-3 shadow-lg">
                     <svg
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-white"
+                      className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   </div>
-                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 font-sans">
+                  <div className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 font-sans">
                     4.9/5
                   </div>
-                  <div className="text-xs text-gray-600 font-medium font-sans">
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium font-sans">
                     Verifiable Rating
                   </div>
                 </motion.div>
 
                 <motion.div
-                  className="text-center lg:text-left"
+                  className="text-center"
                   variants={fadeIn}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: -3 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg mb-1.5 sm:mb-2 shadow-md">
+                  <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg sm:rounded-xl mb-2 sm:mb-3 shadow-lg">
                     <svg
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-white"
+                      className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -935,23 +935,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 font-sans">
+                  <div className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 font-sans">
                     3,000+
                   </div>
-                  <div className="text-xs text-gray-600 font-medium font-sans">
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium font-sans">
                     Successful Procedures
                   </div>
                 </motion.div>
 
                 <motion.div
-                  className="text-center lg:text-left"
+                  className="text-center"
                   variants={fadeIn}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: -3 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg mb-1.5 sm:mb-2 shadow-md">
+                  <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg sm:rounded-xl mb-2 sm:mb-3 shadow-lg">
                     <svg
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-white"
+                      className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -964,23 +964,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 font-sans">
+                  <div className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 font-sans">
                     7+
                   </div>
-                  <div className="text-xs text-gray-600 font-medium font-sans">
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium font-sans">
                     Years of Experience
                   </div>
                 </motion.div>
 
                 <motion.div
-                  className="text-center lg:text-left"
+                  className="text-center"
                   variants={fadeIn}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: -3 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg mb-1.5 sm:mb-2 shadow-md">
+                  <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-lg sm:rounded-xl mb-2 sm:mb-3 shadow-lg">
                     <svg
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-white"
+                      className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -993,10 +993,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       />
                     </svg>
                   </div>
-                  <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 font-sans">
+                  <div className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 font-sans">
                     24/7
                   </div>
-                  <div className="text-xs text-gray-600 font-medium font-sans">
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium font-sans">
                     Support Available
                   </div>
                 </motion.div>
