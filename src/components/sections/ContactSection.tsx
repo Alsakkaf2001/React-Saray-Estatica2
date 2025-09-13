@@ -1,40 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  MessageSquare,
-  Send,
-  CheckCircle,
-} from "lucide-react";
-import type { ContactFormData } from "../../types/forms";
-import { CONTACT_INFO, SUCCESS_MESSAGES } from "../../utils/constants";
+import { Phone, Mail, MapPin, MessageSquare, CheckCircle } from "lucide-react";
+import { CONTACT_INFO } from "../../utils/constants";
 import {
   staggerContainer,
   slideLeft,
   slideRight,
   fadeIn,
-  formSuccess,
 } from "../../utils/animations";
 import Button from "../ui/Button";
-import Input from "../ui/Input";
 import Card from "../ui/Card";
-
-// Contact form validation schema
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z
-    .string()
-    .regex(/^\+?[\d\s-()]+$/, "Please enter a valid phone number"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-  preferredContact: z.enum(["email", "phone", "whatsapp"]).optional(),
-});
+import ConsultationForm from "../forms/ConsultationForm";
 
 interface ContactInfoCardProps {
   icon: React.ElementType;
@@ -84,33 +60,6 @@ const ContactInfoCard: React.FC<ContactInfoCardProps> = ({
 };
 
 const ContactSection: React.FC = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const onSubmit = async (data: ContactFormData) => {
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      console.log("Contact form submitted:", data);
-      setIsSubmitted(true);
-      reset();
-
-      // Reset success state after 5 seconds
-      setTimeout(() => setIsSubmitted(false), 5000);
-    } catch (error) {
-      console.error("Form submission error:", error);
-    }
-  };
-
   const contactInfo = [
     {
       icon: Phone,
@@ -240,93 +189,13 @@ const ContactSection: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Right Column - Simplified Form */}
+            {/* Right Column - Consultation Form */}
             <motion.div variants={slideRight}>
-              <Card className="p-4 sm:p-6 lg:p-8">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-text-primary mb-4 sm:mb-6">
-                  Start Your Free Consultation
-                </h3>
-
-                {isSubmitted ? (
-                  <motion.div
-                    variants={formSuccess}
-                    initial="hidden"
-                    animate="visible"
-                    className="text-center py-6 sm:py-8"
-                  >
-                    <div className="flex flex-col items-center space-y-3 sm:space-y-4">
-                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-500" />
-                      </div>
-                      <h4 className="text-lg sm:text-xl font-semibold text-text-primary">
-                        Message Sent!
-                      </h4>
-                      <p className="text-sm sm:text-base text-gray-600 max-w-md">
-                        {SUCCESS_MESSAGES.contact}
-                      </p>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-4 sm:space-y-6"
-                  >
-                    <Input
-                      label="Full Name"
-                      placeholder="Enter your full name"
-                      error={errors.name?.message}
-                      size="md"
-                      {...register("name")}
-                    />
-
-                    <Input
-                      label="Email Address"
-                      type="email"
-                      placeholder="your@email.com"
-                      error={errors.email?.message}
-                      size="md"
-                      {...register("email")}
-                    />
-
-                    <div className="form-group">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Service of Interest
-                      </label>
-                      <select
-                        className="input-field text-base"
-                        {...register("subject")}
-                      >
-                        <option value="">Select a service</option>
-                        <option value="Hair Restoration">
-                          Hair Restoration
-                        </option>
-                        <option value="Dental Treatments">
-                          Dental Treatments
-                        </option>
-                        <option value="Rhinoplasty">Rhinoplasty</option>
-                        <option value="Liposuction">Liposuction</option>
-                        <option value="Facelift">Facelift</option>
-                        <option value="Other">Other</option>
-                      </select>
-                      {errors.subject && (
-                        <p className="error-message mt-2">
-                          {errors.subject.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      size="lg"
-                      fullWidth
-                      isLoading={isSubmitting}
-                      rightIcon={<Send className="w-4 h-4 sm:w-5 sm:h-5" />}
-                    >
-                      Get My Free Quote & Plan
-                    </Button>
-                  </form>
-                )}
+              <Card className="p-0 overflow-hidden">
+                <ConsultationForm
+                  variant="compact"
+                  className="bg-transparent shadow-none p-4 sm:p-6 lg:p-8"
+                />
               </Card>
             </motion.div>
           </div>

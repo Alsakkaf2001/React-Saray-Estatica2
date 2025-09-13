@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Send } from "lucide-react";
 import dentalImplantsImage from "../../assets/images/heroSection/1.png";
 import teethWhiteningImage from "../../assets/images/heroSection/2.png";
 import orthodonticsImage from "../../assets/images/heroSection/3.png";
@@ -18,7 +19,11 @@ import {
 const contactSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
   phone: z.string().min(10, "Please enter a valid phone number"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .optional()
+    .or(z.literal("")),
   country: z.string().min(1, "Please select your country"),
   treatment: z.string().min(1, "Please select a treatment"),
 });
@@ -478,178 +483,347 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               </motion.p>
             </div>
 
-            {/* Appointment Form */}
-            <div
+            {/* Enhanced Appointment Form */}
+            <motion.div
               id="consultation-form"
-              className="bg-gradient-to-br from-[#A52C67] to-[#3F1127] rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+              className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl max-w-2xl mx-auto border border-white/20"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
-              {/* Subtle overlay for depth */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 rounded-3xl"></div>
-              <div className="relative z-10">
-                {isSubmitted ? (
+              {isSubmitted ? (
+                <motion.div
+                  className="text-center py-16"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <motion.div
-                    className="text-center py-16"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    className="w-24 h-24 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg"
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{
+                      delay: 0.2,
+                      type: "spring",
+                      stiffness: 400,
+                      duration: 0.8,
+                    }}
                   >
-                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <motion.div
-                        className="text-green-500 text-3xl font-bold"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{
-                          delay: 0.2,
-                          type: "spring",
-                          stiffness: 400,
-                        }}
-                      >
-                        ✓
-                      </motion.div>
-                    </div>
-                    <h4 className="text-2xl font-semibold text-gray-900 mb-3">
-                      Thank You!
-                    </h4>
+                    <motion.div
+                      className="text-white text-4xl font-bold"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{
+                        delay: 0.6,
+                        type: "spring",
+                        stiffness: 500,
+                      }}
+                    >
+                      ✓
+                    </motion.div>
+                  </motion.div>
+                  <motion.h4
+                    className="text-3xl font-bold text-gray-900 mb-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                  >
+                    Thank You!
+                  </motion.h4>
+                  <motion.p
+                    className="text-gray-600 text-lg leading-relaxed max-w-md mx-auto"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.0 }}
+                  >
+                    We'll contact you within 24 hours to schedule your
+                    appointment.
+                  </motion.p>
+                  <motion.div
+                    className="w-full bg-gray-200 rounded-full h-2 mt-8"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2 }}
+                  >
+                    <motion.div
+                      className="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 2, delay: 1.4 }}
+                    />
+                  </motion.div>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                  {/* Enhanced Form Title */}
+                  <motion.div
+                    className="text-center mb-8"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    <h3 className="text-3xl font-bold bg-gradient-to-r from-[#7a1430] to-[#b52d65] bg-clip-text text-transparent mb-3 font-sans">
+                      Start Your Free Consultation
+                    </h3>
                     <p className="text-gray-600 text-lg">
-                      We'll contact you within 24 hours to schedule your
-                      appointment.
+                      Get expert advice on your aesthetic journey
                     </p>
                   </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                    <div className="mb-6">
-                      <h3 className="text-xl font-semibold text-white mb-2 font-sans">
-                        Book Your Consultation
-                      </h3>
-                      <p className="text-sm text-pink-100">
-                        Start your transformation journey today
-                      </p>
-                    </div>
 
-                    {/* Name and Phone Row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Full Name Field */}
-                      <div>
-                        <input
-                          {...register("fullName")}
-                          type="text"
-                          placeholder="Full Name"
-                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all text-white placeholder-pink-200 shadow-lg"
-                        />
-                        {errors.fullName && (
-                          <p className="text-red-300 text-xs mt-1">
-                            {errors.fullName.message}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Phone Number Input */}
-                      <div>
-                        <input
-                          {...register("phone")}
-                          type="tel"
-                          placeholder="Phone Number WhatsApp"
-                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all text-white placeholder-pink-200 shadow-lg"
-                        />
-                        {errors.phone && (
-                          <p className="text-red-300 text-xs mt-1">
-                            {errors.phone.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Email Field */}
-                    <div>
+                  {/* Enhanced Name and Phone Row */}
+                  <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    {/* Full Name Field */}
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                    >
+                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                        Full Name
+                      </label>
                       <input
-                        {...register("email")}
-                        type="email"
-                        placeholder="Email Address"
-                        className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all text-white placeholder-pink-200 shadow-lg"
+                        {...register("fullName")}
+                        type="text"
+                        placeholder="Enter your full name"
+                        className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300"
                       />
-                      {errors.email && (
-                        <p className="text-red-300 text-xs mt-1">
-                          {errors.email.message}
+                      {errors.fullName && (
+                        <p className="text-red-500 text-sm mt-2 flex items-center">
+                          <svg
+                            className="w-4 h-4 mr-1"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          {errors.fullName.message}
                         </p>
                       )}
-                    </div>
+                    </motion.div>
 
-                    {/* Country and Treatment Row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Country Field */}
-                      <div>
+                    {/* Phone Number Input */}
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.4 }}
+                    >
+                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                        Phone Number WhatsApp
+                      </label>
+                      <input
+                        {...register("phone")}
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300"
+                      />
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm mt-2 flex items-center">
+                          <svg
+                            className="w-4 h-4 mr-1"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          {errors.phone.message}
+                        </p>
+                      )}
+                    </motion.div>
+                  </motion.div>
+
+                  {/* Enhanced Email Field */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                  >
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Email Address
+                    </label>
+                    <input
+                      {...register("email")}
+                      type="email"
+                      placeholder="your@email.com"
+                      className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-300"
+                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-2 flex items-center">
+                        <svg
+                          className="w-4 h-4 mr-1"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </motion.div>
+
+                  {/* Enhanced Country and Treatment Row */}
+                  <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                  >
+                    {/* Country Field */}
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
+                    >
+                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                        Country
+                      </label>
+                      <div className="relative">
                         <select
                           {...register("country")}
-                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all appearance-none text-white shadow-lg"
+                          className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 appearance-none cursor-pointer hover:border-gray-300"
                         >
-                          <option value="" className="bg-gray-800 text-white">
-                            Country
-                          </option>
+                          <option value="">Select your country</option>
                           {countries.map((country) => (
-                            <option
-                              key={country}
-                              value={country}
-                              className="bg-gray-800 text-white"
-                            >
+                            <option key={country} value={country}>
                               {country}
                             </option>
                           ))}
                         </select>
-                        {errors.country && (
-                          <p className="text-red-300 text-xs mt-1">
-                            {errors.country.message}
-                          </p>
-                        )}
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <svg
+                            className="w-5 h-5 text-gray-400"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </div>
                       </div>
+                      {errors.country && (
+                        <p className="text-red-500 text-sm mt-2 flex items-center">
+                          <svg
+                            className="w-4 h-4 mr-1"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          {errors.country.message}
+                        </p>
+                      )}
+                    </motion.div>
 
-                      {/* Treatment Field */}
-                      <div>
+                    {/* Treatment Field */}
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.8 }}
+                    >
+                      <label className="block text-sm font-medium text-gray-700 mb-3">
+                        Treatment
+                      </label>
+                      <div className="relative">
                         <select
                           {...register("treatment")}
-                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-pink-300 outline-none transition-all appearance-none text-white shadow-lg"
+                          className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:border-[#7a1430] focus:ring-2 focus:ring-[#7a1430]/20 outline-none transition-all duration-200 text-gray-900 appearance-none cursor-pointer hover:border-gray-300"
                         >
-                          <option value="" className="bg-gray-800 text-white">
-                            Treatment
-                          </option>
+                          <option value="">Select a service</option>
                           {treatments.map((treatment) => (
-                            <option
-                              key={treatment}
-                              value={treatment}
-                              className="bg-gray-800 text-white"
-                            >
+                            <option key={treatment} value={treatment}>
                               {treatment}
                             </option>
                           ))}
                         </select>
-                        {errors.treatment && (
-                          <p className="text-red-300 text-xs mt-1">
-                            {errors.treatment.message}
-                          </p>
-                        )}
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <svg
+                            className="w-5 h-5 text-gray-400"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </div>
                       </div>
-                    </div>
+                      {errors.treatment && (
+                        <p className="text-red-500 text-sm mt-2 flex items-center">
+                          <svg
+                            className="w-4 h-4 mr-1"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          {errors.treatment.message}
+                        </p>
+                      )}
+                    </motion.div>
+                  </motion.div>
 
-                    {/* Submit Button */}
+                  {/* Enhanced Submit Button */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.9 }}
+                  >
                     <motion.button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-white/30 to-white/20 backdrop-blur-lg border border-white/40 hover:from-white/40 hover:to-white/30 text-white py-4 rounded-xl font-semibold text-base mt-6 disabled:opacity-50 shadow-xl hover:shadow-2xl transition-all duration-300 font-sans"
-                      whileHover={{ scale: 1.01, y: -1 }}
-                      whileTap={{ scale: 0.99 }}
+                      className="w-full bg-gradient-to-r from-[#7a1430] to-[#b52d65] hover:from-[#8a1a3a] hover:to-[#c53d75] text-white py-4 rounded-lg font-bold text-base mt-8 disabled:opacity-50 shadow-lg hover:shadow-xl transition-all duration-300 font-sans border-0 flex items-center justify-center space-x-2 group"
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       {isSubmitting ? (
                         <div className="flex items-center justify-center space-x-2">
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          <span>Booking...</span>
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <span>Processing...</span>
                         </div>
                       ) : (
-                        "Free Consultation"
+                        <>
+                          <span>Get My Free Quote & Plan</span>
+                          <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                        </>
                       )}
                     </motion.button>
-                  </form>
-                )}
-              </div>
-            </div>
+                  </motion.div>
+                </form>
+              )}
+            </motion.div>
 
             {/* Statistics Section */}
             <motion.div
