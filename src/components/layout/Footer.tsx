@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { CONTACT_INFO, SOCIAL_LINKS } from "../../utils/constants";
 import { fadeIn, staggerContainer } from "../../utils/animations";
-import logoImage from "../../assets/FINAL LOGO ABO KAREEM 1 (1).png";
+import logoImage from "/images/logo.png";
 
 interface FooterProps {
   onNavigate?: (href: string) => void;

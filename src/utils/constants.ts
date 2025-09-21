@@ -299,8 +299,7 @@ export const TREATMENTS: Treatment[] = [
     image: getTreatmentImage('beard-transplant'),
     price: 'Starting from €2,000',
     duration: '4-6 hours',
-    category: 'hair-restoration',
-    features: ['Natural beard design', 'Permanent results', 'Custom density', 'Facial symmetry']
+    category: 'hair-restoration'
   },
   
   // Weight-Loss (Obesity) Treatments

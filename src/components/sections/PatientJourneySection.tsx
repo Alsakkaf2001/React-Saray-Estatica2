@@ -30,7 +30,7 @@ const JourneyStep: React.FC<JourneyStepProps & { index: number }> = ({
   return (
     <motion.div
       variants={slideUp}
-      className="relative mb-12 sm:mb-16 lg:mb-20"
+      className="relative mb-8 sm:mb-12 lg:mb-16"
       whileInView={{ opacity: 1, x: 0 }}
       initial={{ opacity: 0, x: isEven ? -50 : 50 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
@@ -48,14 +48,14 @@ const JourneyStep: React.FC<JourneyStepProps & { index: number }> = ({
               <img
                 src={image}
                 alt={title}
-                className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-64 sm:h-72 lg:h-80 object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
 
               {/* Step Number Overlay */}
-              <div className="absolute top-6 left-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-2xl font-bold text-white">
+              <div className="absolute top-4 sm:top-6 left-4 sm:left-6">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-[#A52C67] to-[#3F1127] rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-lg sm:text-2xl font-bold text-white">
                     {number}
                   </span>
                 </div>
@@ -90,11 +90,11 @@ const JourneyStep: React.FC<JourneyStepProps & { index: number }> = ({
         </div>
       </div>
 
-      {/* Connecting Line (except for last item) */}
+      {/* Connecting Line (except for last item) - Hidden on mobile */}
       {index < 3 && (
-        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+        <div className="absolute -bottom-6 sm:-bottom-8 lg:-bottom-10 left-1/2 transform -translate-x-1/2 hidden sm:block">
           <motion.div
-            className="w-1 h-20 bg-gradient-to-b from-[#A52C67] to-[#3F1127] rounded-full"
+            className="w-1 h-12 sm:h-16 lg:h-20 bg-gradient-to-b from-[#A52C67] to-[#3F1127] rounded-full"
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             transition={{ duration: 0.8, delay: index * 0.2 + 0.5 }}

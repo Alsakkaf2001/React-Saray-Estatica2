@@ -250,23 +250,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     Dental: [
       {
         image: dentalImplantsImage,
-        title: "Dental Implants",
-        description: "Advanced dental implant procedures",
+        title: "Rhinoplasty Summetry",
+        description: "",//Advanced dental implant procedures
       },
       {
         image: teethWhiteningImage,
-        title: "Teeth Whitening",
-        description: "Professional whitening treatments",
+        title: "Hollywood Smile Shine",
+        description: "",
       },
       {
         image: orthodonticsImage,
-        title: "Orthodontics",
-        description: "Braces and alignment solutions",
+        title: "Face Beauty Aesthetics",
+        description: "",
       },
       {
         image: dentalCareImage,
-        title: "Dental Care",
-        description: "Comprehensive dental health services",
+        title: "Body Aesthetics",
+        description: "",
       },
     ],
     "Face & Nose": [

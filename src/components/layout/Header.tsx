@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
 import { NAVIGATION_ITEMS, CONTACT_INFO } from "../../utils/constants";
 import { navItemHover } from "../../utils/animations";
-import logoImage from "../../assets/FINAL LOGO ABO KAREEM 1 (1).png";
+import logoImage from "/images/logo.png";
 
 interface HeaderProps {
   isScrolled?: boolean;
@@ -144,6 +144,31 @@ const Header: React.FC<HeaderProps> = ({
     closeMobileMenu();
   };
 
+  const handleTreatmentClick = (categoryId: string) => {
+    // First navigate to treatments section
+    const treatmentsElement = document.getElementById("treatments");
+    if (treatmentsElement) {
+      treatmentsElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      // After a short delay, highlight the specific category
+      setTimeout(() => {
+        const categoryElement = document.querySelector(
+          `[data-category="${categoryId}"]`
+        );
+        if (categoryElement) {
+          categoryElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+      }, 500);
+    }
+    closeMobileMenu();
+  };
+
   return (
     <>
       {/* Top Bar */}
@@ -242,6 +267,10 @@ const Header: React.FC<HeaderProps> = ({
                           ? { duration: 0 }
                           : { duration: 0.6, delay: 0.3 + index * 0.1 }
                       }
+                      onMouseEnter={() =>
+                        item.subItems && setActiveDropdown(item.id)
+                      }
+                      onMouseLeave={() => setActiveDropdown(null)}
                     >
                       <a
                         href={item.href}
@@ -261,9 +290,18 @@ const Header: React.FC<HeaderProps> = ({
                     {/* Dropdown Menu */}
                     {item.subItems && (
                       <motion.div
-                        className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
+                        className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 transition-all duration-300 z-50 ${
+                          activeDropdown === item.id
+                            ? "opacity-100 visible"
+                            : "opacity-0 invisible"
+                        }`}
                         initial={{ opacity: 0, y: 10 }}
-                        whileHover={{ opacity: 1, y: 0 }}
+                        animate={{
+                          opacity: activeDropdown === item.id ? 1 : 0,
+                          y: activeDropdown === item.id ? 0 : 10,
+                        }}
+                        onMouseEnter={() => setActiveDropdown(item.id)}
+                        onMouseLeave={() => setActiveDropdown(null)}
                       >
                         <div className="py-2">
                           {item.subItems.map((subItem) => (
@@ -272,7 +310,11 @@ const Header: React.FC<HeaderProps> = ({
                               href={subItem.href}
                               onClick={(e) => {
                                 e.preventDefault();
-                                handleNavClick(subItem.href);
+                                if (item.id === "treatments") {
+                                  handleTreatmentClick(subItem.id);
+                                } else {
+                                  handleNavClick(subItem.href);
+                                }
                               }}
                               className="block px-4 py-3 text-sm text-gray-600 hover:text-primary-500 hover:bg-primary-50 transition-colors duration-200"
                             >
@@ -453,7 +495,11 @@ const Header: React.FC<HeaderProps> = ({
                                 href={subItem.href}
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  handleNavClick(subItem.href);
+                                  if (item.id === "treatments") {
+                                    handleTreatmentClick(subItem.id);
+                                  } else {
+                                    handleNavClick(subItem.href);
+                                  }
                                 }}
                                 className={`block py-3 px-4 text-sm text-gray-600 hover:text-[#A52C67] transition-colors duration-200 ${
                                   index !== item.subItems!.length - 1

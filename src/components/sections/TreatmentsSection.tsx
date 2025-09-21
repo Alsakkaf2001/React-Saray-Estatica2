@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, DollarSign, Eye } from "lucide-react";
 import type { Treatment } from "../../types";
@@ -194,6 +194,26 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
     }
   };
 
+  // Handle external navigation to specific categories
+  useEffect(() => {
+    const handleCategoryNavigation = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetCategory = urlParams.get("category");
+      if (
+        targetCategory &&
+        categories.find((cat) => cat.id === targetCategory)
+      ) {
+        setActiveCategory(targetCategory);
+        // Remove the parameter from URL after setting
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.delete("category");
+        window.history.replaceState({}, "", newUrl.toString());
+      }
+    };
+
+    handleCategoryNavigation();
+  }, [categories]);
+
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-custom">
@@ -227,6 +247,7 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
                   {categories.map((cat) => (
                     <button
                       key={cat.id}
+                      data-category={cat.id}
                       onClick={() => setActiveCategory(cat.id)}
                       className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-md font-medium transition-all duration-300 text-xs sm:text-sm whitespace-nowrap flex items-center justify-center ${
                         activeCategory === cat.id

@@ -1,6 +1,6 @@
 // Utility for handling images in development and production
 
-// Import all treatment images
+// Import original treatment images for cards (from assets/images/treatment/)
 import dentalImplant1 from '../assets/images/treatment/Dental Treatments/Dental Implant 1.jpg';
 import zirconiumCrown1 from '../assets/images/treatment/Dental Treatments/Zirconium Crown 1.jpg';
 import emaxVeneers from '../assets/images/treatment/Dental Treatments/E-MAX VENEERS.png';
@@ -27,6 +27,20 @@ import beardTransplant3 from '../assets/images/treatment/Hair Restoration/Beard 
 import gastricBypassSurgery from '../assets/images/treatment/Obesity Treatment/Gastric Bypass Surgery.jpg';
 import gastricBypassSurgeryWebp from '../assets/images/treatment/Obesity Treatment/Gastric Bypass Surgery.webp';
 import gastricSleeveSurgery1 from '../assets/images/treatment/Obesity Treatment/Gastric Sleeve Surgery 1.jpg';
+
+// Import Ready folder images for treatment details pages
+import { 
+  getTreatmentLearnMoreImage,
+  getTreatmentProcessImage,
+  getTreatmentBenefitsImage,
+  getTreatmentCandidacyImage,
+  getTreatmentBeforeImage,
+  getTreatmentAfterImage,
+  getTreatmentSectionImage,
+  getTreatmentBackgroundImage,
+  getTreatmentGalleryImages,
+  getTreatmentThumbnail
+} from './treatmentImages';
 
 export const getPlaceholderImage = (
   width: number, 
@@ -74,19 +88,20 @@ export const getPlaceholderImage = (
 };
 
 export const getTreatmentImage = (treatmentType: string): string => {
+  // Use original treatment images for cards (from assets/images/treatment/)
   const images = {
-    // Dental Treatments - Using imported local images
+    // Dental Treatments - Using original imported local images
     'dental-implants': dentalImplant1,
     'zirconium-crowns': zirconiumCrown1,
     'dental-veneers-emax': emaxVeneers,
     
-    // Nose & Face Aesthetics - Using imported local images
+    // Nose & Face Aesthetics - Using original imported local images
     'rhinoplasty': rhinoplasty,
     'facelift': faceliftSurgery6,
     'double-chin-liposuction': chinLiposuction,
     'eyebrow-lift': eyebrowLift3,
     
-    // Body Aesthetics - Using imported local images
+    // Body Aesthetics - Using original imported local images
     'liposuction': liposuction1,
     'tummy-tuck': tummyTuck2,
     'mommy-makeover': mommyMakeover1,
@@ -97,12 +112,12 @@ export const getTreatmentImage = (treatmentType: string): string => {
     'breast-reduction': breastReduction,
     'gynecomastia': gynecomastiaSurgery,
     
-    // Hair Restoration - Using imported local images
+    // Hair Restoration - Using original imported local images
     'sapphire-fue-hair-transplant': sapphireFue1,
     'dhi-hair-transplant': dhiHairTransplant,
     'beard-transplant': beardTransplant3,
     
-    // Weight-Loss (Obesity) Treatments - Using imported local images
+    // Weight-Loss (Obesity) Treatments - Using original imported local images
     'gastric-bypass': gastricBypassSurgery,
     'gastric-balloon': gastricBypassSurgeryWebp,
     'gastric-sleeve': gastricSleeveSurgery1,
@@ -201,42 +216,32 @@ export const optimizeImageUrl = (url: string): string => {
 };
 
 export const getLearnMoreImage = (treatmentType: string): string => {
-  const learnMoreImages = {
-    // Hair Transplant - Natural, thick hairlines showing confidence
-    'sapphire-fue': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1200&h=600&fit=crop&crop=face',
-    'dhi-hair-transplant': 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=1200&h=600&fit=crop&crop=face',
-    'beard-transplant': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=600&fit=crop&crop=face',
-    
-    // Dental - Beautiful, confident smiles (40s-50s for implants)
-    'dental-implants': 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=1200&h=600&fit=crop&crop=center',
-    'hollywood-smile': 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=1200&h=600&fit=crop&crop=center',
-    'dental-veneers': 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&h=600&fit=crop&crop=center',
-    'teeth-whitening': 'https://images.unsplash.com/photo-1594824721832-8917c1ad1637?w=1200&h=600&fit=crop&crop=center',
-    'all-on-4': 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=1200&h=600&fit=crop&crop=center',
-    
-    // Nose Surgery - Profile portraits showing facial harmony
-    'rhinoplasty': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=1200&h=600&fit=crop&crop=face',
-    
-    // Cosmetic Surgery - Natural confidence and proportions
-    'breast-augmentation': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1200&h=600&fit=crop&crop=center',
-    'breast-lift': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&h=600&fit=crop&crop=center',
-    'breast-reduction': 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=600&fit=crop&crop=center',
-    'gynecomastia': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1200&h=600&fit=crop&crop=center',
-    'liposuction': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&h=600&fit=crop&crop=center',
-    'chin-liposuction': 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=1200&h=600&fit=crop&crop=face',
-    'tummy-tuck': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=600&fit=crop&crop=center',
-    'mommy-makeover': 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=1200&h=600&fit=crop&crop=face',
-    'brazilian-butt-lift': 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1200&h=600&fit=crop&crop=center',
-    'facelift': 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1200&h=600&fit=crop&crop=face',
-    'eyebrow-lift': 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1200&h=600&fit=crop&crop=face',
-    'arm-lift': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&h=600&fit=crop&crop=center',
-    'thigh-lift': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1200&h=600&fit=crop&crop=center',
-    
-    // Obesity Treatment - Health transformation and wellness
-    'gastric-sleeve': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&h=600&fit=crop&crop=center',
-    'gastric-bypass': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=600&fit=crop&crop=center',
-    'gastric-balloon': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&h=600&fit=crop&crop=center',
-  };
-  
-  return learnMoreImages[treatmentType as keyof typeof learnMoreImages] || getPlaceholderImage(1200, 600, 'Learn More');
+  // Use the new comprehensive treatment images system
+  const image = getTreatmentLearnMoreImage(treatmentType);
+  return image || getPlaceholderImage(1200, 600, 'Learn More');
+};
+
+// Additional helper functions for the new image system
+export const getTreatmentBackgroundImageUtil = (treatmentType: string): string => {
+  const image = getTreatmentBackgroundImage(treatmentType);
+  return image || getPlaceholderImage(1920, 1080, 'Background');
+};
+
+export const getTreatmentGalleryImagesUtil = (treatmentType: string): string[] => {
+  return getTreatmentGalleryImages(treatmentType);
+};
+
+export const getTreatmentThumbnailUtil = (treatmentType: string): string => {
+  const image = getTreatmentThumbnail(treatmentType);
+  return image || getPlaceholderImage(300, 200, 'Thumbnail');
+};
+
+// Export the new image functions
+export { 
+  getTreatmentProcessImage,
+  getTreatmentBenefitsImage,
+  getTreatmentCandidacyImage,
+  getTreatmentBeforeImage,
+  getTreatmentAfterImage,
+  getTreatmentSectionImage
 };

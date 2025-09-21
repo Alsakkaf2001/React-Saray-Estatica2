@@ -1,8 +1,18 @@
+// Treatment Image Set interface (imported from treatmentImages.ts)
+export interface TreatmentImageSet {
+  main: string;
+  background?: string;
+  gallery?: string[];
+  thumbnail?: string;
+  learnMore?: string;
+}
+
 export interface Treatment {
   id: string;
   title: string;
   description: string;
-  image: string;
+  image: string; // Main image (for backward compatibility)
+  images?: TreatmentImageSet; // Extended image set (optional for enhanced features)
   price?: string;
   duration?: string;
   category: 'dental' | 'nose-face-aesthetics' | 'body-aesthetics' | 'hair-restoration' | 'weight-loss';

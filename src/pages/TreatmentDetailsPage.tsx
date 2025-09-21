@@ -18,7 +18,7 @@ import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import { TREATMENTS } from "../utils/constants";
 import { fadeIn, staggerContainer } from "../utils/animations";
-import { getLearnMoreImage } from "../utils/imageUtils";
+import { getTreatmentDetailImage } from "../utils/treatmentImageReplacements";
 
 interface TreatmentDetailsPageProps {
   treatmentId: string;
@@ -58,13 +58,13 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
 
   // Treatment specific content
   const isDhiHairTransplant = treatment.id === "dhi-hair-transplant";
-  const isSapphireFue = treatment.id === "sapphire-fue";
-  const isHollywoodSmile = treatment.id === "hollywood-smile";
+  const isSapphireFue = treatment.id === "sapphire-fue-hair-transplant";
+  const isHollywoodSmile = treatment.id === "zirconium-crowns";
   const isDentalVeneers = treatment.id === "dental-veneers-emax";
   const isDentalImplants = treatment.id === "dental-implants";
   const isRhinoplasty = treatment.id === "rhinoplasty";
   const isFacelift = treatment.id === "facelift";
-  const isChinLiposuction = treatment.id === "chin-liposuction";
+  const isChinLiposuction = treatment.id === "double-chin-liposuction";
   const isLiposuction = treatment.id === "liposuction";
   const isTummyTuck = treatment.id === "tummy-tuck";
   const isMommyMakeover = treatment.id === "mommy-makeover";
@@ -91,6 +91,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
     treatment.id === "thigh-lift" || treatment.id === "thighplasty";
   const isEyebrowLift =
     treatment.id === "eyebrow-lift" || treatment.id === "brow-lift";
+  const isBeardTransplant = treatment.id === "beard-transplant";
 
   const sapphireFueContent = {
     pageTitle:
@@ -102,15 +103,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Sapphire FUE Hair Transplant — The Next Generation of Hair Restoration",
       subheadline:
         "Sapphire FUE is an advanced version of the Follicular Unit Extraction (FUE) method, performed with blades made of sapphire crystal instead of steel. This allows for more precise incisions, denser implantation, and faster healing. At Saray Estetica, it is our most requested technique for natural, permanent results.",
-      image: getLearnMoreImage("sapphire-fue"),
+      image: getTreatmentDetailImage("sapphire-fue-hair-transplant", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `Sapphire FUE may be suitable if you:`,
-        image:
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("sapphire-fue", "candidacy"),
         checklist: [
           "Have male or female pattern hair loss.",
           "Want a natural-looking hairline with higher density.",
@@ -127,8 +127,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Advanced sapphire blade technology for precise micro-channels and optimal graft placement for natural, permanent hair restoration.",
         subtitle: "Recovery in Istanbul (4-5 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("sapphire-fue", "process"),
         processSteps: [
           {
             title: "Planning & Design",
@@ -189,13 +188,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing natural hairline restoration with high density, no linear scarring, and permanent hair growth.",
         content:
           "Natural hairline design with high density placement and permanent hair growth that resists future hair loss.",
-        image:
-          "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("sapphire-fue", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("sapphire-fue", "before"),
+          after: getTreatmentDetailImage("sapphire-fue", "after"),
         },
         benefits: [
           {
@@ -223,8 +219,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Advanced Technology, Natural Results",
         content:
           "Sapphire FUE represents the most advanced hair transplant technique available today. The precision of sapphire blades combined with expert design creates natural density with faster recovery and permanent growth.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("sapphire-fue", "section", 3),
       },
     ],
     faq: [
@@ -288,15 +283,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "DHI Hair Transplant — Direct Implantation for Maximum Precision",
       subheadline:
         "Direct Hair Implantation (DHI) is a premium hair transplant method performed with the Choi Implanter Pen. It allows follicles to be implanted directly without creating channels in advance, ensuring higher precision, better control of angle and depth, and a denser, natural-looking result.",
-      image: getLearnMoreImage("dhi-hair-transplant"),
+      image: getTreatmentDetailImage("dhi-hair-transplant", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `DHI is suitable for patients who:`,
-        image:
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dhi-hair-transplant", "candidacy"),
         checklist: [
           "Want high-density transplants, especially in the hairline or crown.",
           "Prefer a shorter haircut (since scars are minimal).",
@@ -313,8 +307,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Advanced Choi Pen technology for direct implantation with maximum precision and follicle survival rate.",
         subtitle: "Recovery in Istanbul (4-5 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dhi-hair-transplant", "process"),
         processSteps: [
           {
             title: "Advantages of DHI vs. Sapphire FUE",
@@ -376,13 +369,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing dense, natural hairline with precise Choi Pen implantation, high follicle survival, and natural growth direction.",
         content:
           "Dense natural hairline with precise angle control and high follicle survival rate for permanent, natural-looking results.",
-        image:
-          "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dhi-hair-transplant", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("dhi-hair-transplant", "before"),
+          after: getTreatmentDetailImage("dhi-hair-transplant", "after"),
         },
         benefits: [
           {
@@ -410,8 +400,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Premium Precision Technology",
         content:
           "DHI Hair Transplant with the Choi Pen method ensures precise control, higher survival, and natural results — especially effective for hairlines and detailed areas requiring maximum precision.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dhi-hair-transplant", "section", 3),
       },
     ],
     faq: [
@@ -471,15 +460,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "The Smile You've Always Dreamed Of.",
       subheadline:
         'Zirconium crowns are the secret behind the world\'s most beautiful smiles. Discover how we can craft your perfect "Hollywood Smile" with a durable, brilliant, and completely natural-looking result in just one visit.',
-      image: getLearnMoreImage("hollywood-smile"),
+      image: getTreatmentDetailImage("zirconium-crowns", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "The First Step: Is a Smile Makeover Right for You?",
         content: `A full smile makeover with zirconium crowns can be a life-changing decision, creating a perfectly harmonious and brilliant smile. You are likely a strong candidate for this treatment if you wish to address one or more of the following:`,
-        image:
-          "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("zirconium-crowns", "candidacy"),
         checklist: [
           "Severe Discoloration: For staining that doesn't respond to whitening.",
           "Worn, Chipped, or Broken Teeth: To restore the original shape and strength of your teeth.",
@@ -496,8 +484,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Unlike other procedures, a full smile makeover can often be completed in a single, well-planned visit. Your journey is a creative partnership between you and our dental artists.",
         subtitle: "The Smile Design Visit (5-7 Days in Istanbul)",
-        image:
-          "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("zirconium-crowns", "process"),
         timeline: [
           {
             day: "Day 1: Consultation & Digital Design",
@@ -526,13 +513,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "A compelling before-and-after slider showing a real patient's dramatic Hollywood Smile transformation.",
         content:
           "A smile makeover with zirconium crowns offers a complete aesthetic and functional transformation.",
-        image:
-          "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("zirconium-crowns", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("zirconium-crowns", "before"),
+          after: getTreatmentDetailImage("zirconium-crowns", "after"),
         },
         benefits: [
           {
@@ -560,8 +544,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "The Foundation of a Great Result: World-Class Materials",
         content:
           "A beautiful smile must also be a healthy and durable one. We are committed to using only the highest-grade, biocompatible monolithic zirconia blocks from the world's leading dental manufacturers. This ensures your new smile is not only aesthetically flawless but also strong, safe, and built to last. Our in-house laboratory gives us complete control over the quality and artistry of every crown we create.",
-        image:
-          "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("zirconium-crowns", "section", 3),
       },
     ],
     faq: [
@@ -623,15 +606,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "Your Natural Smile, Perfected.",
       subheadline:
         "Dental veneers are the artist's choice for cosmetic dentistry, offering a complete smile transformation with a minimally invasive approach. Discover how we can craft your radiant new smile in just one visit.",
-      image: getLearnMoreImage("dental-veneers"),
+      image: getTreatmentDetailImage("dental-veneers-emax", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "The First Step: Understanding if Veneers Are Your Solution",
         content: `Veneers are an ideal solution for correcting cosmetic imperfections while preserving the majority of your natural tooth structure. You are likely a strong candidate for dental veneers if you wish to improve:`,
-        image:
-          "https://images.unsplash.com/photo-1606811941271-0f8f9b2da6a7?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dental-veneers-emax", "candidacy"),
         checklist: [
           "Stains & Discoloration: To achieve a permanently bright, white smile that resists future staining.",
           "Minor Chips or Cracks: To restore a smooth, whole appearance to your teeth.",
@@ -648,8 +630,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Achieving a flawless smile with veneers is an efficient and artistic process, often completed in a single, well-planned visit to our clinic in Istanbul.",
         subtitle: "The Veneer Design Visit (5-7 Days in Istanbul)",
-        image:
-          "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dental-veneers-emax", "process"),
         timeline: [
           {
             day: "Day 1: The Art of the Smile Design",
@@ -678,13 +659,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "A compelling before-and-after slider showing a real patient's natural-looking veneer transformation.",
         content:
           "Dental veneers deliver a powerful aesthetic upgrade while respecting the health of your natural teeth.",
-        image:
-          "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dental-veneers-emax", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("dental-veneers-emax", "before"),
+          after: getTreatmentDetailImage("dental-veneers-emax", "after"),
         },
         benefits: [
           {
@@ -713,8 +691,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "The Foundation of a Great Result: Master Artistry & Materials",
         content:
           "A truly beautiful veneer is a work of art, and that requires the finest materials. We are committed to using premier porcelain systems like E-max, which is globally recognized as the gold standard for veneers. This advanced lithium disilicate glass-ceramic provides the optimal blend of strength and stunning, lifelike aesthetics. Our in-house dental laboratory ensures that every single veneer is custom-crafted with meticulous attention to detail by our master technicians.",
-        image:
-          "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dental-veneers-emax", "section", 3),
       },
     ],
     faq: [
@@ -771,19 +748,17 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
     pageTitle:
       "Dental Implants in Istanbul | The Permanent Solution for Missing Teeth",
     hero: {
-      visual:
-        "A high-quality, close-up image of a happy and confident person in their 40s or 50s with a natural, beautiful smile. The focus is on the result, not the procedure.",
       headline: "A Permanent Solution for a Complete Smile.",
       subheadline:
         "Dental implants are the modern standard for replacing missing teeth, offering a strong, natural-looking result that lasts a lifetime. Discover our clear, supportive, and expert-led process to restore your smile with confidence.",
-      image: getLearnMoreImage("dental-implants"),
+      image: getTreatmentDetailImage("dental-implants", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "The First Step: Understanding if You're a Candidate",
         content: `Before we talk about the procedure, let's talk about you. A successful dental implant journey begins with ensuring it's the right and safest solution for your specific needs. You are likely a strong candidate for dental implants if you:`,
-        image: getLearnMoreImage("dental-implants"),
+        image: getTreatmentDetailImage("dental-implants", "candidacy"),
         checklist: [
           "Are missing one or more teeth: Implants can replace a single tooth, multiple teeth, or even a full arch.",
           "Have a healthy jawbone: A sufficient amount of healthy bone is needed to provide a secure anchor for the implant.",
@@ -799,8 +774,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "We've refined our process to be as clear and predictable as possible. Your journey is a partnership, managed by your dedicated coordinator and broken down into two essential visits.",
         subtitle: "The Saray Estetica Implant Process",
-        image:
-          "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dental-implants", "process"),
         processSteps: [
           {
             title:
@@ -822,13 +796,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "A compelling before-and-after slider showing a real patient's dental implant result.",
         content:
           "A dental implant does more than just fill a space. It restores the full integrity of your smile and oral health.",
-        image:
-          "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dental-implants", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("dental-implants", "before"),
+          after: getTreatmentDetailImage("dental-implants", "after"),
         },
         benefits: [
           {
@@ -859,8 +830,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         subtitle: "Our Commitment to Quality",
         footer:
           "We are proud to partner with a portfolio of premier global brands, and your specialist will guide you to the most appropriate choice for your specific clinical needs. Our selection includes: Straumann, Medigma, Neodent, Osstem, Biotek, Bego, Omega.",
-        image:
-          "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("dental-implants", "section", 3),
       },
     ],
     faq: [
@@ -921,15 +891,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "The Confidence of a Profile that Feels Truly Yours.",
       subheadline:
         "Rhinoplasty is more than a surgical procedure; it's a journey to facial harmony. Discover our artistic, patient-first approach to creating a beautiful, natural-looking nose that perfectly complements your unique features.",
-      image: getLearnMoreImage("rhinoplasty"),
+      image: getTreatmentDetailImage("rhinoplasty", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "The First Step: Your Reasons for Seeking a Change",
         content: `The decision to consider rhinoplasty is a deeply personal one. It often comes from a long-held feeling that your nose doesn't quite reflect the person you see yourself as. You are likely exploring this journey if you wish to:`,
-        image:
-          "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("rhinoplasty", "candidacy"),
         checklist: [
           "Refine the Shape or Size: To address a dorsal hump, a wide bridge, or a tip that you feel is disproportionate.",
           "Improve Your Profile: To create a more balanced and harmonious silhouette from every angle.",
@@ -946,8 +915,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "A beautiful result is the product of artistry, precision, and a process built entirely around you. Your journey is a close collaboration between you and your surgeon, managed by your dedicated coordinator.",
         subtitle: "A Look at Your Stay (Total 8-9 Days in Istanbul)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("rhinoplasty", "process"),
         processSteps: [
           {
             title: "Part 1: The Consultation & Artistic Plan",
@@ -998,13 +966,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "A compelling before-and-after slider showing a real patient's rhinoplasty result, highlighting the natural harmony of their new profile.",
         content:
           'The sign of a truly successful rhinoplasty is that no one can tell you\'ve had one. The goal is not to create a "perfect" nose, but your perfect nose.',
-        image:
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("rhinoplasty", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("rhinoplasty", "before"),
+          after: getTreatmentDetailImage("rhinoplasty", "after"),
         },
         benefits: [
           {
@@ -1032,8 +997,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "The Foundation of a Great Result: Surgical Artistry",
         content:
           "Rhinoplasty is a procedure of millimeters, where surgical skill and artistic vision are equally important. We are committed to a philosophy of excellence that is built on a deep understanding of facial anatomy and a passion for creating natural, lasting results. Our specialists are not just surgeons; they are artists who use advanced tools like ultrasonic technology to sculpt with precision and care, minimizing recovery time while maximizing the beauty of the final outcome.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("rhinoplasty", "section", 3),
       },
     ],
     faq: [
@@ -1094,15 +1058,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "Look Like Yourself — Only Younger, Rested, and Confident.",
       subheadline:
         "A modern facelift isn't about changing your face. It's about restoring what time has taken away — firm contours, smoother lines, and a fresher expression that matches how you feel inside.",
-      image: getLearnMoreImage("facelift"),
+      image: getTreatmentDetailImage("facelift", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Is a Facelift Right for You?",
         content: `You don't choose a facelift because you want to look different. You choose it because:`,
-        image:
-          "https://images.unsplash.com/photo-1594824020848-c96b2515ad80?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("facelift", "candidacy"),
         checklist: [
           "Your cheeks and jawline have started to sag.",
           "Deep folds around your mouth make you look tired.",
@@ -1118,8 +1081,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Our comprehensive approach ensures natural, lasting results through careful planning and advanced surgical techniques.",
         subtitle: "Your Time in Istanbul (10 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("facelift", "process"),
         processSteps: [
           {
             title: "Step 1 — A Careful Plan",
@@ -1181,13 +1143,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         visual:
           "A compelling before-and-after comparison showing natural, subtle facial rejuvenation that enhances rather than changes appearance.",
         content: "A good facelift doesn't draw attention.",
-        image:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("facelift", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1594824020848-c96b2515ad80?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("facelift", "before"),
+          after: getTreatmentDetailImage("facelift", "after"),
         },
         benefits: [
           {
@@ -1215,8 +1174,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Our Commitment to Excellence",
         content:
           "Facial surgery is detail work — measured in millimeters. Our surgeons specialize in facelifts, with years of experience and hundreds of successful cases. They combine technical precision with an artistic eye, because the smallest adjustment changes everything.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("facelift", "section", 0),
       },
     ],
     faq: [
@@ -1280,15 +1238,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "Say Goodbye to the Double Chin.",
       subheadline:
         "Chin liposuction removes stubborn fat under the chin and along the jawline — creating definition and balance without changing who you are. In the hands of a skilled surgeon, it's a quick procedure with lasting results.",
-      image: getLearnMoreImage("chin-liposuction"),
+      image: getTreatmentDetailImage("double-chin-liposuction", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Is Chin Liposuction Right for You?",
         content: `Excess fat under the chin doesn't always respond to diet or exercise. Many people who are otherwise fit still struggle with a double chin due to genetics, age, or weight changes. You may be a candidate if you:`,
-        image:
-          "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("double-chin-liposuction", "candidacy"),
         checklist: [
           "Have fullness under the chin despite a healthy lifestyle.",
           "Feel your jawline lacks definition.",
@@ -1304,8 +1261,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Our precise technique ensures natural-looking definition with minimal downtime and maximum safety.",
         subtitle: "Recovery in Istanbul (5-7 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("double-chin-liposuction", "process"),
         processSteps: [
           {
             title: "Step 1: Consultation",
@@ -1363,13 +1319,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing a defined, natural-looking jawline with improved facial contours.",
         content:
           "Chin liposuction delivers dramatic yet natural-looking improvements with minimal downtime.",
-        image:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("double-chin-liposuction", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("double-chin-liposuction", "before"),
+          after: getTreatmentDetailImage("double-chin-liposuction", "after"),
         },
         benefits: [
           {
@@ -1397,8 +1350,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Our Commitment to Precision",
         content:
           "Chin liposuction seems simple, but precision matters. Removing too much or too little fat can distort your natural contour. Our surgeons are experienced in balancing results — creating definition without harsh or uneven lines.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("double-chin-liposuction", "section", 0),
       },
     ],
     faq: [
@@ -1458,15 +1410,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "Target Stubborn Fat. Reveal Your Natural Shape.",
       subheadline:
         "Even with diet and exercise, some fat simply doesn't move. Liposuction removes these resistant pockets to contour your body into a more defined, proportionate shape — safely, precisely, and permanently.",
-      image: getLearnMoreImage("liposuction"),
+      image: getTreatmentDetailImage("liposuction", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Is Liposuction Right for You?",
         content: `Liposuction isn't about "weight loss." It's about sculpting. The best candidates are close to their ideal weight but struggle with areas that don't respond to lifestyle changes.`,
-        image:
-          "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("liposuction", "candidacy"),
         subtitle: "Common treatment zones include:",
         checklist: [
           'Abdomen & waist (belly fat, "love handles")',
@@ -1485,8 +1436,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Precision sculpting with advanced techniques for natural, proportionate results.",
         subtitle: "Recovery in Istanbul (6-7 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("liposuction", "process"),
         processSteps: [
           {
             title: "Step 1: Consultation & Assessment",
@@ -1544,13 +1494,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing refined body contours with natural, proportionate shaping.",
         content:
           "Permanent fat removal with immediate shape improvement and gradual refinement over 3-6 months.",
-        image:
-          "https://images.unsplash.com/photo-1506629905607-c52a7e8b1eb2?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("liposuction", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("liposuction", "before"),
+          after: getTreatmentDetailImage("liposuction", "after"),
         },
         benefits: [
           {
@@ -1578,8 +1525,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Our Commitment to Precision",
         content:
           "Precision in liposuction matters. Removing too much can create hollows; removing too little leaves dissatisfaction. Our surgeons specialize in balanced sculpting — aiming for natural, proportional results, not extremes.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("liposuction", "section", 0),
       },
     ],
     faq: [
@@ -1641,15 +1587,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Flatten the Stomach. Strengthen the Core. Restore Your Confidence.",
       subheadline:
         "Pregnancy, weight changes, and time can leave behind stretched skin and weakened abdominal muscles. A tummy tuck removes excess skin, repairs the core, and reshapes the waistline — giving you back strength and confidence that exercise alone can't always achieve.",
-      image: getLearnMoreImage("tummy-tuck"),
+      image: getTreatmentDetailImage("tummy-tuck", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Is a Tummy Tuck Right for You?",
         content: `A tummy tuck (abdominoplasty) is not just cosmetic — it's reconstructive. It addresses both appearance and function. You may be a candidate if you:`,
-        image:
-          "https://images.unsplash.com/photo-1506629905607-c52a7e8b1eb2?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("tummy-tuck", "candidacy"),
         checklist: [
           "Have loose or sagging skin around the abdomen.",
           "Struggle with stretched abdominal muscles (diastasis recti), often after pregnancy.",
@@ -1666,8 +1611,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Comprehensive reconstruction combining skin removal, muscle repair, and aesthetic contouring.",
         subtitle: "Recovery in Istanbul (7-9 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("tummy-tuck", "process"),
         processSteps: [
           {
             title: "Step 1: Consultation",
@@ -1724,13 +1668,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing flatter, tighter stomach with improved posture and core strength.",
         content:
           "Comprehensive transformation addressing both appearance and function for lasting confidence.",
-        image:
-          "https://images.unsplash.com/photo-1524863479829-916d8e77f114?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("tummy-tuck", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1506629905607-c52a7e8b1eb2?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1524863479829-916d8e77f114?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("tummy-tuck", "before"),
+          after: getTreatmentDetailImage("tummy-tuck", "after"),
         },
         benefits: [
           {
@@ -1758,8 +1699,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Our Commitment to Excellence",
         content:
           "A tummy tuck is one of the most transformative surgeries, but also one of the most delicate. Our surgeons balance artistry with safety, ensuring scars are discreet, results are natural, and function is restored — not just appearance.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("tummy-tuck", "section", 0),
       },
     ],
     faq: [
@@ -1821,15 +1761,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Motherhood Changes Everything. But You Deserve to Feel Like Yourself Again.",
       subheadline:
         "Pregnancy and breastfeeding leave marks of love — and sometimes, changes you can't reverse with diet and exercise. A Mommy Makeover combines procedures tailored to you, restoring your shape and confidence while honoring the incredible journey your body has been through.",
-      image: getLearnMoreImage("mommy-makeover"),
+      image: getTreatmentDetailImage("mommy-makeover", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Is a Mommy Makeover Right for You?",
         content: `Every woman's body changes differently after childbirth. The goal isn't perfection — it's to help you feel balanced, confident, and comfortable again. You may be a candidate if you:`,
-        image:
-          "https://images.unsplash.com/photo-1573766064535-6d5d4e62bf9d?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("mommy-makeover", "candidacy"),
         checklist: [
           "Have loose skin or weakened muscles in the abdomen.",
           "Experience sagging or volume loss in the breasts.",
@@ -1847,8 +1786,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Fully customizable combination surgery tailored to your post-pregnancy goals and priorities.",
         subtitle: "Recovery in Istanbul (8-10 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("mommy-makeover", "process"),
         processSteps: [
           {
             title: "Step 1: Consultation",
@@ -1905,13 +1843,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing restored stomach contour, youthful breasts, and refined body shape with natural harmony.",
         content:
           "Comprehensive transformation that celebrates motherhood while restoring your confidence and comfort.",
-        image:
-          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("mommy-makeover", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1573766064535-6d5d4e62bf9d?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("mommy-makeover", "before"),
+          after: getTreatmentDetailImage("mommy-makeover", "after"),
         },
         benefits: [
           {
@@ -1939,8 +1874,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Our Commitment to Celebrating Motherhood",
         content:
           "A Mommy Makeover isn't about \"undoing\" motherhood — it's about celebrating it while giving you back your confidence. Our surgeons design every procedure with safety first and artistry second — ensuring natural, proportional, and lasting outcomes.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("mommy-makeover", "section", 4),
       },
     ],
     faq: [
@@ -2001,15 +1935,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "Brazilian Butt Lift in Istanbul — Natural Curves",
       subheadline:
         "A BBL is a safe surgical procedure that combines liposuction and fat transfer. Fat is removed from areas like the waist, abdomen, or thighs and carefully grafted into the buttocks and hips. The goal is balance — a slimmer waistline, fuller buttocks, and curves that look proportionate to your frame.",
-      image: getLearnMoreImage("brazilian-butt-lift"),
+      image: getTreatmentDetailImage("brazilian-butt-lift", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `A BBL may be suitable if you:`,
-        image:
-          "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("brazilian-butt-lift", "candidacy"),
         checklist: [
           "Have stubborn fat around the waist, abdomen, or thighs.",
           "Want fuller, lifted buttocks without implants.",
@@ -2026,8 +1959,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Safety-first BBL technique with international guidelines and customized planning for natural proportions.",
         subtitle: "Recovery in Istanbul (8-9 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("brazilian-butt-lift", "process"),
         processSteps: [
           {
             title: "Safety First",
@@ -2085,13 +2017,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing refined waistline, fuller buttocks, and natural hourglass silhouette with balanced proportions.",
         content:
           "Natural enhancement using your own fat for durable, proportionate results that feel and move naturally.",
-        image:
-          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("brazilian-butt-lift", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("brazilian-butt-lift", "before"),
+          after: getTreatmentDetailImage("brazilian-butt-lift", "after"),
         },
         benefits: [
           {
@@ -2119,8 +2048,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Safety & Proportion Focus",
         content:
           "Our focus is proportion and safety. The goal is to enhance your natural frame, not create an exaggerated look. We strictly follow international safety guidelines with fat injected above the muscle layer only.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("brazilian-butt-lift", "section", 4),
       },
     ],
     faq: [
@@ -2181,16 +2109,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "Breast Lift in Istanbul — Restoring Shape Without Implants",
       subheadline:
         "A breast lift (mastopexy) raises and reshapes breasts that have sagged due to age, pregnancy, or weight changes. The procedure restores a firmer, more youthful contour without adding implants, unless desired.",
-      image:
-        "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=1200&h=600&fit=crop",
+      image: getTreatmentDetailImage("breast-lift", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `You may be a candidate if you:`,
-        image:
-          "https://images.unsplash.com/photo-1573766064535-6d5d4e62bf9d?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-lift", "candidacy"),
         checklist: [
           "Notice sagging or drooping breasts.",
           "Have nipples that point downward or sit below the breast fold.",
@@ -2207,8 +2133,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Tailored techniques based on the degree of sagging for optimal results with minimal scarring.",
         subtitle: "Recovery in Istanbul (7-8 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-lift", "process"),
         processSteps: [
           {
             title: "Tailored to the Degree of Sagging",
@@ -2265,13 +2190,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing lifted, reshaped breasts with corrected nipple position and youthful contour.",
         content:
           "Natural restoration of shape and position without implants, creating long-lasting, proportionate results.",
-        image:
-          "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-lift", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1573766064535-6d5d4e62bf9d?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("breast-lift", "before"),
+          after: getTreatmentDetailImage("breast-lift", "after"),
         },
         benefits: [
           {
@@ -2299,8 +2221,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Restoration Without Enhancement",
         content:
           "Our approach focuses on restoring natural shape and position rather than adding volume. We tailor the technique to your degree of sagging, ensuring the best lift with minimal visible scarring. For those who also want volume, we can combine with implants.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-lift", "section", 3),
       },
     ],
     faq: [
@@ -2362,16 +2283,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Breast Augmentation in Istanbul — Shape, Volume, and Balance with Implants",
       subheadline:
         "Breast augmentation (augmentation mammoplasty) enhances breast size and shape using silicone implants. At Saray Estetica, the goal is proportion and natural results — creating a balanced figure that feels comfortable and true to your body.",
-      image:
-        "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=1200&h=600&fit=crop",
+      image: getTreatmentDetailImage("breast-augmentation", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `You may consider breast augmentation if you:`,
-        image:
-          "https://images.unsplash.com/photo-1573766064535-6d5d4e62bf9d?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-augmentation", "candidacy"),
         checklist: [
           "Feel your breasts are too small for your frame.",
           "Want to restore lost volume after pregnancy or weight loss.",
@@ -2388,8 +2307,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Personalized planning with comprehensive implant options for natural, proportionate results.",
         subtitle: "Recovery in Istanbul (6-7 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-augmentation", "process"),
         processSteps: [
           {
             title: "Personalized Planning",
@@ -2447,13 +2365,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing fuller breasts with improved symmetry and natural contour that matches frame and proportions.",
         content:
           "Enhanced volume and projection with improved symmetry, creating natural contour shaped to match your frame.",
-        image:
-          "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-augmentation", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1573766064535-6d5d4e62bf9d?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("breast-augmentation", "before"),
+          after: getTreatmentDetailImage("breast-augmentation", "after"),
         },
         benefits: [
           {
@@ -2481,8 +2396,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Enhancement Designed Around You",
         content:
           "Our approach prioritizes proportion and natural results over size alone. We carefully select implant type, shape, size, and placement to create a balanced figure that feels comfortable and true to your body. Modern silicone implants provide natural feel with proven safety.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-augmentation", "section", 3),
       },
     ],
     faq: [
@@ -2545,16 +2459,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Breast Reduction in Istanbul — Relief from Pain, Balance in Proportion",
       subheadline:
         "Breast reduction (reduction mammoplasty) removes excess breast tissue, fat, and skin to achieve a smaller, lighter, and better-proportioned breast size. The procedure is both functional and aesthetic — easing physical discomfort while restoring shape and confidence.",
-      image:
-        "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=1200&h=600&fit=crop",
+      image: getTreatmentDetailImage("breast-reduction", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `You may consider breast reduction if you:`,
-        image:
-          "https://images.unsplash.com/photo-1573766064535-6d5d4e62bf9d?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-reduction", "candidacy"),
         checklist: [
           "Experience daily discomfort from overly large breasts.",
           "Suffer from posture issues or back pain.",
@@ -2571,8 +2483,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Customized surgical technique based on reduction size and breast anatomy for optimal comfort and proportions.",
         subtitle: "Recovery in Istanbul (7-8 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-reduction", "process"),
         processSteps: [
           {
             title: "Customized Technique",
@@ -2631,13 +2542,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing reduced breast size with improved proportions, better posture, and enhanced comfort and mobility.",
         content:
           "Relief from pain and discomfort with improved proportions, better posture, and restored quality of life.",
-        image:
-          "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-reduction", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1573766064535-6d5d4e62bf9d?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1594824388964-733dc9cdbeac?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("breast-reduction", "before"),
+          after: getTreatmentDetailImage("breast-reduction", "after"),
         },
         benefits: [
           {
@@ -2665,8 +2573,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Relief, Comfort, and Proportion",
         content:
           "Breast reduction is more than an aesthetic choice — it restores physical comfort, balance, and quality of life. Our customized approach considers both the functional relief you need and the proportionate, natural shape you desire.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("breast-reduction", "section", 3),
       },
     ],
     faq: [
@@ -2728,16 +2635,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Gynecomastia Surgery in Istanbul — A Permanent Solution for Enlarged Male Breasts",
       subheadline:
         "Gynecomastia surgery removes excess gland tissue, fat, and skin from the chest to restore a flatter, firmer, and more masculine contour. The procedure is safe, effective, and offers long-lasting results.",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=600&fit=crop",
+      image: getTreatmentDetailImage("gynecomastia", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `You may consider surgery if you:`,
-        image:
-          "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gynecomastia", "candidacy"),
         checklist: [
           "Have persistent enlarged breast tissue despite exercise and weight loss.",
           "Feel self-conscious in fitted clothing or when shirtless.",
@@ -2754,8 +2659,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Customized technique combining liposuction and glandular excision for masculine chest contour.",
         subtitle: "Recovery in Istanbul (5-6 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gynecomastia", "process"),
         processSteps: [
           {
             title: "Customized Technique",
@@ -2814,13 +2718,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing flatter, firmer chest with masculine contour and improved confidence in clothing and social situations.",
         content:
           "Permanent correction with flatter, firmer chest and restored masculine contour for lasting confidence.",
-        image:
-          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gynecomastia", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("gynecomastia", "before"),
+          after: getTreatmentDetailImage("gynecomastia", "after"),
         },
         benefits: [
           {
@@ -2848,8 +2749,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Safe, Effective, Permanent Solution",
         content:
           "Gynecomastia surgery is a safe, effective way to restore a masculine chest contour and confidence in your body. Our experienced surgeons use advanced techniques to ensure optimal results with minimal scarring and quick recovery.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gynecomastia", "section", 3),
       },
     ],
     faq: [
@@ -2911,15 +2811,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Gastric Sleeve Surgery in Istanbul — A Proven Solution for Lasting Weight Loss",
       subheadline:
         "A gastric sleeve (sleeve gastrectomy) removes around 70–80% of the stomach, reducing its size and limiting food intake. It also lowers hunger hormones, making weight loss more manageable. At Saray Estetica, this procedure is performed by specialist bariatric surgeons in accredited hospitals for maximum safety and results.",
-      image: getLearnMoreImage("gastric-sleeve"),
+      image: getTreatmentDetailImage("gastric-sleeve", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `Gastric sleeve may be recommended if you:`,
-        image:
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-sleeve", "candidacy"),
         checklist: [
           "Have a BMI over 35, or BMI over 30 with health conditions like diabetes, hypertension, or sleep apnea.",
           "Have struggled to lose weight with diet, exercise, or medication.",
@@ -2936,8 +2835,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Specialist bariatric surgeons in accredited hospitals with multidisciplinary care for maximum safety and long-term success.",
         subtitle: "Recovery in Istanbul (7-8 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-sleeve", "process"),
         processSteps: [
           {
             title: "Safety First",
@@ -2997,13 +2895,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing significant weight loss, improved health markers, and enhanced quality of life with better mobility and energy.",
         content:
           "Rapid weight loss with improved health outcomes and better quality of life through proven bariatric surgery.",
-        image:
-          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-sleeve", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("gastric-sleeve", "before"),
+          after: getTreatmentDetailImage("gastric-sleeve", "after"),
         },
         benefits: [
           {
@@ -3031,8 +2926,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Proven, Safe, Life-Changing",
         content:
           "Gastric sleeve surgery is a proven, safe way to achieve long-term weight loss and better health. Our comprehensive approach includes full support before and after your procedure for lasting success.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-sleeve", "section", 3),
       },
     ],
     faq: [
@@ -3093,15 +2987,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Gastric Bypass Surgery in Istanbul — Proven Results for Weight Loss and Metabolic Health",
       subheadline:
         "Gastric bypass (Roux-en-Y) is a well-established bariatric procedure that reduces stomach size and reroutes digestion. It limits food intake, decreases calorie absorption, and improves metabolic conditions like type 2 diabetes. At Saray Estetica, it is performed by specialist bariatric surgeons in accredited hospitals with full safety protocols.",
-      image: getLearnMoreImage("gastric-bypass"),
+      image: getTreatmentDetailImage("gastric-bypass", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `Gastric bypass may be recommended if you:`,
-        image:
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-bypass", "candidacy"),
         checklist: [
           "Have a BMI over 40, or BMI over 35 with health conditions like diabetes, hypertension, or sleep apnea.",
           "Have severe metabolic issues (e.g., type 2 diabetes) that would benefit from bypass.",
@@ -3118,8 +3011,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Advanced laparoscopic gastric bypass with specialist bariatric surgeons and full multidisciplinary support for maximum safety and metabolic benefits.",
         subtitle: "Recovery in Istanbul (8-9 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-bypass", "process"),
         processSteps: [
           {
             title: "Safety & Expertise",
@@ -3179,13 +3071,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing significant weight loss, dramatic improvement in diabetes and metabolic health, enhanced mobility and energy levels.",
         content:
           "Significant weight loss with powerful metabolic improvements and better quality of life through proven Roux-en-Y gastric bypass.",
-        image:
-          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-bypass", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("gastric-bypass", "before"),
+          after: getTreatmentDetailImage("gastric-bypass", "after"),
         },
         benefits: [
           {
@@ -3213,8 +3102,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Proven Effectiveness, Metabolic Benefits",
         content:
           "Gastric bypass surgery is one of the most effective options for long-term weight loss and metabolic health. Our experienced specialists perform this life-changing procedure safely in Istanbul with comprehensive support.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-bypass", "section", 0),
       },
     ],
     faq: [
@@ -3277,15 +3165,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Gastric Balloon in Istanbul — A Non-Surgical Approach to Weight Loss",
       subheadline:
         "The gastric balloon is a temporary, minimally invasive treatment for obesity. A soft silicone balloon is placed in the stomach and filled with saline, creating a feeling of fullness and helping you eat less. No surgery, no scars — just a safe, reversible option for moderate weight loss.",
-      image: getLearnMoreImage("gastric-balloon"),
+      image: getTreatmentDetailImage("gastric-balloon", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `The gastric balloon may be recommended if you:`,
-        image:
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-balloon", "candidacy"),
         checklist: [
           "Have a BMI between 27–35 (overweight to moderately obese).",
           "Want to lose 10–25 kg without surgery.",
@@ -3302,8 +3189,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Non-surgical endoscopic procedure with comprehensive support program and professional follow-up care for optimal weight loss results.",
         subtitle: "Recovery in Istanbul (2-3 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-balloon", "process"),
         processSteps: [
           {
             title: "Procedure Details",
@@ -3363,13 +3249,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing moderate weight loss (10-25kg), improved health markers, and successful habit formation without surgical intervention.",
         content:
           "Moderate weight loss with improved health markers and better eating habits through safe, reversible non-surgical treatment.",
-        image:
-          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-balloon", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("gastric-balloon", "before"),
+          after: getTreatmentDetailImage("gastric-balloon", "after"),
         },
         benefits: [
           {
@@ -3397,8 +3280,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Safe, Reversible, Effective",
         content:
           "The gastric balloon is a temporary, safe way to lose significant weight without surgery — ideal for patients seeking a reversible option. Perfect for moderate weight loss with professional support and monitoring.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("gastric-balloon", "section", 3),
       },
     ],
     faq: [
@@ -3458,15 +3340,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Arm Lift Surgery in Istanbul — Remove Excess Skin, Restore Confidence",
       subheadline:
         "An arm lift (brachioplasty) removes sagging skin and fat from the upper arms, creating a smoother, firmer contour. It is especially effective after weight loss or aging, when skin elasticity is reduced.",
-      image: getLearnMoreImage("arm-lift"),
+      image: getTreatmentDetailImage("arm-lift", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Who Is It For?",
         content: `An arm lift may be suitable if you:`,
-        image:
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("arm-lift", "candidacy"),
         checklist: [
           'Have "bat wings" — sagging skin hanging from the upper arms.',
           "Lost significant weight and now have loose, stretched skin.",
@@ -3482,8 +3363,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Surgical contouring technique for firmer, more defined arm shape with optimal scar placement and recovery management.",
         subtitle: "Recovery in Istanbul (7 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("arm-lift", "process"),
         processSteps: [
           {
             title: "Surgical Details",
@@ -3541,13 +3421,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing firmer, slimmer upper arms with improved proportions, better clothing fit, and enhanced confidence.",
         content:
           "Firmer, slimmer upper arms with improved proportions and lasting confidence in clothing choices.",
-        image:
-          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("arm-lift", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("arm-lift", "before"),
+          after: getTreatmentDetailImage("arm-lift", "after"),
         },
         benefits: [
           {
@@ -3575,8 +3452,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         headline: "Enhanced Proportions, Renewed Confidence",
         content:
           "An arm lift removes sagging skin and restores firmer contours, especially effective after weight loss. Our surgical approach provides lasting transformation with careful attention to scar placement and recovery.",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("arm-lift", "section", 3),
       },
     ],
     faq: [
@@ -3626,7 +3502,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         "Thigh Lift Surgery in Istanbul — A Firmer, Smoother Lower Body",
       subheadline:
         "A thigh lift (thighplasty) removes loose skin and excess fat from the inner or outer thighs. The procedure restores tighter, more proportionate contours, especially after weight loss or aging.",
-      image: getLearnMoreImage("thigh-lift"),
+      image: getTreatmentDetailImage("thigh-lift", "hero"),
     },
     sections: [
       {
@@ -3793,16 +3669,14 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
       headline: "Lift, Don't Stretch — A Natural Way to Brighten the Eyes.",
       subheadline:
         "An eyebrow lift restores a fresher, more awake look by gently repositioning the brows and smoothing forehead lines. At Saray Estetica, we use modern techniques to enhance your natural expressions — never to freeze or distort them.",
-      image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=1200&h=600&fit=crop&crop=face",
+      image: getTreatmentDetailImage("eyebrow-lift", "hero"),
     },
     sections: [
       {
         id: "candidacy",
         headline: "Is an Eyebrow Lift Right for You?",
         content: `Over time, the brows can drop, creating heaviness around the eyes and making you look tired or stern — even if you feel energetic inside. You may consider a brow lift if you:`,
-        image:
-          "https://images.unsplash.com/photo-1580051319797-342ad64c4b25?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("eyebrow-lift", "candidacy"),
         checklist: [
           "Notice sagging or drooping of the outer brows.",
           'Feel your eyes look tired, hooded, or "closed off."',
@@ -3818,8 +3692,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
         content:
           "Our endoscopic technique provides natural-looking results with minimal scarring and optimal recovery.",
         subtitle: "Recovery in Istanbul (5-7 Days)",
-        image:
-          "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("eyebrow-lift", "process"),
         processSteps: [
           {
             title: "Step 1: Consultation",
@@ -3876,13 +3749,10 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
           "Before and after comparison showing more open, youthful eyes with naturally positioned brows and smoother forehead.",
         content:
           "Natural enhancement that brightens your face while preserving your unique expressions.",
-        image:
-          "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&h=600&fit=crop",
+        image: getTreatmentDetailImage("eyebrow-lift", "benefits"),
         beforeAfter: {
-          before:
-            "https://images.unsplash.com/photo-1580051319797-342ad64c4b25?w=400&h=300&fit=crop",
-          after:
-            "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=300&fit=crop",
+          before: getTreatmentDetailImage("eyebrow-lift", "before"),
+          after: getTreatmentDetailImage("eyebrow-lift", "after"),
         },
         benefits: [
           {
@@ -3963,6 +3833,174 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
     },
   };
 
+  const beardTransplantContent = {
+    pageTitle: "Beard Transplant in Istanbul | A Fuller, Defined Look",
+    hero: {
+      visual:
+        "A high-quality, professional portrait of a confident man with a well-defined, full, and natural-looking beard, styled neatly.",
+      headline: "Define Your Look. Frame Your Face.",
+      subheadline:
+        "A full, well-defined beard is a powerful symbol of style and confidence. Discover how our artistic approach to beard transplantation can create the dense, natural, and permanent result you've been looking for.",
+      image: getTreatmentDetailImage("beard-transplant", "hero"),
+    },
+    sections: [
+      {
+        id: "candidacy",
+        headline: "The First Step: Your Goals for a Fuller Beard",
+        content:
+          "For many men, genetics, scarring, or simple patchiness can make growing a full beard a frustrating challenge. A beard transplant is a precise, permanent solution designed to address these common concerns. You are likely a strong candidate for this journey if you wish to:",
+        image: getTreatmentDetailImage("beard-transplant", "candidacy"),
+        checklist: [
+          "Fill in Patchy Areas: To achieve consistent, even growth across your cheeks and jawline.",
+          "Increase Overall Density: To transform a thin or sparse beard into one that is thick and full.",
+          "Create a More Defined Shape: To sculpt a specific style, like a stronger jawline, a fuller goatee, or a connected mustache.",
+          "Conceal Scars: To effectively cover scars from acne, injuries, or previous procedures with natural hair growth.",
+          "Gain a Low-Maintenance, Permanent Solution: To stop worrying about temporary fixes and enjoy a beard you can shave, trim, and style just like natural hair.",
+        ],
+        footer:
+          "The journey begins with a simple, no-obligation consultation where we can assess your goals and confirm if a beard transplant is the best way to achieve the look you desire.",
+      },
+      {
+        id: "process",
+        headline: "Your Journey to a Defined Beard, Simplified.",
+        content:
+          "A successful beard transplant is a delicate blend of technical precision and artistic skill. Our process is designed to be clear, comfortable, and focused on creating a result that looks completely natural.",
+        subtitle: "A Look at Your Stay (Total 4-5 Days in Istanbul)",
+        image: getTreatmentDetailImage("beard-transplant", "process"),
+        processSteps: [
+          {
+            title: "Part 1: The Consultation & The Artistic Design",
+            description:
+              "Your journey starts with designing your ideal beard. In your consultation, you and the specialist will discuss the exact shape, density, and style you want to achieve. We take into account your unique facial structure to design a beard that looks masculine, natural, and perfectly suited to you.",
+          },
+          {
+            title: "Part 2: The FUE Procedure",
+            description:
+              "We use the advanced FUE (Follicular Unit Extraction) technique. Individual hair follicles are carefully extracted from a donor area at the back of your scalp, chosen for its resilience. These follicles are then meticulously implanted one by one into the beard region by the specialist, paying close attention to the precise angle and direction of growth to mimic a natural beard pattern. The procedure is performed under local anesthesia for your comfort.",
+          },
+        ],
+        timeline: [
+          {
+            stage: "Arrival & Consultation",
+            timeframe: "Day 1",
+            description:
+              "Your private driver greets you. You'll have your final, in-person design consultation with your specialist.",
+          },
+          {
+            stage: "Procedure Day",
+            timeframe: "Day 2",
+            description:
+              "Your procedure is performed in the morning. You will return to your hotel to rest and begin the simple aftercare routine.",
+          },
+          {
+            stage: "Rest & Recovery",
+            timeframe: "Day 3-4",
+            description:
+              "You will rest in your hotel. Some minor redness and scabbing in the area is normal. Your coordinator will check in with you.",
+          },
+          {
+            stage: "Final Check-up & Wash",
+            timeframe: "Day 4",
+            description:
+              "You will visit the clinic for your first gentle wash and a final check-up with the specialist.",
+          },
+          {
+            stage: "Departure",
+            timeframe: "Day 5",
+            description:
+              "Once cleared by the team, your private driver will take you to the airport for your flight home.",
+          },
+        ],
+      },
+      {
+        id: "results",
+        headline: "The Art of a Natural, Undetectable Result",
+        content:
+          "The ultimate sign of an expert beard transplant is that it doesn't look like a transplant at all—it simply looks like a great beard.",
+        image: getTreatmentDetailImage("beard-transplant", "benefits"),
+        beforeAfter: {
+          before: getTreatmentDetailImage("beard-transplant", "before"),
+          after: getTreatmentDetailImage("beard-transplant", "after"),
+        },
+        benefits: [
+          {
+            title: "It Looks Completely Natural",
+            description:
+              "The artistry is in the details. By implanting each hair at the correct angle, we ensure your new beard grows in the right direction, blending seamlessly with any existing hair.",
+            icon: <CheckCircle className="w-12 h-12 text-primary-500" />,
+          },
+          {
+            title: "It's Dense and Well-Defined",
+            description:
+              "We strategically place grafts to build up density where you need it most, creating the full, strong beard shape you designed with your specialist.",
+            icon: <Award className="w-12 h-12 text-primary-500" />,
+          },
+          {
+            title: "It's Permanent and Low-Maintenance",
+            description:
+              "Once the transplanted hairs take root, they are there for life. You can shave, trim, and grow your new beard just as you would any other.",
+            icon: <Shield className="w-12 h-12 text-primary-500" />,
+          },
+        ],
+      },
+      {
+        id: "quality",
+        headline: "The Foundation of a Great Result: Precision & Artistry",
+        content:
+          "A beard transplant is a procedure where artistry is paramount. The difference between a natural result and a poor one is the specialist's ability to replicate the subtle, unique patterns of facial hair growth. Our philosophy is grounded in this artistic precision. We partner with specialists who have a deep understanding of facial aesthetics and the meticulous skill required to place each graft perfectly, ensuring your result is masculine, authentic, and enhances your features.",
+        image: getTreatmentDetailImage("beard-transplant", "section"),
+      },
+    ],
+    faq: [
+      {
+        question: "Will my new beard look natural?",
+        answer:
+          "Yes. This is our primary focus. The FUE technique allows the specialist to control the exact angle, direction, and density of each implanted hair, which is the key to creating a result that is indistinguishable from a natural beard.",
+      },
+      {
+        question: "Is the procedure painful?",
+        answer:
+          "The procedure is performed under local anesthesia, so you will not feel pain in either the donor or recipient areas. Most patients report only minor discomfort for a day or two afterward, which is easily managed.",
+      },
+      {
+        question: "Where does the hair for the transplant come from?",
+        answer:
+          "The hair is typically taken from a discreet area on the back of your scalp. This hair is genetically resistant to thinning and is an excellent match for facial hair in texture and quality.",
+      },
+      {
+        question: "When will I see the final results?",
+        answer:
+          "Be patient, as it's a gradual process. The transplanted hairs will shed after a few weeks (this is normal). New, permanent growth will begin in about 3-4 months, with more significant density appearing around 6 months. The final, full result will be visible after about 10-12 months.",
+      },
+      {
+        question: "What is the recovery like?",
+        answer:
+          "Recovery is quick. You will see small scabs on the implanted follicles for about 7-10 days. There may be some initial redness. Most patients feel comfortable returning to work and normal activities within a few days.",
+      },
+      {
+        question: "Can I shave or trim my new beard?",
+        answer:
+          "Absolutely. Once the initial healing period is over and the new hairs have grown in, you can treat your new beard exactly like the rest of your facial hair. You can shave it, trim it, or grow it long.",
+      },
+      {
+        question: "How many grafts will I need?",
+        answer:
+          "This depends entirely on your goals—from filling in small patches to creating a full beard. During your free consultation, we will assess your needs and provide a clear recommendation for the number of grafts required to achieve your desired look.",
+      },
+      {
+        question: "How much does a beard transplant cost?",
+        answer:
+          "We provide a clear, all-inclusive quote after your free consultation. The price includes your procedure with a specialist, your hotel stay, and all private transfers. There are no hidden fees.",
+      },
+    ],
+    cta: {
+      headline: "The First Step to the Beard You've Always Wanted",
+      subheadline:
+        "Your journey to a fuller, more confident look begins with a simple conversation. Let's talk about your vision and design your ideal beard, together.",
+      buttonText: "Get My Free Quote & Beard Design Plan",
+    },
+  };
+
   const content = isDhiHairTransplant
     ? dhiHairTransplantContent
     : isSapphireFue
@@ -4007,6 +4045,8 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
     ? thighLiftContent
     : isEyebrowLift
     ? eyebrowLiftContent
+    : isBeardTransplant
+    ? beardTransplantContent
     : null;
 
   return (
@@ -4041,14 +4081,6 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                   animate="visible"
                   className="max-w-3xl px-4 sm:px-0"
                 >
-                  {content?.hero.visual && (
-                    <motion.div variants={fadeIn} className="mb-4 sm:mb-6">
-                      <p className="text-xs sm:text-sm text-white/80 italic bg-black/30 p-2 sm:p-3 rounded-lg backdrop-blur-sm">
-                        {content.hero.visual}
-                      </p>
-                    </motion.div>
-                  )}
-
                   <motion.h1
                     variants={fadeIn}
                     className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
