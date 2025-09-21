@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
 import { NAVIGATION_ITEMS, CONTACT_INFO } from "../../utils/constants";
 import { navItemHover } from "../../utils/animations";
-import logoImage from "/images/logo.png";
+import logoImage from "../../assets/logo.png";
 
 interface HeaderProps {
   isScrolled?: boolean;

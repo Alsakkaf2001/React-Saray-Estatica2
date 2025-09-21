@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { CONTACT_INFO, SOCIAL_LINKS } from "../../utils/constants";
 import { fadeIn, staggerContainer } from "../../utils/animations";
-import logoImage from "/images/logo.png";
+import logoImage from "../../assets/logo.png";
 
 interface FooterProps {
   onNavigate?: (href: string) => void;
