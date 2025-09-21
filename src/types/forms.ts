@@ -96,6 +96,14 @@ export interface QuoteRequestData {
   };
 }
 
+export interface ConsultationQuoteFormData {
+  fullName: string;
+  phoneWhatsapp: string;
+  email: string;
+  country: string;
+  treatment: string;
+}
+
 // Form validation error types
 export interface FormError {
   field: string;

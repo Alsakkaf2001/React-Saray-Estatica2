@@ -11,6 +11,8 @@ import AboutPage from "./pages/AboutPage";
 import AdminLogin from "./pages/admin/AdminLogin";
 import PostsList from "./pages/admin/PostsList";
 import PostEditor from "./pages/admin/PostEditor";
+import CustomerContactsPage from "./pages/admin/CustomerContactsPage";
+import AdminLayout from "./pages/admin/AdminLayout";
 
 type AppPage =
   | "home"
@@ -20,7 +22,8 @@ type AppPage =
   | "about"
   | "admin-login"
   | "admin"
-  | "admin-edit";
+  | "admin-edit"
+  | "admin-contacts";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>("home");
@@ -48,6 +51,8 @@ function App() {
 
       if (path.startsWith("/admin/login")) {
         setCurrentPage("admin-login");
+      } else if (path.startsWith("/admin/contacts")) {
+        setCurrentPage("admin-contacts");
       } else if (path.startsWith("/admin/posts/new")) {
         setCurrentPage("admin-edit");
         setCurrentBlogSlug("");
@@ -184,6 +189,12 @@ function App() {
               window.dispatchEvent(new PopStateEvent("popstate"));
             }}
           />
+        );
+      case "admin-contacts":
+        return (
+          <AdminLayout>
+            <CustomerContactsPage />
+          </AdminLayout>
         );
       case "blog":
         return (

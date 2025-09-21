@@ -24,7 +24,7 @@ const PostEditor: React.FC<{ id?: string; onBack?: () => void }> = ({
   const [categories, setCategories] = useState<
     Array<{ id?: string; name: string; slug: string }>
   >([]);
-  const [categorySlug, setCategorySlug] = useState<string>("health-wellness");
+  const [categorySlug, setCategorySlug] = useState<string>("dental");
   const [status, setStatus] = useState<"draft" | "published">("draft");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,9 +47,7 @@ const PostEditor: React.FC<{ id?: string; onBack?: () => void }> = ({
           setContent(post.content);
           setImageUrl((post as any).image_url || post.image);
           setStatus(((post as any).status as any) || "published");
-          setCategorySlug(
-            (post as any).category || post.category || "health-wellness"
-          );
+          setCategorySlug((post as any).category || post.category || "dental");
         }
       } catch (e: any) {
         setError(e.message);
@@ -169,11 +167,13 @@ const PostEditor: React.FC<{ id?: string; onBack?: () => void }> = ({
               ))
             ) : (
               <>
-                <option value="hair-care">Hair Care</option>
-                <option value="dental-health">Dental Health</option>
-                <option value="cosmetic-surgery">Cosmetic Surgery</option>
-                <option value="health-wellness">Health & Wellness</option>
-                <option value="patient-stories">Patient Stories</option>
+                <option value="dental">Dental Treatments</option>
+                <option value="nose-face-aesthetics">
+                  Nose & Face Aesthetics
+                </option>
+                <option value="body-aesthetics">Body Aesthetics</option>
+                <option value="hair-restoration">Hair Restoration</option>
+                <option value="weight-loss">Weight-Loss Treatments</option>
               </>
             )}
           </select>

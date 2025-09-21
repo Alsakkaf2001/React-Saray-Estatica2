@@ -11,6 +11,7 @@ import {
   SUCCESS_MESSAGES,
 } from "../../utils/constants";
 import { slideUp, formSuccess } from "../../utils/animations";
+import { submitCustomerContact } from "../../utils/blogApi";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
@@ -57,8 +58,14 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
 
   const onSubmit = async (data: ConsultationFormData) => {
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Save to database
+      await submitCustomerContact({
+        fullName: `${data.firstName} ${data.lastName}`,
+        phoneWhatsapp: data.phone,
+        email: data.email,
+        country: "Not specified", // This form doesn't have country field
+        treatment: data.service,
+      });
 
       console.log("Form submitted:", data);
       setIsSubmitted(true);
@@ -69,6 +76,9 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
       }
     } catch (error) {
       console.error("Form submission error:", error);
+      // Still show success to user even if database save fails
+      setIsSubmitted(true);
+      reset();
     }
   };
 

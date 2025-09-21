@@ -12,11 +12,11 @@ create table if not exists public.blog_categories (
 );
 
 insert into public.blog_categories (name, slug, description, icon, color) values
-  ('Hair Care','hair-care','Hair health, transplantation and care tips','✂️','bg-blue-100 text-blue-800'),
-  ('Dental Health','dental-health','Dental care and oral health','🦷','bg-green-100 text-green-800'),
-  ('Cosmetic Surgery','cosmetic-surgery','Cosmetic procedures and trends','✨','bg-purple-100 text-purple-800'),
-  ('Health & Wellness','health-wellness','General health and wellness','💊','bg-pink-100 text-pink-800'),
-  ('Patient Stories','patient-stories','Real patient experiences','📖','bg-yellow-100 text-yellow-800')
+  ('Dental Treatments','dental','Dental care and oral health treatments','🦷','bg-green-100 text-green-800'),
+  ('Nose & Face Aesthetics','nose-face-aesthetics','Facial and nose cosmetic procedures','✨','bg-purple-100 text-purple-800'),
+  ('Body Aesthetics','body-aesthetics','Body contouring and aesthetic procedures','💪','bg-blue-100 text-blue-800'),
+  ('Hair Restoration','hair-restoration','Hair transplantation and restoration','✂️','bg-indigo-100 text-indigo-800'),
+  ('Weight-Loss Treatments','weight-loss','Obesity treatment and weight management','⚖️','bg-orange-100 text-orange-800')
 on conflict (slug) do nothing;
 
 -- Posts
@@ -27,7 +27,7 @@ create table if not exists public.blog_posts (
   excerpt text,
   content_md text,
   image_url text,
-  category text not null default 'health-wellness',
+  category text not null default 'dental',
   tags text[] default '{}',
   featured boolean default false,
   views int default 0,
@@ -43,8 +43,26 @@ create index if not exists blog_posts_status_idx on public.blog_posts(status);
 create index if not exists blog_posts_category_idx on public.blog_posts(category);
 create index if not exists blog_posts_published_at_idx on public.blog_posts(published_at);
 
+-- Customer Contact Information
+create table if not exists public.customer_contacts (
+  id uuid primary key default gen_random_uuid(),
+  full_name text not null,
+  phone_whatsapp text not null,
+  email text not null,
+  country text not null,
+  treatment text not null,
+  submitted_at timestamptz not null default now(),
+  created_at timestamptz not null default now()
+);
+
+-- Indexes for customer contacts
+create index if not exists customer_contacts_submitted_at_idx on public.customer_contacts(submitted_at);
+create index if not exists customer_contacts_email_idx on public.customer_contacts(email);
+create index if not exists customer_contacts_treatment_idx on public.customer_contacts(treatment);
+
 -- RLS
 alter table public.blog_posts enable row level security;
+alter table public.customer_contacts enable row level security;
 
 -- Drop and recreate policies (IF NOT EXISTS not supported for policies)
 drop policy if exists "Public read published" on public.blog_posts;
@@ -52,6 +70,27 @@ create policy "Public read published"
   on public.blog_posts
   for select
   using (status = 'published');
+
+-- Customer contacts policies
+drop policy if exists "Public insert customer contacts" on public.customer_contacts;
+create policy "Public insert customer contacts"
+  on public.customer_contacts
+  for insert
+  with check (true);
+
+-- Allow public read access for now (you can restrict this later if needed)
+drop policy if exists "Public read customer contacts" on public.customer_contacts;
+create policy "Public read customer contacts"
+  on public.customer_contacts
+  for select
+  using (true);
+
+-- Admin read policy (for when you implement proper authentication)
+drop policy if exists "Admin read customer contacts" on public.customer_contacts;
+create policy "Admin read customer contacts"
+  on public.customer_contacts
+  for select
+  using (auth.role() = 'authenticated');
 
 drop policy if exists "Auth manage posts" on public.blog_posts;
 create policy "Auth manage posts"

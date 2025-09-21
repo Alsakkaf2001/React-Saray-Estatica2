@@ -251,7 +251,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       {
         image: dentalImplantsImage,
         title: "Rhinoplasty Summetry",
-        description: "",//Advanced dental implant procedures
+        description: "", //Advanced dental implant procedures
       },
       {
         image: teethWhiteningImage,
@@ -428,14 +428,33 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      console.log("=== HERO SECTION FORM DEBUG ===");
+      console.log("Form data received:", data);
+      console.log("data.fullName:", data.fullName);
+      console.log("data.phone:", data.phone);
+      console.log("data.email:", data.email);
+      console.log("data.treatment:", data.treatment);
+
+      // Save to database using the same function
+      const { submitCustomerContact } = await import("../../utils/blogApi");
+      await submitCustomerContact({
+        fullName: data.fullName || "Unknown", // Use fullName from schema
+        phoneWhatsapp: data.phone,
+        email: data.email,
+        country: data.country || "Not specified", // Use country from schema
+        treatment: data.treatment || "General Inquiry", // Use treatment from schema
+      });
+
       console.log("Form submitted:", data);
       setIsSubmitted(true);
       reset();
       setTimeout(() => setIsSubmitted(false), 3000);
     } catch (error) {
       console.error("Form submission error:", error);
+      // Still show success to user even if database save fails
+      setIsSubmitted(true);
+      reset();
+      setTimeout(() => setIsSubmitted(false), 3000);
     }
   };
 

@@ -222,7 +222,7 @@ const Header: React.FC<HeaderProps> = ({
 
       {/* Main Header */}
       <motion.header
-        className="fixed top-0 lg:top-10 left-0 right-0 w-full z-50 transition-all duration-300"
+        className="fixed top-0 lg:top-6 left-0 right-0 w-full z-50 transition-all duration-300"
         initial={hasAnimated ? { y: 0 } : { y: -100 }}
         animate={{ y: 0 }}
         transition={
