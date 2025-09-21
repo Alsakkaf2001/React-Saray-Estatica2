@@ -440,7 +440,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       await submitCustomerContact({
         fullName: data.fullName || "Unknown", // Use fullName from schema
         phoneWhatsapp: data.phone,
-        email: data.email,
+        email: data.email || "Not provided", // Handle optional email field
         country: data.country || "Not specified", // Use country from schema
         treatment: data.treatment || "General Inquiry", // Use treatment from schema
       });

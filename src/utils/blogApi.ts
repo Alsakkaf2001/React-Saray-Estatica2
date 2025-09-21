@@ -129,7 +129,7 @@ export async function submitCustomerContact(data: {
 export async function testDatabaseConnection(): Promise<boolean> {
   console.log("=== TESTING DATABASE CONNECTION ===");
   try {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('customer_contacts')
       .select('count')
       .limit(1);
