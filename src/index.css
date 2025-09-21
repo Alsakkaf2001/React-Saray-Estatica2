@@ -6,7 +6,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 60px; /* Account for fixed header - adjusted for mobile */
+    scroll-padding-top: 80px; /* Account for fixed header - adjusted for larger navbar */
     overflow-x: hidden; /* Prevent horizontal scrolling */
   }
   
@@ -40,7 +40,7 @@
   /* Better mobile touch targets */
   @media (max-width: 768px) {
     html {
-      scroll-padding-top: 60px;
+      scroll-padding-top: 80px;
     }
   }
 }

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
 import { NAVIGATION_ITEMS, CONTACT_INFO } from "../../utils/constants";
 import { navItemHover } from "../../utils/animations";
+import { useNavigation } from "../../contexts/NavigationContext";
 import logoImage from "../../assets/logo.png";
 
 interface HeaderProps {
@@ -17,40 +18,25 @@ const Header: React.FC<HeaderProps> = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [activeSection, setActiveSection] = useState("home");
   const [hasAnimated, setHasAnimated] = useState(() => {
     // Check if header has already animated in this session
     return sessionStorage.getItem("headerAnimated") === "true";
   });
 
-  // Handle scroll effect and active section detection
+  // Use navigation context
+  const {
+    activeSection,
+    activeTreatmentCategory,
+    setActiveSection,
+    setActiveTreatmentCategory,
+  } = useNavigation();
+
+  // Navigation state is now managed by the NavigationContext
+
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
-
-      // Detect active section based on scroll position
-      const sections = [
-        { id: "home", navId: "home" },
-        { id: "treatments", navId: "treatments" },
-        { id: "trust-results", navId: "before-after" },
-        { id: "faq", navId: "faq" },
-        { id: "contact", navId: "contact" },
-      ];
-      const scrollPosition = window.scrollY + 100; // Offset for header height
-
-      for (const section of sections) {
-        const element = document.getElementById(section.id);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section.navId);
-            break;
-          }
-        }
-      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -84,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({
         setActiveSection("home");
       }
     }
-  }, []);
+  }, [setActiveSection]);
 
   const scrolled = propIsScrolled ?? isScrolled;
 
@@ -145,27 +131,65 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   const handleTreatmentClick = (categoryId: string) => {
-    // First navigate to treatments section
-    const treatmentsElement = document.getElementById("treatments");
-    if (treatmentsElement) {
-      treatmentsElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+    console.log("Treatment clicked:", categoryId);
 
-      // After a short delay, highlight the specific category
-      setTimeout(() => {
-        const categoryElement = document.querySelector(
-          `[data-category="${categoryId}"]`
+    // Set active treatment category immediately for visual feedback
+    setActiveTreatmentCategory(categoryId);
+    setActiveSection("treatments");
+
+    // Check if we're on homepage
+    const path = window.location.pathname.replace(
+      import.meta.env.BASE_URL || "/",
+      "/"
+    );
+    const isHomePage = path === "/" || path === "";
+    console.log("Is home page:", isHomePage);
+
+    if (isHomePage) {
+      // On homepage: scroll to treatments section and set category
+      const treatmentsElement = document.getElementById("treatments");
+      console.log("Treatments element found:", !!treatmentsElement);
+
+      if (treatmentsElement) {
+        // Add category parameter to URL for TreatmentsSection to pick up
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set("category", categoryId);
+        window.history.replaceState({}, "", currentUrl.toString());
+        console.log("URL updated with category:", categoryId);
+
+        // Scroll to treatments section
+        treatmentsElement.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        // Trigger a custom event to notify TreatmentsSection
+        window.dispatchEvent(
+          new CustomEvent("treatmentCategorySelected", {
+            detail: { categoryId },
+          })
         );
-        if (categoryElement) {
-          categoryElement.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        }
-      }, 500);
+        console.log("Custom event dispatched");
+      }
+    } else {
+      // On other pages: redirect to homepage with hash
+      const base = import.meta.env.BASE_URL || "/";
+      const categoryHashes: { [key: string]: string } = {
+        dental: "#dental-treatments",
+        "nose-face-aesthetics": "#nose-face-aesthetics",
+        "body-aesthetics": "#body-aesthetics",
+        "hair-restoration": "#hair-restoration",
+        "weight-loss": "#weight-loss-treatments",
+      };
+
+      const hash = categoryHashes[categoryId] || "#treatments";
+      const newUrl = `${base}${hash}`;
+
+      window.history.pushState({}, "", newUrl);
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      console.log("Redirected to:", newUrl);
     }
+
     closeMobileMenu();
   };
 
@@ -206,7 +230,7 @@ const Header: React.FC<HeaderProps> = ({
         }
       >
         {/* Vitalease-style rounded container */}
-        <div className="container-custom py-3 lg:py-4">
+        <div className="container-custom py-4 lg:py-6">
           <div
             className={`
             ${
@@ -217,7 +241,7 @@ const Header: React.FC<HeaderProps> = ({
             rounded-2xl lg:rounded-3xl transition-all duration-300 px-4 lg:px-6
           `}
           >
-            <div className="flex items-center justify-between h-14 lg:h-16">
+            <div className="flex items-center justify-between h-16 lg:h-20">
               {/* Logo */}
               <motion.div
                 className="flex-shrink-0"
@@ -240,7 +264,7 @@ const Header: React.FC<HeaderProps> = ({
                   <img
                     src={logoImage}
                     alt="Saray Estetic Logo"
-                    className="h-8 md:h-10 lg:h-11 w-auto object-contain"
+                    className="h-10 md:h-12 lg:h-14 w-auto object-contain"
                   />
                 </a>
               </motion.div>
@@ -304,23 +328,37 @@ const Header: React.FC<HeaderProps> = ({
                         onMouseLeave={() => setActiveDropdown(null)}
                       >
                         <div className="py-2">
-                          {item.subItems.map((subItem) => (
-                            <a
-                              key={subItem.id}
-                              href={subItem.href}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                if (item.id === "treatments") {
-                                  handleTreatmentClick(subItem.id);
-                                } else {
-                                  handleNavClick(subItem.href);
-                                }
-                              }}
-                              className="block px-4 py-3 text-sm text-gray-600 hover:text-primary-500 hover:bg-primary-50 transition-colors duration-200"
-                            >
-                              {subItem.label}
-                            </a>
-                          ))}
+                          {item.subItems.map((subItem) => {
+                            const isActive =
+                              item.id === "treatments" &&
+                              activeTreatmentCategory === subItem.id;
+                            return (
+                              <a
+                                key={subItem.id}
+                                href={subItem.href}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  if (item.id === "treatments") {
+                                    handleTreatmentClick(subItem.id);
+                                  } else {
+                                    handleNavClick(subItem.href);
+                                  }
+                                }}
+                                className={`block px-4 py-3 text-sm transition-colors duration-200 ${
+                                  isActive
+                                    ? "text-primary-600 bg-primary-50 font-medium"
+                                    : "text-gray-600 hover:text-primary-500 hover:bg-primary-50"
+                                }`}
+                              >
+                                {subItem.label}
+                                {isActive && (
+                                  <span className="ml-2 text-primary-600">
+                                    ●
+                                  </span>
+                                )}
+                              </a>
+                            );
+                          })}
                         </div>
                       </motion.div>
                     )}
@@ -433,7 +471,7 @@ const Header: React.FC<HeaderProps> = ({
                 <img
                   src={logoImage}
                   alt="Saray Estetic Logo"
-                  className="h-8 w-auto object-contain"
+                  className="h-10 w-auto object-contain"
                 />
                 <button
                   onClick={closeMobileMenu}
@@ -489,27 +527,41 @@ const Header: React.FC<HeaderProps> = ({
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
                           >
-                            {item.subItems.map((subItem, index) => (
-                              <a
-                                key={subItem.id}
-                                href={subItem.href}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  if (item.id === "treatments") {
-                                    handleTreatmentClick(subItem.id);
-                                  } else {
-                                    handleNavClick(subItem.href);
-                                  }
-                                }}
-                                className={`block py-3 px-4 text-sm text-gray-600 hover:text-[#A52C67] transition-colors duration-200 ${
-                                  index !== item.subItems!.length - 1
-                                    ? "border-b border-gray-200"
-                                    : ""
-                                }`}
-                              >
-                                {subItem.label}
-                              </a>
-                            ))}
+                            {item.subItems.map((subItem, index) => {
+                              const isActive =
+                                item.id === "treatments" &&
+                                activeTreatmentCategory === subItem.id;
+                              return (
+                                <a
+                                  key={subItem.id}
+                                  href={subItem.href}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    if (item.id === "treatments") {
+                                      handleTreatmentClick(subItem.id);
+                                    } else {
+                                      handleNavClick(subItem.href);
+                                    }
+                                  }}
+                                  className={`block py-3 px-4 text-sm transition-colors duration-200 ${
+                                    index !== item.subItems!.length - 1
+                                      ? "border-b border-gray-200"
+                                      : ""
+                                  } ${
+                                    isActive
+                                      ? "text-[#A52C67] font-medium bg-[#A52C67]/5"
+                                      : "text-gray-600 hover:text-[#A52C67]"
+                                  }`}
+                                >
+                                  {subItem.label}
+                                  {isActive && (
+                                    <span className="ml-2 text-[#A52C67]">
+                                      ●
+                                    </span>
+                                  )}
+                                </a>
+                              );
+                            })}
                           </motion.div>
                         )}
                       </div>

@@ -4230,44 +4230,79 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
 
           {/* SECTION 3: PROCESS (only for Hollywood Smile) */}
           {content?.sections[1] && (
-            <section className="section-padding">
+            <section
+              className={`${
+                isGastricBalloon
+                  ? "py-6 sm:py-8 px-4 sm:px-6 lg:px-8"
+                  : "section-padding"
+              }`}
+            >
               <div className="container-custom">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  {/* Image */}
+                <div
+                  className={`grid grid-cols-1 lg:grid-cols-2 ${
+                    isGastricBalloon ? "gap-8 lg:gap-12" : "gap-12"
+                  } items-start`}
+                >
+                  {/* Image - Left Column */}
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="px-4 sm:px-0 order-2 lg:order-1"
+                    className={`px-4 sm:px-0 ${
+                      isGastricBalloon
+                        ? "order-2 lg:order-1"
+                        : "order-2 lg:order-1"
+                    }`}
                   >
                     <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                       <img
                         src={content.sections[1].image}
                         alt="Treatment process"
-                        className="w-full h-[500px] object-cover"
+                        className={`w-full object-cover ${
+                          isGastricBalloon
+                            ? "h-[600px] sm:h-[650px]"
+                            : "h-[500px]"
+                        }`}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-primary-900/20 to-transparent"></div>
                     </div>
                   </motion.div>
 
-                  {/* Content */}
+                  {/* Content - Right Column */}
                   <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="px-4 sm:px-0 order-1 lg:order-2"
+                    className={`px-4 sm:px-0 ${
+                      isGastricBalloon
+                        ? "order-1 lg:order-2"
+                        : "order-1 lg:order-2"
+                    }`}
                   >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-text-primary mb-6">
-                      {content.sections[1].headline}
-                    </h2>
-
-                    <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                      {content.sections[1].content}
-                    </p>
-
-                    <h3 className="text-2xl font-bold text-primary-600 mb-6">
-                      {content.sections[1].subtitle}
-                    </h3>
+                    {/* Compact Header Section */}
+                    <div className={`${isGastricBalloon ? "mb-6" : "mb-8"}`}>
+                      <h2
+                        className={`text-3xl sm:text-4xl font-bold text-text-primary ${
+                          isGastricBalloon ? "mb-3" : "mb-6"
+                        }`}
+                      >
+                        {content.sections[1].headline}
+                      </h2>
+                      <p
+                        className={`text-lg text-gray-600 leading-relaxed ${
+                          isGastricBalloon ? "mb-4" : "mb-8"
+                        }`}
+                      >
+                        {content.sections[1].content}
+                      </p>
+                      <h3
+                        className={`text-2xl font-bold text-primary-600 ${
+                          isGastricBalloon ? "mb-4" : "mb-6"
+                        }`}
+                      >
+                        {content.sections[1].subtitle}
+                      </h3>
+                    </div>
 
                     {/* Special rendering for process steps (DHI hair transplant, sapphire fue, dental implants, rhinoplasty, facelift, chin liposuction, liposuction, tummy tuck, mommy makeover, BBL, breast lift, breast augmentation, breast reduction, gynecomastia, gastric sleeve, gastric bypass, gastric balloon, arm lift, thigh lift, and eyebrow lift) */}
                     {(isDhiHairTransplant ||
@@ -4337,8 +4372,12 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                         </div>
                       )}
 
-                    {/* Timeline section */}
-                    <div className="space-y-6">
+                    {/* Compact Timeline Section */}
+                    <div
+                      className={`${
+                        isGastricBalloon ? "space-y-4" : "space-y-6"
+                      }`}
+                    >
                       {(content.sections[1] as any).timeline?.map(
                         (step: any, index: number) => (
                           <motion.div
@@ -4346,7 +4385,7 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.2 }}
+                            transition={{ delay: index * 0.15 }}
                             className="relative"
                           >
                             {isDhiHairTransplant ||
@@ -4366,35 +4405,96 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                             isGastricBalloon ||
                             isArmLift ||
                             isThighLift ? (
-                              /* Rhinoplasty timeline with table-like structure */
-                              <Card className="p-6">
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                  <div className="flex items-center">
-                                    <div className="bg-primary-100 rounded-full p-3 mr-4">
-                                      <span className="text-2xl">
+                              /* Compact timeline card structure */
+                              <div
+                                className={`bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 ${
+                                  isGastricBalloon ? "p-4" : "p-6"
+                                }`}
+                              >
+                                <div
+                                  className={`grid grid-cols-1 ${
+                                    isGastricBalloon
+                                      ? "md:grid-cols-4 gap-4"
+                                      : "md:grid-cols-3 gap-6"
+                                  }`}
+                                >
+                                  {/* Icon and Stage */}
+                                  <div
+                                    className={`flex items-center ${
+                                      isGastricBalloon ? "md:col-span-2" : ""
+                                    }`}
+                                  >
+                                    <div
+                                      className={`bg-primary-100 rounded-full ${
+                                        isGastricBalloon
+                                          ? "p-2 mr-3"
+                                          : "p-3 mr-4"
+                                      }`}
+                                    >
+                                      <span
+                                        className={`${
+                                          isGastricBalloon
+                                            ? "text-xl"
+                                            : "text-2xl"
+                                        }`}
+                                      >
                                         {step.icon}
                                       </span>
                                     </div>
                                     <div>
-                                      <h4 className="text-lg font-bold text-text-primary">
+                                      <h4
+                                        className={`font-bold text-text-primary ${
+                                          isGastricBalloon
+                                            ? "text-base"
+                                            : "text-lg"
+                                        }`}
+                                      >
                                         {(step as any).stage}
                                       </h4>
                                     </div>
                                   </div>
-                                  <div className="text-center md:text-left">
-                                    <div className="bg-primary-50 rounded-lg px-4 py-2 inline-block">
-                                      <span className="font-semibold text-primary-700">
+
+                                  {/* Timeframe */}
+                                  <div
+                                    className={`${
+                                      isGastricBalloon
+                                        ? "text-center md:text-left"
+                                        : "text-center md:text-left"
+                                    }`}
+                                  >
+                                    <div
+                                      className={`bg-primary-50 rounded-lg px-3 py-1 inline-block ${
+                                        isGastricBalloon ? "text-sm" : ""
+                                      }`}
+                                    >
+                                      <span
+                                        className={`font-semibold text-primary-700 ${
+                                          isGastricBalloon ? "text-sm" : ""
+                                        }`}
+                                      >
                                         {(step as any).timeframe}
                                       </span>
                                     </div>
                                   </div>
-                                  <div>
-                                    <p className="text-gray-700 leading-relaxed">
+
+                                  {/* Description */}
+                                  <div
+                                    className={`${
+                                      isGastricBalloon
+                                        ? "md:col-span-4 mt-2 md:mt-0"
+                                        : ""
+                                    }`}
+                                  >
+                                    <p
+                                      className={`text-gray-700 leading-relaxed ${
+                                        isGastricBalloon ? "text-sm" : ""
+                                      }`}
+                                    >
                                       {step.description}
                                     </p>
                                   </div>
                                 </div>
-                              </Card>
+                              </div>
                             ) : (
                               /* Standard timeline for other treatments */
                               <div className="flex items-start">
@@ -4411,28 +4511,6 @@ const TreatmentDetailsPage: React.FC<TreatmentDetailsPageProps> = ({
                                 </div>
                               </div>
                             )}
-                            {!isDhiHairTransplant &&
-                              !isSapphireFue &&
-                              !isRhinoplasty &&
-                              !isChinLiposuction &&
-                              !isLiposuction &&
-                              !isTummyTuck &&
-                              !isMommyMakeover &&
-                              !isBBL &&
-                              !isBreastLift &&
-                              !isBreastAugmentation &&
-                              !isBreastReduction &&
-                              !isGynecomastia &&
-                              !isGastricSleeve &&
-                              !isGastricBypass &&
-                              !isGastricBalloon &&
-                              !isArmLift &&
-                              !isThighLift &&
-                              index <
-                                (content.sections[1] as any).timeline!.length -
-                                  1 && (
-                                <div className="absolute left-6 top-16 w-0.5 h-6 bg-primary-200"></div>
-                              )}
                           </motion.div>
                         )
                       )}

@@ -97,6 +97,7 @@ import dhiHair1 from '../assets/images/Ready/Hair/DHI/generated-image (6).png';
 import dhiHair2 from '../assets/images/Ready/Hair/DHI/Google_AI_Studio_2025-09-16T16_15_40.212Z.png';
 
 import beardTransplant1 from '../assets/images/Ready/Hair/Beard/Google_AI_Studio_2025-09-16T15_14_54.505Z.png';
+import beardJourneyImage from '../assets/images/Ready/Hair/Beard/Your Journey to a Defined Beard, Simplified..jpg';
 
 // ============================================
 // OBESITY TREATMENTS
@@ -400,7 +401,7 @@ export const TREATMENT_IMAGES: TreatmentImagesConfig = {
     learnMore: beardTransplant1,
     gallery: [
       beardTransplant1,
-      beardTransplant1, // Only 1 image, repeat it
+      beardJourneyImage, // Your Journey to a Defined Beard, Simplified image
       beardTransplant1,
       beardTransplant1,
       beardTransplant1

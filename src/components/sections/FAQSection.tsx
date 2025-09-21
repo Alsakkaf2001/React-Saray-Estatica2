@@ -20,17 +20,17 @@ interface FAQItem {
 const faqData: FAQItem[] = [
   {
     id: "1",
-    question: "How long does the recovery process take?",
+    question: "Why is high-quality treatment in Istanbul more affordable?",
     answer:
-      "Recovery time varies depending on the specific treatment. Hair transplant procedures typically require 7-10 days for initial healing, while dental treatments may need 3-5 days. Our medical team provides detailed recovery guidelines and 24/7 support throughout your healing journey.",
-    category: "Recovery",
+      'This is a question of value, not quality. Istanbul has a lower cost of living and operational expenses compared to Western Europe or North America. This allows us to partner with top-tier specialists and use world-class materials at a more accessible price point. We pass this value directly on to you, making "excellence" affordable without ever compromising on safety or the quality of your result.',
+    category: "Value",
   },
   {
     id: "2",
-    question: "Are your procedures internationally certified?",
+    question: "How do you ensure patient safety and high-quality results?",
     answer:
-      "Yes, absolutely. Our clinic holds international certifications including JCI (Joint Commission International) accreditation. All our surgeons are internationally trained with certifications from Europe and the United States. We maintain the highest medical standards in the industry.",
-    category: "Certification",
+      "Your safety is our absolute, non-negotiable priority. We ensure quality in three ways: 1) Expert Selection: We partner exclusively with highly experienced, board-certified specialists. 2) Certified Facilities: All procedures are performed in modern, internationally accredited medical settings. 3) Proven Materials: We use globally recognized brands for all materials, from dental implants to breast implants, ensuring your result is safe and built to last.",
+    category: "Safety",
   },
   {
     id: "3",

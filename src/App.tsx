@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
 import usePerformanceMonitor from "./hooks/usePerformanceMonitor";
+import { NavigationProvider } from "./contexts/NavigationContext";
+import { initializeNavigation } from "./utils/navigation";
 import SinglePage from "./pages/SinglePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
@@ -28,6 +30,12 @@ function App() {
   // Monitor performance metrics
   usePerformanceMonitor();
 
+  // Initialize navigation system
+  useEffect(() => {
+    const cleanup = initializeNavigation();
+    return cleanup;
+  }, []);
+
   // Handle navigation
   useEffect(() => {
     const handlePopState = () => {
@@ -36,7 +44,7 @@ function App() {
         import.meta.env.BASE_URL || "/",
         "/"
       );
-      const hash = window.location.hash;
+      // Hash navigation is now handled by the navigation system
 
       if (path.startsWith("/admin/login")) {
         setCurrentPage("admin-login");
@@ -70,18 +78,8 @@ function App() {
         setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 100);
       } else {
         setCurrentPage("home");
-        // Handle hash navigation for single page
-        if (hash) {
-          setTimeout(() => {
-            const element = document.getElementById(hash.substring(1));
-            if (element) {
-              element.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-            }
-          }, 100);
-        }
+        // Hash navigation is now handled by the navigation system
+        // No need to manually handle it here
       }
     };
 
@@ -146,17 +144,7 @@ function App() {
     const base = import.meta.env.BASE_URL || "/";
     window.history.pushState({}, "", `${base}${hash}`);
     setCurrentPage("home");
-    // Small delay to ensure the page loads before scrolling
-    setTimeout(() => {
-      const targetId = hash.substring(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 100);
+    // Navigation system will handle the scrolling automatically
   };
 
   const renderCurrentPage = () => {
@@ -235,7 +223,11 @@ function App() {
     }
   };
 
-  return <ErrorBoundary>{renderCurrentPage()}</ErrorBoundary>;
+  return (
+    <ErrorBoundary>
+      <NavigationProvider>{renderCurrentPage()}</NavigationProvider>
+    </ErrorBoundary>
+  );
 }
 
 export default App;

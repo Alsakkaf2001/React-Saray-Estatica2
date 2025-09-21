@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, DollarSign, Eye } from "lucide-react";
 import type { Treatment } from "../../types";
@@ -8,6 +8,7 @@ import {
   slideUp,
   galleryImageHover,
 } from "../../utils/animations";
+import { useNavigation } from "../../contexts/NavigationContext";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
 
@@ -157,6 +158,8 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
   onTreatmentClick,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>("dental");
+  const { activeTreatmentCategory, setActiveTreatmentCategory } =
+    useNavigation();
 
   // Filter treatments
   let filteredTreatments = TREATMENTS;
@@ -180,13 +183,16 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
     filteredTreatments = filteredTreatments.slice(0, 6);
   }
 
-  const categories = [
-    { id: "dental", label: "Dental Treatments" },
-    { id: "nose-face-aesthetics", label: "Nose & Face Aesthetics" },
-    { id: "body-aesthetics", label: "Body Aesthetics" },
-    { id: "hair-restoration", label: "Hair Restoration" },
-    { id: "weight-loss", label: "Weight-Loss Treatments" },
-  ];
+  const categories = useMemo(
+    () => [
+      { id: "dental", label: "Dental Treatments" },
+      { id: "nose-face-aesthetics", label: "Nose & Face Aesthetics" },
+      { id: "body-aesthetics", label: "Body Aesthetics" },
+      { id: "hair-restoration", label: "Hair Restoration" },
+      { id: "weight-loss", label: "Weight-Loss Treatments" },
+    ],
+    []
+  );
 
   const handleViewDetails = (treatmentId: string) => {
     if (onTreatmentClick) {
@@ -204,15 +210,49 @@ const TreatmentsSection: React.FC<TreatmentsSectionProps> = ({
         categories.find((cat) => cat.id === targetCategory)
       ) {
         setActiveCategory(targetCategory);
-        // Remove the parameter from URL after setting
-        const newUrl = new URL(window.location.href);
-        newUrl.searchParams.delete("category");
-        window.history.replaceState({}, "", newUrl.toString());
+        setActiveTreatmentCategory(targetCategory);
+        // Don't remove the parameter immediately - let it stay for a bit
+        setTimeout(() => {
+          const newUrl = new URL(window.location.href);
+          newUrl.searchParams.delete("category");
+          window.history.replaceState({}, "", newUrl.toString());
+        }, 1000);
+      }
+    };
+
+    // Listen for custom events from Header
+    const handleTreatmentCategorySelected = (event: CustomEvent) => {
+      const { categoryId } = event.detail;
+      if (categories.find((cat) => cat.id === categoryId)) {
+        setActiveCategory(categoryId);
+        setActiveTreatmentCategory(categoryId);
       }
     };
 
     handleCategoryNavigation();
-  }, [categories]);
+
+    window.addEventListener(
+      "treatmentCategorySelected",
+      handleTreatmentCategorySelected as EventListener
+    );
+
+    return () => {
+      window.removeEventListener(
+        "treatmentCategorySelected",
+        handleTreatmentCategorySelected as EventListener
+      );
+    };
+  }, [categories, setActiveTreatmentCategory]);
+
+  // Sync with navigation context
+  useEffect(() => {
+    if (
+      activeTreatmentCategory &&
+      categories.find((cat) => cat.id === activeTreatmentCategory)
+    ) {
+      setActiveCategory(activeTreatmentCategory);
+    }
+  }, [activeTreatmentCategory, categories]);
 
   return (
     <section className="section-padding bg-gray-50">
